@@ -19,6 +19,8 @@ public class TestTerrain {
 				}
 				System.out.print('\n');
 			}
+			
+			System.out.println("Ceci est un test pour github");
 		} catch (TerrainException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
