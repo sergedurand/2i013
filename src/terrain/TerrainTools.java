@@ -4,9 +4,23 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.awt.Color;
 
+/** Cette classe contient les outils pour la gestion des terrains
+ * 
+ * @author Serge et Kevin
+ *
+ */
 
 public class TerrainTools {
 
+	/**
+	 * Permet de créer un terrain selon un caractère : 
+	 * un "g" en paramètre renvoie un terrain de type Herbe (cf la classe Terrain)
+	 * Elle récupère une exception si le caractère n'est pas valide : il doit être 
+	 * dans la liste : '.', 'g', 'b', 'o', 'r', 'w', '*', '!', 'm'.
+	 * @param c
+	 * @return
+	 * @throws TerrainException
+	 */
 	public static Terrain terrainFromChar(char c) throws TerrainException{
 		Terrain[] values= Terrain.values();
 		for(int i=0;i<values.length;i++) {
