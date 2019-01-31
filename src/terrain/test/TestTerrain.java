@@ -30,6 +30,7 @@ public class TestTerrain {
          } catch (IOException e) {
             System.out.println("Erreur lors de la sauvegarde");
          }
+		System.out.println("pour tester github");
 
 		
 
