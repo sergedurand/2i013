@@ -1,10 +1,9 @@
 package terrain;
-
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
 
 public class TerrainTools {
 
@@ -55,13 +54,40 @@ public class TerrainTools {
 	     
 	     in.close();
 	     return matrice;
-	   // dans l'idÃ©al, on sÃ©pare la gestion des exceptions
+	   // dans l'ideal, on separe la gestion des exceptions
 	   } catch (Exception e) {
 	     e.printStackTrace();
 	     System.err.println("Invalid Format : " + file
 	              + "... Loading aborted");
 	     return null;
 	   }
+   }
+   
+   public static BufferedImage imageFromCircuit(Terrain[][] track) {
+	   //récupération de la taille et création d'une image de taille correspondante
+	   int nColonne = track.length;
+	   if(nColonne==0) {
+		   System.out.println("terrain vide");
+		   return null;
+	   }
+	   int nLigne = track[1].length;
+	   
+	   BufferedImage im = new BufferedImage(nColonne,nLigne,BufferedImage.TYPE_INT_ARGB);
+	   //parcourt du circuit et dessin pixel par pixel en fonction du terrain
+	   Graphics g = im.getGraphics();
+	   for(int i = 0; i<nColonne;i++) {
+		   for(int j = 0;j<nLigne;j++) {
+			   //on récupère la couleur du pixel courant
+			   Color cour = terrainToRGB(track[i][j]);
+			   g.setColor(cour);
+			   g.drawLine(i,j,i,j); //dessine une ligne de longueur 1 pixel...
+		   }
+	   }
+	   return im;
+	   
+	  
+	   
+	   
    }
 
     
