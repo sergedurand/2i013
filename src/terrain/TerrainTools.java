@@ -17,9 +17,11 @@ public class TerrainTools {
 	 * un "g" en paramètre renvoie un terrain de type Herbe (cf la classe Terrain)
 	 * Elle récupère une exception si le caractère n'est pas valide : il doit être 
 	 * dans la liste : '.', 'g', 'b', 'o', 'r', 'w', '*', '!', 'm'.
-	 * @param c
+	 * @param c le caractère doit être parmi '.', 'g', 'b', 'o', 'r', 'w', '*', '!', 'm'.
 	 * @return
+	 * 	retourne un terrain (= un pixel d'un circuit)
 	 * @throws TerrainException
+	 * jette une exception si le caractère n'est pas dans la liste des caractères possibles
 	 */
 	public static Terrain terrainFromChar(char c) throws TerrainException{
 		Terrain[] values= Terrain.values();
