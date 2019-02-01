@@ -27,6 +27,7 @@ public class TestTerrain {
 			BufferedImage im = TerrainTools.imageFromCircuit(circuit1);
             File outputfile = new File("saved.png");
             ImageIO.write(im, "png", outputfile);
+            System.out.println("test github");
          } catch (IOException e) {
             System.out.println("Erreur lors de la sauvegarde");
          }
