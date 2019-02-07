@@ -35,7 +35,7 @@ public class TestSimulation {
 			Random r = new Random();
 			double acc1=r.nextDouble()*2-1;
 			double acc2 = r.nextDouble()*2-1;
-			double rot1 = r.nextDouble()*-1;
+			double rot1 = r.nextDouble()*2-1;
 			double rot2 = r.nextDouble();
 			AccPlusRotDroit[100+i] = new Commande(acc1,rot1);
 			AccPlusRotGauche[100+i] = new Commande(acc2,rot2);
