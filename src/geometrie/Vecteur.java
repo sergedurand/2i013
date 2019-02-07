@@ -2,29 +2,34 @@ package geometrie;
 import java.lang.Math;
 public class Vecteur {
 	
-	private double x,y;
+	public final double x,y;
 
 	public Vecteur(double x, double y) {
 		super();
 		this.x = x;
 		this.y = y;
 	}
+	public Vecteur(Vecteur a, Vecteur b) {
+		super();
+		this.x = b.x-a.x;
+		this.y = b.y - a.y;
+	}
 
 	public double getX() {
 		return x;
 	}
 
-	public void setX(double x) {
+	/*public void setX(double x) {
 		this.x = x;
-	}
+	}*/
 
 	public double getY() {
 		return y;
 	}
-
+	/*
 	public void setY(double y) {
 		this.y = y;
-	}
+	}*/
 
 	@Override
 	public int hashCode() {
@@ -62,18 +67,19 @@ public class Vecteur {
 	public Vecteur addition(Vecteur v1) {
 		return new Vecteur(this.x+v1.x,this.y + v1.y);
 	}
-	public void additionVoid(Vecteur v1) {
+/*public void additionVoid(Vecteur v1) {
 		this.x += v1.x;
 		this.y += v1.y;
-	}
+	}*/
 	
 	public Vecteur soustraction(Vecteur v1) {
 		return new Vecteur(this.x-v1.x,this.y - v1.y);
 	}
+	/*
 	public void soustractionVoid(Vecteur v1) {
 		this.x -= v1.x;
 		this.y -= v1.y;
-	}
+	}*/
 
 	public double prodScal(Vecteur v1) {
 		return (this.x*v1.x + this.y*v1.y);
@@ -100,6 +106,8 @@ public class Vecteur {
 			return 0.0;
 		}
 		double cos = (this.prodScal(v2))/(this.norme()*v2.norme());
+		if(cos > 1) {cos = 1.0;}
+		if(cos<-1) {cos = -1.0;}
 		System.out.println("cos = " + cos);
 		double acos = Math.acos(cos);
 		System.out.println("acos = " + acos);
@@ -115,19 +123,29 @@ public class Vecteur {
 		return new Vecteur(this.x*k,this.y*k);
 	}
 	
+	/*
 	public void multiplicationVoid(double k) {
 		this.x*=k;
 		this.y*=k;
-	}
+	}*/
 	
 	public Vecteur rotation(double theta) {
 		return new Vecteur(this.x*Math.cos(theta)-this.y*Math.sin(theta),this.x*Math.sin(theta)+this.y*Math.cos(theta));
 	}
 	
+	/*
 	public void rotationVoid(double theta) {
 		double tempx = this.x;
 		tempx = this.x*Math.cos(theta)-this.y*Math.sin(theta);
 		this.y = this.x*Math.sin(theta)+this.y*Math.cos(theta);
 		this.x = tempx;
+	}*/
+	
+	public Vecteur normalisation() {
+		if(this.norme() == 0) {
+			System.out.println("Vecteur nul");
+			return this;
+		}
+		return this.multiplication(1/this.norme());
 	}
 }
