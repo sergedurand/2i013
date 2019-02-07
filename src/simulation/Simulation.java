@@ -56,24 +56,53 @@ public class Simulation {
 	 * @param im
 	 */
 	private void Trace(BufferedImage im) {
+		
 		//on met une image et pas un circuit en parametre : on veut creer l'image une seule fois dans la simulation
 		int x = (int)v.getPosition().getX();
 		int y = (int)v.getPosition().getY();
+		Color c = new Color(255,165,0);
 		Graphics g = im.getGraphics();
-		g.setColor(new Color(255, 165, 0));
+		g.setColor(c);
 		g.drawLine(x, y, x, y);
+		
+		//im.setRGB(x, y, c.getRGB());
 		
 	}
 	
+	private void TraceSortie(BufferedImage im) {
+		
+		//on met une image et pas un circuit en parametre : on veut creer l'image une seule fois dans la simulation
+		int x = (int)v.getPosition().getX();
+		int y = (int)v.getPosition().getY();
+		Color c = new Color(255,0,0);
+		im.setRGB(x, y, c.getRGB());
+		
+	}
 	/**
 	 * lance une simulation
 	 */
 	public void play(int iteration) {
 		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
+		//test orientation
+		Color c = new Color(255,0,0);
+		Color c2 = new Color(0,0,255);
+
+		im.setRGB(0, 0, c.getRGB());
+		im.setRGB(767, 1023, c2.getRGB());
+		im.setRGB(760, 800, c.getRGB());
+
 		for(int i=0;i<iteration;i++) {
-			v.drive(strat.getCommande());
-			//System.out.println("Position voiture : "+v.getPosition().toString());
-			Trace(im);
+			int x = (int)v.getPosition().getX();
+			int y = (int)v.getPosition().getY();
+			System.out.println(v.getPosition().toString());
+			/*if(x<0 || x>=c.getHeight() || y<0 || y>= c.getWidth()) {
+				System.out.println("Sortie de terrain");
+				TraceSortie(im);
+			}
+			else{*/
+				v.drive(strat.getCommande());
+				Trace(im);
+			
 		}
 		try {
            File outputfile = new File("FinSimu");

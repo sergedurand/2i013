@@ -60,14 +60,14 @@ public class TerrainTools {
 	     InputStreamReader fr = new InputStreamReader(file);
 	     BufferedReader in = new BufferedReader(fr);
 	     String buf = in.readLine();
-	     longueur=Integer.parseInt(buf);
-	     buf = in.readLine();
 	     hauteur=Integer.parseInt(buf);
+	     buf = in.readLine();
+	     longueur=Integer.parseInt(buf);
 	     Terrain[][] matrice=new Terrain[longueur][hauteur];
-	     for (int j=0;j<hauteur;j++) {
+	     for (int j=0;j<longueur;j++) {
 	    	 buf = in.readLine();
-	    	 for (int k=0;k<longueur;k++) {
-	    		 matrice[k][j]=terrainFromChar(buf.charAt(k));
+	    	 for (int k=0;k<hauteur;k++) {
+	    		 matrice[j][k]=terrainFromChar(buf.charAt(k));
 	    	 } 	 
 	     }
 	     

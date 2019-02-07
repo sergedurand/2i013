@@ -18,14 +18,29 @@ public class TestSimulation {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
+		Circuit c2 = CircuitFactoryFromFile.build("1_safe.trk");
+		Voiture v2 = VoitureFactory.build(c2);
 		Voiture v = VoitureFactory.build(c);
-		System.out.println(v.getPosition().toString());
-		System.out.println(v.getDirection().toString());
 		Strategy strat = new StrategyLigneDroite();
 		Simulation s1 = new Simulation(v,strat,c);
-		for(int i = 0;i<100;i++) {
-			s1.play(100);
-		}		
+		s1.play(100);
+		ArrayList<Commande> AccPlusRotDroit = new ArrayList<Commande>();
+		for(int i =0;i<400;i++) {
+			Random r = new Random();
+			double acc1=r.nextDouble()*5-1;
+			double rot1 = 0;
+			if(i%20==0 && i!=0) {
+				rot1 = r.nextDouble()*2-1;
+				System.out.println(rot1);
+			}
+			Commande com = new Commande(acc1,rot1);
+			AccPlusRotDroit.add(com);
+		}
+		StrategyListeCommande strat2 = new StrategyListeCommande(AccPlusRotDroit);
+		Simulation s2 = new Simulation(v2,strat2,c2);
+		s2.play(400);
+		System.out.println("fini");
+		
 		/*Commande[] AccSansRot = new Commande[100];
 		Commande[] AccPlusRotDroit = new Commande[200];
 		Commande[] AccPlusRotGauche = new Commande[200];

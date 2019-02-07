@@ -35,18 +35,22 @@ public class VoitureImpl implements Voiture {
 
 	@Override
 	public void drive(Commande c) throws RuntimeException{
+		if(c==null) {
+			System.out.println("Commande vide");
+			return;
+		}
 		// VERIFICATIONS !!!
         // 1) Est ce que la rotation et l'accélération sont entre -1 et 1, sinon, throw new RuntimeException
         if ((c.getTurn()>1)||(c.getTurn()<-1)) {
         	throw new RuntimeException("Erreur dans la rotation");
         }
-        if ((c.getAcc()>1)||(c.getAcc()<-1)) {
+        /*if ((c.getAcc()>1)||(c.getAcc()<-1)) {
         	throw new RuntimeException("Erreur dans l'accélération");
         }
         // 2) Est ce que la rotation demandée est compatible avec la vitesse actuelle, sinon, throw new RuntimeException
         if (c.getTurn()>getMaxTurn()) {
         	throw new RuntimeException("Erreur : Voiture trop rapide pour tourner");
-        }
+        }*/
         
         // approche normale
         // 1.1) gestion du volant
