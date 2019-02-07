@@ -8,4 +8,5 @@ TODO :
 - créer les exceptions où c'est nécessaire (VoitureException)
 - vérifier que le comportement sur les tests 100 accélérations etc. est normal
 - créer un UML du projet
+- tester le fonctionnement de serializable : sauvegarde et chargement d'objet, après modifications de la classe.
 
