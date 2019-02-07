@@ -18,7 +18,8 @@ public class TestTerrain {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		TerrainTools.sauvegardeCircuit(t);
+		String s = "testnombis";
+		TerrainTools.sauvegardeCircuit(t,s);
 
 	}
 

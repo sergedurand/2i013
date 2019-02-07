@@ -1,8 +1,15 @@
 package simulation;
 import voiture .*;
 import strategy .*;
+
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import circuit.*;
 import geometrie .*;
 import terrain .*;
@@ -53,14 +60,27 @@ public class Simulation {
 		int x = (int)v.getPosition().x;
 		int y = (int)v.getPosition().getY();
 		Graphics g = im.getGraphics();
+		g.setColor(new Color(255, 165, 0));
 		g.drawLine(x, y, x, y);
 		
 	}
-	public void play() {
-		TerrainTools terTool = new TerrainTools();
-		BufferedImage im = terTool.imageFromTerrain(c.getTerrain());
-		
-		return;
+	
+	/**
+	 * lance une simulation
+	 */
+	public void play(int iteration) {
+		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
+		for(int i=0;i<iteration;i++) {
+			v.drive(strat.getCommande());
+			//System.out.println("Position voiture : "+v.getPosition().toString());
+			Trace(im);
+		}
+		try {
+           File outputfile = new File("FinSimu");
+           ImageIO.write(im, "png", outputfile);
+        } catch (IOException e) {
+           System.out.println("Erreur lors de la sauvegarde");
+        }		
 	}
 	
 

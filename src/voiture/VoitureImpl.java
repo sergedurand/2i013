@@ -45,7 +45,7 @@ public class VoitureImpl implements Voiture {
         }
         // 2) Est ce que la rotation demandée est compatible avec la vitesse actuelle, sinon, throw new RuntimeException
         if (c.getTurn()>getMaxTurn()) {
-        	throw new RuntimeException("Erreur: Voiture trop rapide pour tourner");
+        	throw new RuntimeException("Erreur : Voiture trop rapide pour tourner");
         }
         
         // approche normale

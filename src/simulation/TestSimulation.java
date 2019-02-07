@@ -12,14 +12,21 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+import strategy.*;
 public class TestSimulation {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
 		Voiture v = VoitureFactory.build(c);
-		Commande[] AccSansRot = new Commande[100];
+		System.out.println(v.getPosition().toString());
+		System.out.println(v.getDirection().toString());
+		Strategy strat = new StrategyLigneDroite();
+		Simulation s1 = new Simulation(v,strat,c);
+		for(int i = 0;i<100;i++) {
+			s1.play(100);
+		}		
+		/*Commande[] AccSansRot = new Commande[100];
 		Commande[] AccPlusRotDroit = new Commande[200];
 		Commande[] AccPlusRotGauche = new Commande[200];
 		for(int i=0;i<100;i++) {
@@ -66,7 +73,7 @@ public class TestSimulation {
          } catch (IOException e) {
             System.out.println("Erreur lors de la sauvegarde");
          }
-		
+		*/
 		
 		
 

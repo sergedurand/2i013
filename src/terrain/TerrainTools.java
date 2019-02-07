@@ -105,10 +105,11 @@ public class TerrainTools {
 	   return im;	       
    }
    
-   public static void sauvegardeCircuit(Terrain[][] t) {
+   //peut être inutile
+   public static void sauvegardeCircuit(Terrain[][] t,String s) {
 		try {
 			BufferedImage im = TerrainTools.imageFromTerrain(t);
-           File outputfile = new File("saved.png");
+           File outputfile = new File(s);
            ImageIO.write(im, "png", outputfile);
         } catch (IOException e) {
            System.out.println("Erreur lors de la sauvegarde");
