@@ -43,7 +43,7 @@ public class TestSimulation {
 		for(int i = 0;i<200;i++) {
 			System.out.println(AccPlusRotDroit[i].toString());
 		}
-		BufferedImage im = TerrainTools.imageFromCircuit(c.getTerrain());
+		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
 		Graphics g = im.getGraphics();
 		g.setColor(new Color(255, 165, 0));
 		for(int i = 0;i<200;i++) {
