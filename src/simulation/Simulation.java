@@ -57,7 +57,7 @@ public class Simulation {
 	 */
 	private void Trace(BufferedImage im) {
 		//on met une image et pas un circuit en parametre : on veut creer l'image une seule fois dans la simulation
-		int x = (int)v.getPosition().x;
+		int x = (int)v.getPosition().getX();
 		int y = (int)v.getPosition().getY();
 		Graphics g = im.getGraphics();
 		g.setColor(new Color(255, 165, 0));
