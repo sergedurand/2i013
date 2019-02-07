@@ -97,6 +97,16 @@ public class CircuitImpl implements Circuit {
 	public Terrain[][] getTerrain() {
 		return terrain;
 	}
+	
+	public boolean estDansCircuit(Vecteur v) {
+		if (v.getX()<0 || v.getX()>=this.getWidth()) {
+			return false;
+		}
+		if (v.getY()<0 || v.getY()>=this.getHeight()) {
+			return false;
+		}
+		return true;
+	}
 
 
 }

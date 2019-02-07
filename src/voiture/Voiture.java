@@ -4,7 +4,7 @@ import geometrie.Vecteur;
 
 public interface Voiture {
 	// pour le pilotage
-    public void drive(Commande c);
+    public void drive(Commande c) throws VoitureException;
     public double getMaxTurn(); // cf juste après
     // pour l'observation
     public double getVitesse();

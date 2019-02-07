@@ -80,8 +80,9 @@ public class Simulation {
 	}
 	/**
 	 * lance une simulation
+	 * @throws VoitureException 
 	 */
-	public void play(int iteration) {
+	public void play(int iteration) throws VoitureException {
 		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
 		//test orientation
 		Color c = new Color(255,0,0);

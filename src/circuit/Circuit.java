@@ -13,6 +13,7 @@ public interface Circuit {
     public int getHeight();
     public ArrayList<Vecteur> getArrivees();
     public Terrain[][] getTerrain();
+    public boolean estDansCircuit(Vecteur v);
 
     public double getDist(int i, int j); // dijkstra
 
