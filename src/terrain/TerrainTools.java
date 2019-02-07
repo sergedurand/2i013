@@ -1,7 +1,11 @@
 package terrain;
 import java.awt.Graphics;
+import circuit .*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+
+import javax.imageio.ImageIO;
+
 import java.awt.Color;
 
 /** Cette classe contient les outils pour la gestion des terrains
@@ -13,15 +17,14 @@ import java.awt.Color;
 public class TerrainTools {
 
 	/**
-	 * Permet de cr�er un terrain selon un caract�re : 
-	 * un "g" en param�tre renvoie un terrain de type Herbe (cf la classe Terrain)
-	 * Elle r�cup�re une exception si le caract�re n'est pas valide : il doit �tre 
+	 * Permet de creer un terrain selon un caractere : 
+	 * un "g" en parametre renvoie un terrain de type Herbe (cf la classe Terrain)
 	 * dans la liste : '.', 'g', 'b', 'o', 'r', 'w', '*', '!', 'm'.
-	 * @param c le caract�re doit �tre parmi '.', 'g', 'b', 'o', 'r', 'w', '*', '!', 'm'.
+	 * @param c le caractere doit etre parmi '.', 'g', 'b', 'o', 'r', 'w', '*', '!', 'm'.
 	 * @return
 	 * 	retourne un terrain (= un pixel d'un circuit)
 	 * @throws TerrainException
-	 * jette une exception si le caract�re n'est pas dans la liste des caract�res possibles
+	 * jette une exception si le caractere n'est pas dans la liste des caracteres possibles
 	 */
 	public static Terrain terrainFromChar(char c) throws TerrainException{
 		Terrain[] values= Terrain.values();
@@ -79,7 +82,7 @@ public class TerrainTools {
 	   }
    }
    
-   public static BufferedImage imageFromCircuit(Terrain[][] track) {
+   public static BufferedImage imageFromTerrain(Terrain[][] track) {
 	   //r�cup�ration de la taille et cr�ation d'une image de taille correspondante
 	   int nColonne = track.length;
 	   if(nColonne==0) {
@@ -99,13 +102,18 @@ public class TerrainTools {
 			   g.drawLine(i,j,i,j); //dessine une ligne de longueur 1 pixel...
 		   }
 	   }
-	   return im;
-	   
-	   
-	  
-	   
-	   
+	   return im;	       
    }
+   
+   public static void sauvegardeCircuit(Terrain[][] t) {
+		try {
+			BufferedImage im = TerrainTools.imageFromTerrain(t);
+           File outputfile = new File("saved.png");
+           ImageIO.write(im, "png", outputfile);
+        } catch (IOException e) {
+           System.out.println("Erreur lors de la sauvegarde");
+        }
+ }
 
     
     
