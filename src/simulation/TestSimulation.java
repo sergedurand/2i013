@@ -20,7 +20,7 @@ public class TestSimulation {
 	public static void main(String[] args) throws VoitureException {
 		// TODO Auto-generated method stub
 		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
-		Circuit c2 = CircuitFactoryFromFile.build("5_safe.trk");
+		Circuit c2 = CircuitFactoryFromFile.build("4_safe.trk");
 		Voiture v2 = VoitureFactory.build(c2);
 		Voiture v = VoitureFactory.build(c);
 		Strategy strat = new StrategyLigneDroite();

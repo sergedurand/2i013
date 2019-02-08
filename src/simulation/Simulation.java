@@ -5,8 +5,14 @@ import strategy .*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -23,6 +29,7 @@ public class Simulation {
 	private Voiture v;
 	private Strategy strat;
 	private Circuit c;
+	private ArrayList<Commande> commandes;
 
 	/**
 	 * Instancie un objet Simulation
@@ -35,6 +42,7 @@ public class Simulation {
 		this.v = v;
 		this.strat = strat;
 		this.c = c;
+		this.commandes = new ArrayList<Commande>();
 	}
 	
 	public Voiture getV() {
@@ -69,7 +77,11 @@ public class Simulation {
 		
 	}
 	
-	private void TraceSortie(BufferedImage im) {
+	public ArrayList<Commande> getCommandes(){
+		return this.commandes;
+	}
+	
+	/*private void TraceSortie(BufferedImage im) {
 		
 		//on met une image et pas un circuit en parametre : on veut creer l'image une seule fois dans la simulation
 		int x = (int)v.getPosition().getX();
@@ -77,11 +89,44 @@ public class Simulation {
 		Color c = new Color(255,0,0);
 		im.setRGB(x, y, c.getRGB());
 		
-	}
+	}*/
 	/**
 	 * lance une simulation
 	 * @throws VoitureException 
 	 */
+	public static void saveListeCommande(ArrayList<Commande> liste, String filename){
+        try {
+                DataOutputStream os = new DataOutputStream(new FileOutputStream(filename));
+                for(Commande c:liste){
+                        os.writeDouble(c.getAcc());
+                        os.writeDouble(c.getTurn());
+                }
+                os.close();
+        } catch (IOException e) {
+                e.printStackTrace();
+        }
+}
+
+	public static ArrayList<Commande> loadListeCommande(  String filename) throws IOException{
+        ArrayList<Commande> liste = null;
+
+        try {
+                DataInputStream os = new DataInputStream(new FileInputStream(filename));
+
+                liste = new ArrayList<Commande>();
+                double a,t;
+                while(true){ // on attend la fin de fichier
+                        a = os.readDouble();
+                        t = os.readDouble();
+                        liste.add(new Commande(a,t));
+                }
+
+        } catch (EOFException e){
+                return liste;
+        }
+
+}
+	
 	public void play(int iteration) throws VoitureException {
 		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
 		//test orientation
@@ -100,7 +145,9 @@ public class Simulation {
 				TraceSortie(im);
 			}
 			else{*/
-				this.v.drive(strat.getCommande());
+				Commande com = strat.getCommande();
+				commandes.add(com);
+				this.v.drive(com);
 				Trace(im);
 				/*for(Vecteur v: this.c.getArrivees()) {
 					if (v.equals(this.v.getPosition()) && (iteration !=0)){
