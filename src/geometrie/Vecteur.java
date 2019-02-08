@@ -18,6 +18,8 @@ public class Vecteur {
 	public double getX() {
 		return x;
 	}
+	
+	
 
 	/*public void setX(double x) {
 		this.x = x;

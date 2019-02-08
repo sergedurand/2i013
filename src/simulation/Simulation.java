@@ -91,18 +91,27 @@ public class Simulation {
 		im.setRGB(0, 0, c.getRGB());
 		im.setRGB(767, 1023, c2.getRGB());
 		im.setRGB(760, 800, c.getRGB());
-
 		for(int i=0;i<iteration;i++) {
-			int x = (int)v.getPosition().getX();
-			int y = (int)v.getPosition().getY();
+			int x = (int)this.v.getPosition().getX();
+			int y = (int)this.v.getPosition().getY();
 			//System.out.println(v.getPosition().toString());
 			/*if(x<0 || x>=c.getHeight() || y<0 || y>= c.getWidth()) {
 				System.out.println("Sortie de terrain");
 				TraceSortie(im);
 			}
 			else{*/
-				v.drive(strat.getCommande());
+				this.v.drive(strat.getCommande());
 				Trace(im);
+				/*for(Vecteur v: this.c.getArrivees()) {
+					if (v.equals(this.v.getPosition()) && (iteration !=0)){
+						System.out.println("Ligne d'arrivee franchie");
+						return;
+					}
+				}*/
+				if (TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (iteration !=0)) {
+					System.out.println("Ligne d'arrivee franchie");
+					break;
+				}
 			
 		}
 		try {

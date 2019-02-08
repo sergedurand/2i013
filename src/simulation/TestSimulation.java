@@ -20,30 +20,21 @@ public class TestSimulation {
 	public static void main(String[] args) throws VoitureException {
 		// TODO Auto-generated method stub
 		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
-		Circuit c2 = CircuitFactoryFromFile.build("1_safe.trk");
+		Circuit c2 = CircuitFactoryFromFile.build("5_safe.trk");
 		Voiture v2 = VoitureFactory.build(c2);
 		Voiture v = VoitureFactory.build(c);
 		Strategy strat = new StrategyLigneDroite();
 		Simulation s1 = new Simulation(v,strat,c);
-		s1.play(100);
-		ArrayList<Commande> AccPlusRotDroit = new ArrayList<Commande>();
-		for(int i =0;i<400;i++) {
-			Random r = new Random();
-			double acc1=r.nextDouble()*5-1;
-			double rot1 = 0;
-			if(i%20==0 && i!=0) {
-				rot1 = r.nextDouble()*2-1;
-				//System.out.println(rot1);
-			}
-			Commande com = new Commande(acc1,rot1);
-			AccPlusRotDroit.add(com);
-		}
-		System.out.println("fini");
+		//s1.play(100);
 		
-		double angles[] = {Math.PI/6,Math.PI/4,Math.PI/6,0,-Math.PI/6,-Math.PI/4,-Math.PI/3};
-		for (int i=0;i<7;i++) {
-			System.out.println(angles[i]);
+		int taille = 64;
+		double angle = Math.PI/64;
+		double[] angles = new double[taille+1];
+		for(int i=1;i<=taille/2;i++) {
+			angles[i-1]=angle*i;
+			angles[angles.length-i]=angle*-i;
 		}
+		angles[32]=0;
 		Radar rad1 = new RadarImpl(v2,c2,angles);
 		rad1.scores(0.1);
 		System.out.println(rad1.toString());
@@ -51,6 +42,9 @@ public class TestSimulation {
 		rad1.traceRadar();
 		
 		System.out.println("finifini");
+		Strategy strat2 = new StrategyRadarSimple(rad1);
+		Simulation simu2 = new Simulation(v2, strat2, c2);
+		simu2.play(5000);
 		
 		/*Commande[] AccSansRot = new Commande[100];
 		Commande[] AccPlusRotDroit = new Commande[200];
