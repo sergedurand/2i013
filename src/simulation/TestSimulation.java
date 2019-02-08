@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import strategy.*;
+import algo.*;
+
 public class TestSimulation {
 
 	public static void main(String[] args) throws VoitureException {
@@ -31,15 +33,24 @@ public class TestSimulation {
 			double rot1 = 0;
 			if(i%20==0 && i!=0) {
 				rot1 = r.nextDouble()*2-1;
-				System.out.println(rot1);
+				//System.out.println(rot1);
 			}
 			Commande com = new Commande(acc1,rot1);
 			AccPlusRotDroit.add(com);
 		}
-		StrategyListeCommande strat2 = new StrategyListeCommande(AccPlusRotDroit);
-		Simulation s2 = new Simulation(v2,strat2,c2);
-		s2.play(400);
 		System.out.println("fini");
+		
+		double angles[] = {Math.PI/6,Math.PI/4,Math.PI/6,0,-Math.PI/6,-Math.PI/4,-Math.PI/3};
+		for (int i=0;i<7;i++) {
+			System.out.println(angles[i]);
+		}
+		Radar rad1 = new RadarImpl(v2,c2,angles);
+		rad1.scores(0.1);
+		System.out.println(rad1.toString());
+		System.out.println(rad1.getBestIndex());
+		rad1.traceRadar();
+		
+		System.out.println("finifini");
 		
 		/*Commande[] AccSansRot = new Commande[100];
 		Commande[] AccPlusRotDroit = new Commande[200];

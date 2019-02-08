@@ -95,7 +95,7 @@ public class Simulation {
 		for(int i=0;i<iteration;i++) {
 			int x = (int)v.getPosition().getX();
 			int y = (int)v.getPosition().getY();
-			System.out.println(v.getPosition().toString());
+			//System.out.println(v.getPosition().toString());
 			/*if(x<0 || x>=c.getHeight() || y<0 || y>= c.getWidth()) {
 				System.out.println("Sortie de terrain");
 				TraceSortie(im);
