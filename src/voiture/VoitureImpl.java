@@ -44,11 +44,11 @@ public class VoitureImpl implements Voiture {
         if ((c.getTurn()>1)||(c.getTurn()<-1)) {
         	throw new VoitureException("Erreur dans la rotation");
         }
-        /*if ((c.getAcc()>1)||(c.getAcc()<-1)) {
+        if ((c.getAcc()>1)||(c.getAcc()<-1)) {
         	throw new VoitureException("Erreur dans l'accélération");
         }
         // 2) Est ce que la rotation demandée est compatible avec la vitesse actuelle, sinon, throw new VoitureException
-        if (c.getTurn()>getMaxTurn()) {
+      /*  if (c.getTurn()>getMaxTurn()) {
         	throw new VoitureException("Erreur : Voiture trop rapide pour tourner");
         }*/
         

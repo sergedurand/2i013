@@ -75,9 +75,10 @@ public class CircuitImpl implements Circuit {
 	@Override
 	public ArrayList<Vecteur> getArrivees() {
 		ArrayList<Vecteur> a = new ArrayList();
-		for(int i =0;i<this.getWidth();i++) {
-			for(int j = 0;i<this.getHeight();j++) {
-				if(TerrainTools.charFromTerrain(this.terrain[i][j]) == '!') {
+		for(int i =0;i<this.getHeight();i++) {
+			for(int j = 0;j<this.getWidth();j++) {
+				//System.out.println("x = " + i +"y = "+ j);
+				if(TerrainTools.charFromTerrain(this.terrain[j][i]) == '!') {
 					Vecteur cour = new Vecteur(i,j);
 					a.add(cour);
 				}
