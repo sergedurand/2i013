@@ -1,7 +1,11 @@
 package terrain;
 import java.awt.Graphics;
+import circuit .*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+
+import javax.imageio.ImageIO;
+
 import java.awt.Color;
 
 /** Cette classe contient les outils pour la gestion des terrains
@@ -13,15 +17,14 @@ import java.awt.Color;
 public class TerrainTools {
 
 	/**
-	 * Permet de créer un terrain selon un caractère : 
-	 * un "g" en paramètre renvoie un terrain de type Herbe (cf la classe Terrain)
-	 * Elle récupère une exception si le caractère n'est pas valide : il doit être 
+	 * Permet de creer un terrain selon un caractere : 
+	 * un "g" en parametre renvoie un terrain de type Herbe (cf la classe Terrain)
 	 * dans la liste : '.', 'g', 'b', 'o', 'r', 'w', '*', '!', 'm'.
-	 * @param c le caractère doit être parmi '.', 'g', 'b', 'o', 'r', 'w', '*', '!', 'm'.
+	 * @param c le caractere doit etre parmi '.', 'g', 'b', 'o', 'r', 'w', '*', '!', 'm'.
 	 * @return
 	 * 	retourne un terrain (= un pixel d'un circuit)
 	 * @throws TerrainException
-	 * jette une exception si le caractère n'est pas dans la liste des caractères possibles
+	 * jette une exception si le caractere n'est pas dans la liste des caracteres possibles
 	 */
 	public static Terrain terrainFromChar(char c) throws TerrainException{
 		Terrain[] values= Terrain.values();
@@ -57,14 +60,14 @@ public class TerrainTools {
 	     InputStreamReader fr = new InputStreamReader(file);
 	     BufferedReader in = new BufferedReader(fr);
 	     String buf = in.readLine();
-	     longueur=Integer.parseInt(buf);
-	     buf = in.readLine();
 	     hauteur=Integer.parseInt(buf);
+	     buf = in.readLine();
+	     longueur=Integer.parseInt(buf);
 	     Terrain[][] matrice=new Terrain[longueur][hauteur];
-	     for (int j=0;j<hauteur;j++) {
+	     for (int j=0;j<longueur;j++) {
 	    	 buf = in.readLine();
-	    	 for (int k=0;k<longueur;k++) {
-	    		 matrice[k][j]=terrainFromChar(buf.charAt(k));
+	    	 for (int k=0;k<hauteur;k++) {
+	    		 matrice[j][k]=terrainFromChar(buf.charAt(k));
 	    	 } 	 
 	     }
 	     
@@ -79,8 +82,8 @@ public class TerrainTools {
 	   }
    }
    
-   public static BufferedImage imageFromCircuit(Terrain[][] track) {
-	   //récupération de la taille et création d'une image de taille correspondante
+   public static BufferedImage imageFromTerrain(Terrain[][] track) {
+	   //rï¿½cupï¿½ration de la taille et crï¿½ation d'une image de taille correspondante
 	   int nColonne = track.length;
 	   if(nColonne==0) {
 		   System.out.println("terrain vide");
@@ -93,18 +96,25 @@ public class TerrainTools {
 	   Graphics g = im.getGraphics();
 	   for(int i = 0; i<nColonne;i++) {
 		   for(int j = 0;j<nLigne;j++) {
-			   //on récupère la couleur du pixel courant
+			   //on rï¿½cupï¿½re la couleur du pixel courant
 			   Color cour = terrainToRGB(track[i][j]);
 			   g.setColor(cour);
 			   g.drawLine(i,j,i,j); //dessine une ligne de longueur 1 pixel...
 		   }
 	   }
-	   return im;
-	   
-	  
-	   
-	   
+	   return im;	       
    }
+   
+   //peut Ãªtre inutile
+   public static void sauvegardeCircuit(Terrain[][] t,String s) {
+		try {
+			BufferedImage im = TerrainTools.imageFromTerrain(t);
+           File outputfile = new File(s);
+           ImageIO.write(im, "png", outputfile);
+        } catch (IOException e) {
+           System.out.println("Erreur lors de la sauvegarde");
+        }
+ }
 
     
     

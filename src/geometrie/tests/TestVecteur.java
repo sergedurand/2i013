@@ -42,7 +42,6 @@ public class TestVecteur {
 		System.out.println("v1="+v1);
 		System.out.println("v2="+v2);
 		System.out.println("Angle avant rotation entre v1 et v2:"+v1.angle(v2));
-		v2.rotationVoid(Math.PI/2.0);
 		System.out.println("v2="+v2);
 		System.out.println("Angle après rotation entre v1 et v2:"+v1.angle(v2));
 		Vecteur v3 = new Vecteur(1,0);
