@@ -19,7 +19,9 @@ public class Test {
 		dijk.compute();
 		for (int i=0;i<dijk.getDist().length;i++) {
 			for (int j=0;j<dijk.getDist()[0].length;j++) {
-				System.out.print(dijk.getDist()[i][j]);
+				if(dijk.getDist()[i][j]!=Double.POSITIVE_INFINITY) {
+					System.out.print(dijk.getDist()[i][j]+" ");
+				}
 			}
 			System.out.print("\n");
 		}

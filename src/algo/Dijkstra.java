@@ -35,8 +35,8 @@ public class Dijkstra{
 		
 		for (Vecteur p:arrivees) {
 			dist[(int)p.getX()][(int)p.getY()]=0;
-			q.add(p);
 		}
+		q.add(c.getPointDepart());
 		
 	}
 	
@@ -63,20 +63,10 @@ public class Dijkstra{
 					if ((prodscal<=0)&&c.estDansCircuit(v)&&(TerrainTools.isRunnable(c.getTerrain(v)))){ //on ne considere que les voisins dans le bon sens, 
 						//dans un terrain roulable et dans le terrain
 						if (dist[(int)x+i][(int)y+j]==Double.POSITIVE_INFINITY) {
-							if (s.getDistance(v)==1) {
-								if(c.getTerrain(v) == Terrain.Boue && dist[(int)x+i][(int)y+j]>dist[(int)x][(int)y]+s.getDistance(v)) {
-									dist[(int)x+i][(int)y+j]=10*2*poids;
-								}
-								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-									dist[(int)x+i][(int)y+j]=10*1.5*poids;
-								}
-								else {
-									dist[(int)x+i][(int)y+j]=10*poids;
-								}
-								
-							}
+							System.out.println("DISTANCE : " + s.getDistance(v));
 							if (s.getDistance(v)>1) {
 								if(c.getTerrain(v) == Terrain.Boue) {
+
 									dist[(int)x+i][(int)y+j]=14*poids;
 								}
 								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
@@ -85,8 +75,24 @@ public class Dijkstra{
 								else {
 									dist[(int)x+i][(int)y+j]=14*poids;
 								}
+								
+							}else {
+								if(c.getTerrain(v) == Terrain.Boue && dist[(int)x+i][(int)y+j]>dist[(int)x][(int)y]+s.getDistance(v)) {
+
+									dist[(int)x+i][(int)y+j]=10*2*poids;
+								}
+								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+
+									dist[(int)x+i][(int)y+j]=10*1.5*poids;
+								}
+								else {
+
+									dist[(int)x+i][(int)y+j]=10*poids;
+								}
+								
 							}
-						}
+							q.add(v);
+							}
 						else {
 							if(dist[(int)x+i][(int)y+j]>dist[(int)x][(int)y]+s.getDistance(v)){
 								if (s.getDistance(v)==1) {
@@ -112,7 +118,6 @@ public class Dijkstra{
 									}
 								}
 							}
-						q.add(v);
 						}
 					}
 				}
