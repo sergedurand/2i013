@@ -71,10 +71,7 @@ public class Simulation {
 		Color c = new Color(255,165,0);
 		Graphics g = im.getGraphics();
 		g.setColor(c);
-		g.drawLine(x, y, x, y);
-		
-		//im.setRGB(x, y, c.getRGB());
-		
+		g.drawLine(x, y, x, y);		
 	}
 	
 	public ArrayList<Commande> getCommandes(){
@@ -130,31 +127,12 @@ public class Simulation {
 	public void play(int iteration) throws VoitureException {
 		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
 		//test orientation
-		Color c = new Color(255,0,0);
-		Color c2 = new Color(0,0,255);
 
-		im.setRGB(0, 0, c.getRGB());
-		im.setRGB(767, 1023, c2.getRGB());
-		im.setRGB(760, 800, c.getRGB());
 		for(int i=0;i<iteration;i++) {
-			int x = (int)this.v.getPosition().getX();
-			int y = (int)this.v.getPosition().getY();
-			//System.out.println(v.getPosition().toString());
-			/*if(x<0 || x>=c.getHeight() || y<0 || y>= c.getWidth()) {
-				System.out.println("Sortie de terrain");
-				TraceSortie(im);
-			}
-			else{*/
 				Commande com = strat.getCommande();
 				commandes.add(com);
 				this.v.drive(com);
 				Trace(im);
-				/*for(Vecteur v: this.c.getArrivees()) {
-					if (v.equals(this.v.getPosition()) && (iteration !=0)){
-						System.out.println("Ligne d'arrivee franchie");
-						return;
-					}
-				}*/
 				if (TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (iteration !=0)) {
 					System.out.println("Ligne d'arrivee franchie");
 					break;

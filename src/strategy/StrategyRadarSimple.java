@@ -7,12 +7,11 @@ import voiture.Voiture;
 import algo.*;
 
 public class StrategyRadarSimple implements Strategy{
+	private Radar radar;
 	public StrategyRadarSimple(Radar radar) {
 		super();
 		this.radar = radar;
 	}
-
-	private Radar radar;
 	
 	@Override
 	public Commande getCommande() {
@@ -23,8 +22,7 @@ public class StrategyRadarSimple implements Strategy{
 
 	@Override
 	public void init(Voiture v, Circuit c) {
-		// TODO Auto-generated method stub
-		
+		radar.init(v,c);
 	}
 	
 

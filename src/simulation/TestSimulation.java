@@ -21,7 +21,7 @@ public class TestSimulation {
 		// TODO Auto-generated method stub
 		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
 		Circuit c2 = CircuitFactoryFromFile.build("4_safe.trk");
-		Voiture v2 = VoitureFactory.build(c2);
+		Voiture v2 = VoitureFactory.build(c);
 		Voiture v = VoitureFactory.build(c);
 		Strategy strat = new StrategyLigneDroite();
 		Simulation s1 = new Simulation(v,strat,c);
@@ -35,7 +35,7 @@ public class TestSimulation {
 			angles[angles.length-i]=angle*-i;
 		}
 		angles[32]=0;
-		Radar rad1 = new RadarImpl(v2,c2,angles);
+		Radar rad1 = new RadarImpl(v2,c,angles);
 		rad1.scores(0.1);
 		System.out.println(rad1.toString());
 		System.out.println(rad1.getBestIndex());
@@ -43,7 +43,7 @@ public class TestSimulation {
 		
 		System.out.println("finifini");
 		Strategy strat2 = new StrategyRadarSimple(rad1);
-		Simulation simu2 = new Simulation(v2, strat2, c2);
+		Simulation simu2 = new Simulation(v2, strat2, c);
 		simu2.play(5000);
 		
 		/*Commande[] AccSansRot = new Commande[100];

@@ -78,8 +78,8 @@ public class CircuitImpl implements Circuit {
 		for(int i =0;i<this.getHeight();i++) {
 			for(int j = 0;j<this.getWidth();j++) {
 				//System.out.println("x = " + i +"y = "+ j);
-				if(TerrainTools.charFromTerrain(this.terrain[j][i]) == '!') {
-					Vecteur cour = new Vecteur(i,j);
+				if(this.getTerrain(j,i) == Terrain.EndLine) {
+					Vecteur cour = new Vecteur(j,i);
 					a.add(cour);
 				}
 			}
@@ -108,6 +108,7 @@ public class CircuitImpl implements Circuit {
 		}
 		return true;
 	}
+	
 
 
 }
