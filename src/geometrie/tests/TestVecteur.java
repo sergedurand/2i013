@@ -37,15 +37,19 @@ public class TestVecteur {
 		System.out.println("prodvect v1 et v2 : "+v1.prodVect(v2));
 		Vecteur v7 = v1.rotation(Math.PI/2.0);
 		System.out.println("v1 après rotation : "+v7);*/
-		Vecteur v1 = new Vecteur(0,1);
-		Vecteur v2 = new Vecteur(1,1);
+		Vecteur v1 = new Vecteur(2.,2.);
+		Vecteur v2 = new Vecteur(1.,1.);
+		System.out.println("v1="+v1);
+		System.out.println("v2="+v2);
+		System.out.println("La distance est "+v2.getDistance(v1));
+		/*
 		System.out.println("v1="+v1);
 		System.out.println("v2="+v2);
 		System.out.println("Angle avant rotation entre v1 et v2:"+v1.angle(v2));
 		System.out.println("v2="+v2);
 		System.out.println("Angle après rotation entre v1 et v2:"+v1.angle(v2));
 		Vecteur v3 = new Vecteur(1,0);
-		System.out.println("angle entre v3 et v2 : " + v3.angle(v2));
+		System.out.println("angle entre v3 et v2 : " + v3.angle(v2));*/
 		
 	}
 

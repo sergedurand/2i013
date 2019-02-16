@@ -45,8 +45,7 @@ public class TerrainTools {
     }
     
    public static boolean isRunnable(Terrain t) {
-	   char t2 = charFromTerrain(t);
-	   if((t2=='g') || (t2=='b') || (t2=='o')) {
+	   if(t == Terrain.Herbe || t == Terrain.Obstacle|| t == Terrain.Eau) {
 		   return false;
 	   }
 	   return true;

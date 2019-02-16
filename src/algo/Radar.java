@@ -1,5 +1,6 @@
 package algo;
 
+import circuit.Circuit;
 import voiture.Voiture;
 
 public interface Radar {
@@ -9,5 +10,6 @@ public interface Radar {
     public Voiture getVoiture();
     public void traceRadar();
 	double[] getDistPix();
+	public void init(Voiture v,Circuit c);
 }
 

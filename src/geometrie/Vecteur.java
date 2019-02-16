@@ -150,4 +150,9 @@ public class Vecteur {
 		}
 		return this.multiplication(1/this.norme());
 	}
+	
+	public double getDistance(Vecteur v) {
+		return Math.sqrt(Math.pow(x-v.getX(),2)+Math.pow(y-v.getY(),2));
+	}
+	
 }

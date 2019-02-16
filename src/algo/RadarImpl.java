@@ -25,9 +25,9 @@ public class RadarImpl implements Radar {
 		BestIndex = 0;
 	}
 
+	
 
-
-	private Voiture voiture;
+	protected Voiture voiture;
 	private Circuit circuit;
 	private double[] angles;
 	private double[] distPix;
@@ -118,6 +118,14 @@ public class RadarImpl implements Radar {
          } catch (IOException e) {
             System.out.println("Erreur lors de la sauvegarde");
          }
+	}
+
+	@Override
+	public void init(Voiture v,Circuit c) {
+		// TODO Auto-generated method stub
+		circuit=c;
+		voiture=v;
+		
 	}
 
 }

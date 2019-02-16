@@ -1,4 +1,15 @@
+<<<<<<< HEAD
 /geometrie/
 /terrain/
 /mains/
 /tests/
+=======
+/djikstra/
+/strategy/
+/algo/
+/simulation/
+/geometrie/
+/circuit/
+/mains/
+/terrain/
+>>>>>>> dbe98c43f81d9074f454592f8cee66387f70759a
