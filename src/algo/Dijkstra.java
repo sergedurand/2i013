@@ -40,6 +40,14 @@ public class Dijkstra{
 		
 	}
 	
+	public ArrayList<Vecteur> getVoisin(Vecteur v){
+		ArrayList<Vecteur> res = new ArrayList<Vecteur>();
+		int x,y;
+		x = (int) v.getX();
+		y = (int) v.getY();
+		if(x>=0 && y>=0 && x <c.getWidth() && y < c.getHeight());
+		return res;
+	}
 	
 	
 	public double[][] getDist() {
