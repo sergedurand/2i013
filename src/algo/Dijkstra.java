@@ -45,7 +45,17 @@ public class Dijkstra{
 		int x,y;
 		x = (int) v.getX();
 		y = (int) v.getY();
-		if(x>=0 && y>=0 && x <c.getWidth() && y < c.getHeight());
+		for(int i = -1;i<=1;i++) {
+			for(int j = -1;j<=1;j++) {
+				int nx = x+i;
+				int ny = y+j;
+				if(nx>=0 && ny>=0 && nx <c.getWidth() && ny < c.getHeight()) {
+					res.add(new Vecteur(nx,ny));
+				}
+			}
+			
+		}
+		
 		return res;
 	}
 	
