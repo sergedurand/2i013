@@ -48,7 +48,7 @@ public class TestSimulation {
 		System.out.println(" c.getWidth: " + c.getWidth());
 		System.out.println("c.getHeight : " + c.getHeight());
 		
-		/*Commande[] AccSansRot = new Commande[100];
+		Commande[] AccSansRot = new Commande[100];
 		Commande[] AccPlusRotDroit = new Commande[200];
 		Commande[] AccPlusRotGauche = new Commande[200];
 		for(int i=0;i<100;i++) {
@@ -64,8 +64,8 @@ public class TestSimulation {
 			Random r = new Random();
 			double acc1=r.nextDouble()*2-1;
 			double acc2 = r.nextDouble()*2-1;
-			double rot1 = r.nextDouble()*2-1;
-			double rot2 = r.nextDouble();
+			double rot1 = r.nextDouble()*0;
+			double rot2 = r.nextDouble()*0;
 			AccPlusRotDroit[100+i] = new Commande(acc1,rot1);
 			AccPlusRotGauche[100+i] = new Commande(acc2,rot2);
 		}
@@ -90,12 +90,12 @@ public class TestSimulation {
 
 		}
 		try {
-            File outputfile = new File("aprescourse.png");
+            File outputfile = new File("Nouvellecourse.png");
             ImageIO.write(im, "png", outputfile);
          } catch (IOException e) {
             System.out.println("Erreur lors de la sauvegarde");
          }
-		*/
+		
 		
 		
 

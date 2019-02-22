@@ -21,14 +21,14 @@ public class Dijkstra{
 	
 	public Dijkstra(Circuit c) {
 		super();
-		dist=new double[c.getHeight()][c.getWidth()];
+		dist=new double[c.getWidth()][c.getHeight()];
 		comp = new ComparatorDijk(dist);
 		this.c = c;
 		arrivees = c.getArrivees();
 		q=new PriorityBlockingQueue<Vecteur>(arrivees.size(),comp);
 		this.c = c;
-		for (int i=0;i<c.getHeight();i++) {
-			for (int j=0;j<c.getWidth();j++) {
+		for (int i=0;i<c.getWidth();i++) {
+			for (int j=0;j<c.getHeight();j++) {
 				dist[i][j]= Double.POSITIVE_INFINITY;
 			}
 		}
@@ -49,8 +49,9 @@ public class Dijkstra{
 			for(int j = -1;j<=1;j++) {
 				int nx = x+i;
 				int ny = y+j;
-				if(nx>=0 && ny>=0 && nx <c.getWidth() && ny < c.getHeight()) {
-					res.add(new Vecteur(nx,ny));
+				Vecteur temp = new Vecteur(nx,ny);
+				if(c.estDansCircuit(v) && (nx!=x|| ny!=y)) {
+					res.add(temp);
 				}
 			}
 			
@@ -71,134 +72,245 @@ public class Dijkstra{
 		double x = s.getX();
 		double y = s.getY();
 		int poids = 1; //poids pour alourdir la distance sur les bandes ou la boue
-		for (int i=-1;i<2;i++) { //exploration des voisins
-			for (int j=-1;j<2;j++) {
-				Vecteur v; //voisin courant
-				if ((i!=0)&&(j!=0)) { //on elimine le cas v = s
-					v=new Vecteur(x+i,y+j);
-					Vecteur ov=new Vecteur(s,v);
-					double prodscal=ov.prodScal(c.getDirectionArrivee());
-					if ((prodscal<=0)&&c.estDansCircuit(v)&&(TerrainTools.isRunnable(c.getTerrain(v)))){ //on ne considere que les voisins dans le bon sens, 
-						//dans un terrain roulable et dans le terrain
-						if (dist[(int)x+i][(int)y+j]==Double.POSITIVE_INFINITY) {
-							System.out.println("DISTANCE : " + s.getDistance(v));
+		ArrayList<Vecteur> voisins = getVoisin(s);
+		for(Vecteur v : voisins) {
+			Vecteur ov = new Vecteur(v,s);
+			double prodscal = ov.prodScal(c.getDirectionArrivee());
+			if(arrivees.contains(s)) {
+				//if ((prodscal <= 0) && (TerrainTools.isRunnable(c.getTerrain(v)))){
+					int i = (int) v.getX();
+					int j = (int) v.getY();
+					if (dist[i][j]==Double.POSITIVE_INFINITY) {
+						if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
+						if (s.getDistance(v)==1) {
+								if(c.getTerrain(v) == Terrain.Boue) {
+									dist[i][j]=10*2*poids;
+								}
+								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+									dist[i][j]=10*1.5*poids;
+								}
+								else {
+									dist[i][j]=10*poids;
+								}
+							}
 							if (s.getDistance(v)>1) {
 								if(c.getTerrain(v) == Terrain.Boue) {
-
-									dist[(int)x+i][(int)y+j]=14*poids;
+									dist[i][j]=14*2*poids;
 								}
 								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-									dist[(int)x+i][(int)y+j]=14*1.5*poids;
+									dist[i][j]=14*1.5*poids;
 								}
 								else {
-									dist[(int)x+i][(int)y+j]=14*poids;
+									dist[i][j]=14*poids;
 								}
-								
-							}else {
-								if(c.getTerrain(v) == Terrain.Boue && dist[(int)x+i][(int)y+j]>dist[(int)x][(int)y]+s.getDistance(v)) {
-
-									dist[(int)x+i][(int)y+j]=10*2*poids;
+							}
+						q.add(v);}
+					//	}
+					else {
+						//double score=dist[(int)x][(int)y];
+						if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
+							if (s.getDistance(v)==1) {
+								if(c.getTerrain(v) == Terrain.Boue) {
+									//score+=10*2*poids;
+									dist[i][j]+=10*2*poids;
 								}
 								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-
-									dist[(int)x+i][(int)y+j]=10*1.5*poids;
+									//score+=10*1.5*poids;
+									dist[i][j]+=10*1.5*poids;
 								}
 								else {
+									//score+=10*poids;
+									dist[i][j]+=10*poids;
+								}
+							}
+							if (s.getDistance(v)>1) {
+								if(c.getTerrain(v) == Terrain.Boue) {
+									//score+=14*2*poids;
+									dist[i][j]+=14*2*poids;
+								}
+								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+									//score+=14*1.5*poids;
+									dist[i][j]+=14*1.5*poids;
+								}
+								else {
+									//score+=14*poids;
+									dist[i][j]+=14*poids;
+								}
+							}
+							/*if (dist[i][j]>score) {
+								dist[i][j]=score;
+							}*/
+						}
+						
+				}
+			}
+			}else {
+				if ((TerrainTools.isRunnable(c.getTerrain(v)))){
+					int i = (int) v.getX();
+					int j = (int) v.getY();
+					if (dist[i][j]==Double.POSITIVE_INFINITY) {
+						if (s.getDistance(v)>1) {
+							if(c.getTerrain(v) == Terrain.Boue) {
+								dist[i][j]=14*poids;
+							}
+							else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+								dist[i][j]=14*1.5*poids;
+							}
+							else {
+								dist[i][j]=14*poids;
+							}
+							
+						}if (s.getDistance(v)==1){
+							if(c.getTerrain(v) == Terrain.Boue && dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)) {
 
-									dist[(int)x+i][(int)y+j]=10*poids;
-								}
-								
+								dist[i][j]=10*2*poids;
 							}
-							q.add(v);
+							else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+
+								dist[i][j]=10*1.5*poids;
 							}
-						else {
-							if(dist[(int)x+i][(int)y+j]>dist[(int)x][(int)y]+s.getDistance(v)){
-								if (s.getDistance(v)==1) {
-									if(c.getTerrain(v) == Terrain.Boue) {
-										dist[(int)x+i][(int)y+j]+=10*2*poids;
-									}
-									else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-										dist[(int)x+i][(int)y+j]+=10*1.5*poids;
-									}
-									else {
-										dist[(int)x+i][(int)y+j]+=10*poids;
-									}
+							else {
+
+								dist[i][j]=10*poids;
+							}
+							
+							
+						}
+						q.add(v);
+					}
+					else {
+						if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
+						double score= dist[(int)x][(int)y];
+						//if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
+							if (s.getDistance(v)==1) {
+								if(c.getTerrain(v) == Terrain.Boue) {
+									//score+=10*2*poids;
+									dist[i][j]+=10*2*poids;
 								}
-								if (s.getDistance(v)>1) {
-									if(c.getTerrain(v) == Terrain.Boue) {
-										dist[(int)x+i][(int)y+j]+=14*2*poids;
-									}
-									else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-										dist[(int)x+i][(int)y+j]+=14*1.5*poids;
-									}
-									else {
-										dist[(int)x+i][(int)y+j]+=14*poids;
-									}
+								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+									//score+=10*1.5*poids;
+									dist[i][j]+=10*1.5*poids;
+								}
+								else {
+									//score+=10*poids;
+									dist[i][j]+=10*poids;
 								}
 							}
+							if (s.getDistance(v)>1) {
+								if(c.getTerrain(v) == Terrain.Boue) {
+									//score+=14*2*poids;
+									dist[i][j]+=14*2*poids;
+								}
+								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+									//score+=14*1.5*poids;
+									dist[i][j]+=14*1.5*poids;
+								}
+								else {
+									//score+=14*poids;
+									dist[i][j]+=14*poids;
+								}
+							}
+							/*if (score<0) {
+								System.out.println("score ="+score+" terrain"+c.getTerrain(v)+"\n");
+								throw new RuntimeException("erreur");
+							}*/
+							/*if (dist[i][j]>score && score>0) {
+								dist[i][j]=score;
+							}*/
+		
 						}
 					}
 				}
 			}
+			}
 		}
-	}
+
 	
-	
-	public void compute() {
-		Vecteur s=q.poll();
+	public void update2(Vecteur s) {
 		double x = s.getX();
 		double y = s.getY();
 		int poids = 1; //poids pour alourdir la distance sur les bandes ou la boue
-		for (int i=-1;i<2;i++) { //exploration des voisins
-			for (int j=-1;j<2;j++) {
-				Vecteur v; //voisin courant
-				if ((i!=0)&&(j!=0)) { //on elimine le cas v = s
-					System.out.println("itération");
-					v=new Vecteur(x+i,y+j);
-					Vecteur ov=new Vecteur(s,v);
-					double prodscal=ov.prodScal(c.getDirectionArrivee());
-					System.out.println("Terrain : " + c.getTerrain(v).toString());
-					System.out.println("prodscal : "+ (prodscal<=0) + ", runnable : " + (TerrainTools.isRunnable(c.getTerrain(v))+ ", est dans circuit : " + c.estDansCircuit(v) ));
-					if ((prodscal<=0)&&c.estDansCircuit(v)&&(TerrainTools.isRunnable(c.getTerrain(v)))){ //on ne considere que les voisins dans le bon sens, 
-						//dans un terrain roulable et dans le terrain
-						System.out.println("itération");
-							if (s.getDistance(v)==1) {
-								if(c.getTerrain(v) == Terrain.Boue && dist[(int)x+i][(int)y+j]>dist[(int)x][(int)y]+s.getDistance(v)) {
-									dist[(int)x+i][(int)y+j]=10*2*poids;
-								}
-								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-									dist[(int)x+i][(int)y+j]=10*1.5*poids;
-								}
-								else {
-									dist[(int)x+i][(int)y+j]=10*poids;
-								}
-								
-							}
-							if (s.getDistance(v)>1) {
-								if(c.getTerrain(v) == Terrain.Boue) {
-									dist[(int)x+i][(int)y+j]=14*poids;
-								}
-								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-									dist[(int)x+i][(int)y+j]=14*1.5*poids;
-								}
-								else {
-									dist[(int)x+i][(int)y+j]=14*poids;
-								}
-							}
+		ArrayList<Vecteur> voisins = getVoisin(s);
+		double score=dist[(int)x][(int)y];
+		for(Vecteur v : voisins) {
+			Vecteur ov = new Vecteur(v,s);
+			double prodscal = ov.prodScal(c.getDirectionArrivee());
+			int i = (int) v.getX();
+			int j = (int) v.getY();
+			if ((TerrainTools.isRunnable(c.getTerrain(v)))){
+				if (dist[i][j]==Double.POSITIVE_INFINITY) {
+					if (s.getDistance(v)>1) {
+						if(c.getTerrain(v) == Terrain.Boue) {
+							dist[i][j]=14*2*poids;
 						}
-						q.add(v);
-						
+						else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+							dist[i][j]=14*1.5*poids;
+						}
+						else {
+							dist[i][j]=14*poids;
+						}
+					}
+					if (s.getDistance(v)==1) {
+						if(c.getTerrain(v) == Terrain.Boue) {
+							dist[i][j]=10*2*poids;
+						}
+						else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+							dist[i][j]=10*1.5*poids;
+						}
+						else {
+							dist[i][j]=10*poids;
+						}
 					}
 				}
+				else {
+					if (s.getDistance(v)>1) {
+						if(c.getTerrain(v) == Terrain.Boue) {
+							score+=14*2*poids;
+						}
+						else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+							score+=14*1.5*poids;
+						}
+						else {
+							score+=14*poids;
+						}
+					}
+					if (s.getDistance(v)==1) {
+						if(c.getTerrain(v) == Terrain.Boue) {
+							score+=10*2*poids;
+						}
+						else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+							score+=10*1.5*poids;
+						}
+						else {
+							score+=10*poids;
+						}
+					}
+					if (dist[i][j]+score>score) {
+						dist[i][j]=score;
+					}
+					
+					
+					
+				}
+				
+				
+				
 			}
-		int i = 1;
-		while (q.size()!=0) {
-			update(s);
-			System.out.println(i);
-			i++;
-			s = q.poll();
-			System.out.println("taille" + q.size());
+			
+			
 		}
+	}
+	
+
+	public void compute() {
+		Vecteur s=q.poll();
+		int i=0;
+		while ((q.size()!=0)||(i==0)) {
+			update(s);
+			System.out.println("update");
+			s = q.poll();
+			i++;
+			}
 		
 	}
 	
