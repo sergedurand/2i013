@@ -77,7 +77,7 @@ public class Dijkstra{
 			Vecteur ov = new Vecteur(v,s);
 			double prodscal = ov.prodScal(c.getDirectionArrivee());
 			if(arrivees.contains(s)) {
-				//if ((prodscal <= 0) && (TerrainTools.isRunnable(c.getTerrain(v)))){
+				if ((prodscal <= 0) && (TerrainTools.isRunnable(c.getTerrain(v)))){
 					int i = (int) v.getX();
 					int j = (int) v.getY();
 					if (dist[i][j]==Double.POSITIVE_INFINITY) {
@@ -104,43 +104,82 @@ public class Dijkstra{
 									dist[i][j]=14*poids;
 								}
 							}
-						q.add(v);}
+						q.add(v);
+						}
+						
 					//	}
 					else {
 						//double score=dist[(int)x][(int)y];
-						if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
-							if (s.getDistance(v)==1) {
-								if(c.getTerrain(v) == Terrain.Boue) {
-									//score+=10*2*poids;
-									dist[i][j]+=10*2*poids;
+						if(q.contains(v)) {
+							q.remove(v);
+							if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
+								if (s.getDistance(v)==1) {
+									if(c.getTerrain(v) == Terrain.Boue) {
+										//score+=10*2*poids;
+										dist[i][j]+=10*2*poids;
+									}
+									else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+										//score+=10*1.5*poids;
+										dist[i][j]+=10*1.5*poids;
+									}
+									else {
+										//score+=10*poids;
+										dist[i][j]+=10*poids;
+									}
 								}
-								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-									//score+=10*1.5*poids;
-									dist[i][j]+=10*1.5*poids;
+								if (s.getDistance(v)>1) {
+									if(c.getTerrain(v) == Terrain.Boue) {
+										//score+=14*2*poids;
+										dist[i][j]+=14*2*poids;
+									}
+									else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+										//score+=14*1.5*poids;
+										dist[i][j]+=14*1.5*poids;
+									}
+									else {
+										//score+=14*poids;
+										dist[i][j]+=14*poids;
+									}
 								}
-								else {
-									//score+=10*poids;
-									dist[i][j]+=10*poids;
-								}
+							
 							}
-							if (s.getDistance(v)>1) {
-								if(c.getTerrain(v) == Terrain.Boue) {
-									//score+=14*2*poids;
-									dist[i][j]+=14*2*poids;
+							q.add(v);
+						}else {
+							if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
+								if (s.getDistance(v)==1) {
+									if(c.getTerrain(v) == Terrain.Boue) {
+										//score+=10*2*poids;
+										dist[i][j]+=10*2*poids;
+									}
+									else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+										//score+=10*1.5*poids;
+										dist[i][j]+=10*1.5*poids;
+									}
+									else {
+										//score+=10*poids;
+										dist[i][j]+=10*poids;
+									}
 								}
-								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-									//score+=14*1.5*poids;
-									dist[i][j]+=14*1.5*poids;
+								if (s.getDistance(v)>1) {
+									if(c.getTerrain(v) == Terrain.Boue) {
+										//score+=14*2*poids;
+										dist[i][j]+=14*2*poids;
+									}
+									else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+										//score+=14*1.5*poids;
+										dist[i][j]+=14*1.5*poids;
+									}
+									else {
+										//score+=14*poids;
+										dist[i][j]+=14*poids;
+									}
 								}
-								else {
-									//score+=14*poids;
-									dist[i][j]+=14*poids;
-								}
+							
 							}
-							/*if (dist[i][j]>score) {
-								dist[i][j]=score;
-							}*/
+						q.add(v);
 						}
+							
+					}
 						
 				}
 			}
@@ -179,46 +218,80 @@ public class Dijkstra{
 						q.add(v);
 					}
 					else {
-						if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
-						double score= dist[(int)x][(int)y];
-						//if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
-							if (s.getDistance(v)==1) {
-								if(c.getTerrain(v) == Terrain.Boue) {
-									//score+=10*2*poids;
-									dist[i][j]+=10*2*poids;
+						if(q.contains(v)) {
+							q.remove(v);
+							if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
+								double score= dist[(int)x][(int)y];
+								//if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
+									if (s.getDistance(v)==1) {
+										if(c.getTerrain(v) == Terrain.Boue) {
+											//score+=10*2*poids;
+											dist[i][j]+=10*2*poids;
+										}
+										else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+											//score+=10*1.5*poids;
+											dist[i][j]+=10*1.5*poids;
+										}
+										else {
+											//score+=10*poids;
+											dist[i][j]+=10*poids;
+										}
+									}
+									if (s.getDistance(v)>1) {
+										if(c.getTerrain(v) == Terrain.Boue) {
+											//score+=14*2*poids;
+											dist[i][j]+=14*2*poids;
+										}
+										else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+											//score+=14*1.5*poids;
+											dist[i][j]+=14*1.5*poids;
+										}
+										else {
+											//score+=14*poids;
+											dist[i][j]+=14*poids;
+										}
+									}
+				
 								}
-								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-									//score+=10*1.5*poids;
-									dist[i][j]+=10*1.5*poids;
+							q.add(v);
+						}else {
+							if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
+								double score= dist[(int)x][(int)y];
+								//if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
+									if (s.getDistance(v)==1) {
+										if(c.getTerrain(v) == Terrain.Boue) {
+											//score+=10*2*poids;
+											dist[i][j]+=10*2*poids;
+										}
+										else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+											//score+=10*1.5*poids;
+											dist[i][j]+=10*1.5*poids;
+										}
+										else {
+											//score+=10*poids;
+											dist[i][j]+=10*poids;
+										}
+									}
+									if (s.getDistance(v)>1) {
+										if(c.getTerrain(v) == Terrain.Boue) {
+											//score+=14*2*poids;
+											dist[i][j]+=14*2*poids;
+										}
+										else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+											//score+=14*1.5*poids;
+											dist[i][j]+=14*1.5*poids;
+										}
+										else {
+											//score+=14*poids;
+											dist[i][j]+=14*poids;
+										}
+									}
+				
 								}
-								else {
-									//score+=10*poids;
-									dist[i][j]+=10*poids;
-								}
-							}
-							if (s.getDistance(v)>1) {
-								if(c.getTerrain(v) == Terrain.Boue) {
-									//score+=14*2*poids;
-									dist[i][j]+=14*2*poids;
-								}
-								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-									//score+=14*1.5*poids;
-									dist[i][j]+=14*1.5*poids;
-								}
-								else {
-									//score+=14*poids;
-									dist[i][j]+=14*poids;
-								}
-							}
-							/*if (score<0) {
-								System.out.println("score ="+score+" terrain"+c.getTerrain(v)+"\n");
-								throw new RuntimeException("erreur");
-							}*/
-							/*if (dist[i][j]>score && score>0) {
-								dist[i][j]=score;
-							}*/
-		
+							q.add(v);
+							
 						}
+						
 					}
 				}
 			}
@@ -307,8 +380,9 @@ public class Dijkstra{
 		int i=0;
 		while ((q.size()!=0)||(i==0)) {
 			update(s);
+			q.remove(s);
 			System.out.println("update");
-			s = q.poll();
+			s = q.peek();
 			i++;
 			}
 		
