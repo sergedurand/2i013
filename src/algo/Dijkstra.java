@@ -35,10 +35,10 @@ public class Dijkstra{
 			}
 		}
 		
-		for (Vecteur p:arrivees) {
+		/*for (Vecteur p:arrivees) {
 			dist[(int)p.getX()][(int)p.getY()]=0;
 			q.add(p);
-		}
+		}*/
 		q.add(c.getPointDepart());
 		
 	}
