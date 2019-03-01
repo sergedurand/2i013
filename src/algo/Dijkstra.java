@@ -2,6 +2,7 @@ package algo;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.PriorityBlockingQueue;
 import javax.swing.JFrame;
 import circuit.Circuit;
@@ -17,11 +18,7 @@ public class Dijkstra{
 	private double[][] dist;
 	private Circuit c;
 	private ComparatorDijk comp;
-	private ArrayList<Vecteur> arrivees;
-	private int scoreMAX;
-	private boolean enCour=false;
-	private boolean[][] visites;
-	
+	private ArrayList<Vecteur> arrivees;	
 	public Dijkstra(Circuit c) {
 		super();
 		dist=new double[c.getWidth()][c.getHeight()];
@@ -37,17 +34,11 @@ public class Dijkstra{
 		}
 		
 		for (Vecteur p:arrivees) {
+			//System.out.println("Arriveés: "+p.toString());
 			dist[(int)p.getX()][(int)p.getY()]=0;
 			q.add(p);
-		}
-		q.add(c.getPointDepart());
-		visites = new boolean[c.getWidth()][c.getHeight()];
-		for (int i=0;i<c.getWidth();i++) {
-			for (int j=0;j<c.getHeight();j++) {
-				visites[i][j]= false;
-			}
-		}
-		
+		}	
+		dist[(int)c.getPointDepart().getX()][(int)c.getPointDepart().getY()]=0;
 	}
 	
 	public ArrayList<Vecteur> getVoisin(Vecteur v){
@@ -61,7 +52,7 @@ public class Dijkstra{
 				int ny = y+j;
 				Vecteur temp = new Vecteur(nx,ny);
 				//System.out.println(temp.toString());
-				if(c.estDansCircuit(v) && (nx!=x|| ny!=y)&&(nx>=0)&&(nx<c.getWidth())&&(ny>=0)&&(ny<c.getHeight())&& !(visites[nx][ny])) {
+				if(c.estDansCircuit(v)&&(nx!=x|| ny!=y)&&(nx>=0)&&(nx<c.getWidth())&&(ny>=0)&&(ny<c.getHeight())) {
 					res.add(temp);
 				}
 			}
@@ -76,407 +67,62 @@ public class Dijkstra{
 		return dist;
 	}
 
-
-
-
-	public void update(Vecteur s) {
-		double x = s.getX();
-		double y = s.getY();
-		int poids = 1; //poids pour alourdir la distance sur les bandes ou la boue
-		ArrayList<Vecteur> voisins = getVoisin(s);
-		for(Vecteur v : voisins) {
-			Vecteur ov = new Vecteur(v,s);
-			double prodscal = ov.prodScal(c.getDirectionArrivee());
-			if(arrivees.contains(s)) {
-				if ((prodscal <= 0) && (TerrainTools.isRunnable(c.getTerrain(v)))){
-					int i = (int) v.getX();
-					int j = (int) v.getY();
-					if (dist[i][j]==Double.POSITIVE_INFINITY) {
-						if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
-						if (s.getDistance(v)==1) {
-								if(c.getTerrain(v) == Terrain.Boue) {
-									dist[i][j]=10*2*poids;
-								}
-								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-									dist[i][j]=10*1.5*poids;
-								}
-								else {
-									dist[i][j]=10*poids;
-								}
-							}
-							if (s.getDistance(v)>1) {
-								if(c.getTerrain(v) == Terrain.Boue) {
-									dist[i][j]=14*2*poids;
-								}
-								else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-									dist[i][j]=14*1.5*poids;
-								}
-								else {
-									dist[i][j]=14*poids;
-								}
-							}
-						q.add(v);
-						}
-						
-					//	}
-					else {
-						//double score=dist[(int)x][(int)y];
-						if(q.contains(v)) {
-							q.remove(v);
-							if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
-								if (s.getDistance(v)==1) {
-									if(c.getTerrain(v) == Terrain.Boue) {
-										//score+=10*2*poids;
-										dist[i][j]+=10*2*poids;
-									}
-									else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-										//score+=10*1.5*poids;
-										dist[i][j]+=10*1.5*poids;
-									}
-									else {
-										//score+=10*poids;
-										dist[i][j]+=10*poids;
-									}
-								}
-								if (s.getDistance(v)>1) {
-									if(c.getTerrain(v) == Terrain.Boue) {
-										//score+=14*2*poids;
-										dist[i][j]+=14*2*poids;
-									}
-									else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-										//score+=14*1.5*poids;
-										dist[i][j]+=14*1.5*poids;
-									}
-									else {
-										//score+=14*poids;
-										dist[i][j]+=14*poids;
-									}
-								}
-							
-							}
-							q.add(v);
-						}else {
-							if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
-								if (s.getDistance(v)==1) {
-									if(c.getTerrain(v) == Terrain.Boue) {
-										//score+=10*2*poids;
-										dist[i][j]+=10*2*poids;
-									}
-									else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-										//score+=10*1.5*poids;
-										dist[i][j]+=10*1.5*poids;
-									}
-									else {
-										//score+=10*poids;
-										dist[i][j]+=10*poids;
-									}
-								}
-								if (s.getDistance(v)>1) {
-									if(c.getTerrain(v) == Terrain.Boue) {
-										//score+=14*2*poids;
-										dist[i][j]+=14*2*poids;
-									}
-									else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-										//score+=14*1.5*poids;
-										dist[i][j]+=14*1.5*poids;
-									}
-									else {
-										//score+=14*poids;
-										dist[i][j]+=14*poids;
-									}
-								}
-							
-							}
-						q.add(v);
-						}
-							
-					}
-						
-				}
-			}
-			}else {
-				if ((TerrainTools.isRunnable(c.getTerrain(v)))){
-					int i = (int) v.getX();
-					int j = (int) v.getY();
-					if (dist[i][j]==Double.POSITIVE_INFINITY) {
-						if (s.getDistance(v)>1) {
-							if(c.getTerrain(v) == Terrain.Boue) {
-								dist[i][j]=14*poids;
-							}
-							else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-								dist[i][j]=14*1.5*poids;
-							}
-							else {
-								dist[i][j]=14*poids;
-							}
-							
-						}if (s.getDistance(v)==1){
-							if(c.getTerrain(v) == Terrain.Boue && dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)) {
-
-								dist[i][j]=10*2*poids;
-							}
-							else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-
-								dist[i][j]=10*1.5*poids;
-							}
-							else {
-
-								dist[i][j]=10*poids;
-							}
-							
-							
-						}
-						q.add(v);
-					}
-					else {
-						if(q.contains(v)) {
-							q.remove(v);
-							if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
-								double score= dist[(int)x][(int)y];
-								//if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
-									if (s.getDistance(v)==1) {
-										if(c.getTerrain(v) == Terrain.Boue) {
-											//score+=10*2*poids;
-											dist[i][j]+=10*2*poids;
-										}
-										else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-											//score+=10*1.5*poids;
-											dist[i][j]+=10*1.5*poids;
-										}
-										else {
-											//score+=10*poids;
-											dist[i][j]+=10*poids;
-										}
-									}
-									if (s.getDistance(v)>1) {
-										if(c.getTerrain(v) == Terrain.Boue) {
-											//score+=14*2*poids;
-											dist[i][j]+=14*2*poids;
-										}
-										else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-											//score+=14*1.5*poids;
-											dist[i][j]+=14*1.5*poids;
-										}
-										else {
-											//score+=14*poids;
-											dist[i][j]+=14*poids;
-										}
-									}
-				
-								}
-							q.add(v);
-						}else {
-							if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
-								double score= dist[(int)x][(int)y];
-								//if(dist[i][j]>dist[(int)x][(int)y]+s.getDistance(v)){
-									if (s.getDistance(v)==1) {
-										if(c.getTerrain(v) == Terrain.Boue) {
-											//score+=10*2*poids;
-											dist[i][j]+=10*2*poids;
-										}
-										else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-											//score+=10*1.5*poids;
-											dist[i][j]+=10*1.5*poids;
-										}
-										else {
-											//score+=10*poids;
-											dist[i][j]+=10*poids;
-										}
-									}
-									if (s.getDistance(v)>1) {
-										if(c.getTerrain(v) == Terrain.Boue) {
-											//score+=14*2*poids;
-											dist[i][j]+=14*2*poids;
-										}
-										else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-											//score+=14*1.5*poids;
-											dist[i][j]+=14*1.5*poids;
-										}
-										else {
-											//score+=14*poids;
-											dist[i][j]+=14*poids;
-										}
-									}
-				
-								}
-							q.add(v);
-							
-						}
-						
-					}
-				}
-			}
-			}
-		}
-
-	
-	public void update2(Vecteur s) {
-		double x = s.getX();
-		double y = s.getY();
-		int poids = 1; //poids pour alourdir la distance sur les bandes ou la boue
-		ArrayList<Vecteur> voisins = getVoisin(s);
-		double score=dist[(int)x][(int)y];
-		
-		
-		
-		for(Vecteur v : voisins) {
-			System.out.println(v.toString());
-			Vecteur ov = new Vecteur(v,s);
-			double prodscal = ov.prodScal(c.getDirectionArrivee());
-			int i = (int) v.getX();
-			int j = (int) v.getY();
-			if ((TerrainTools.isRunnable(c.getTerrain(v)))){
-				if (dist[i][j]==Double.POSITIVE_INFINITY) {
-					if (s.getDistance(v)>1) {
-						if(c.getTerrain(v) == Terrain.Boue) {
-							dist[i][j]=14*2*poids;
-						}
-						else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-							dist[i][j]=14*1.5*poids;
-						}
-						else {
-							dist[i][j]=14*poids;
-						}
-					}
-					if (s.getDistance(v)==1) {
-						if(c.getTerrain(v) == Terrain.Boue) {
-							dist[i][j]=10*2*poids;
-						}
-						else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-							dist[i][j]=10*1.5*poids;
-						}
-						else {
-							dist[i][j]=10*poids;
-							
-						}
-					}
-				}
-				else {
-					if (s.getDistance(v)>1) {
-						if(c.getTerrain(v) == Terrain.Boue) {
-							score+=14*2*poids;
-						}
-						else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-							score+=14*1.5*poids;
-						}
-						else {
-							score+=14*poids;
-						}
-					}
-					if (s.getDistance(v)==1) {
-						if(c.getTerrain(v) == Terrain.Boue) {
-							score+=10*2*poids;
-						}
-						else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-							score+=10*1.5*poids;
-						}
-						else {
-							score+=10*poids;
-						}
-					}
-					if (dist[i][j]>score) {
-						dist[i][j]=score;
-					}
-					
-					
-					
-				}
-				
-				
-				
-			}
-			
-			
-		}
-	}
-	
-	
 	public void update3(Vecteur s) {
 		double x = s.getX();
 		double y = s.getY();
-		
 		int coef = 1; //poids pour alourdir la distance sur les bandes ou la boue
 		ArrayList<Vecteur> voisins = getVoisin(s);
-		double score=dist[(int)x][(int)y];
+		
 		for (Vecteur v: voisins) {
+			double score= dist[(int)x][(int)y];
 			int i=(int)v.getX();
 			int j=(int)v.getY();
-			if (c.estDansCircuit(v)) {
+			if ((i) < 0 || (i) > dist.length || (j) < 0 || (j) > dist[0].length || !TerrainTools.isRunnable((c.getTerrain(i,j))))
+						continue;
 			if (c.getTerrain(s)==Terrain.EndLine) {
-					if ((c.getDirectionArrivee().prodScal(new Vecteur(i,j))>0)) {
+					//System.out.println(v.soustraction(c.getPointDepart()).toString());
+					if ((c.getDirectionArrivee().prodScal(v.soustraction(c.getPointDepart()))<0)) {
 						continue;
 					}
-				}
-				
+			}
 				//System.out.println(v.toString());
-					if (c.getTerrain(v)==Terrain.Boue) {
-						coef=3;
-					}
-					else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-						coef=2;
-					}
-					else {
-						coef=1;
-					}
+			if (c.getTerrain(v)==Terrain.Boue) {
+				coef=3;
+			}
+			else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+				coef=2;
+			}
+			else {
+				coef=1;
+			}
 				
-				
-				if (score!=Double.POSITIVE_INFINITY) {
-					//System.out.println("Distance de s \E0 v: "+s.getDistance(v));
-					if (s.getDistance(v)>1) {
-						score += 14 * coef;
-					}
-						
-						
-					else {
-						score += 10 * coef;
-					}
-						
-					
-					if (score < 0) {
-						System.out.println("?????????");
-					}
-					//if (i>=0&&i<dist.length&&j>=0&&j<dist[0].length) {
-						if (dist[i][j] > score) {
-							dist[i][j] = score;
-							visites[i][j]=true;
-							q.add(v);
-						}
-						
-					//}
-				}
-				else {
-					//System.out.println("Cas 2 Distance de s \E0 v: "+s.getDistance(v));
-					if (s.getDistance(v)>1) 
-						score = 14 * coef;
-						
-					else
-						score = 10 * coef;
-					
-					if (score < 0) {
-						System.out.println("?????????");
-					}
-					dist[i][j] = score;
-					visites[i][j]=true;
-					q.add(v);
-				}
+			if (s.getDistance(v)>1) {
+				score += 14 * coef;
+			}
+			else {
+				score += 10 * coef;
 			}
 			
-			
-			
-			
-		}
-		
-		
+			if (score < 0) {
+				System.out.println("?????????");
+			}
+			if (dist[i][j] > score) {
+					dist[i][j] = score;
+					q.add(v);
+			}
+		}		
 	}
 
 	public void compute() {
 		int i=0;
-		while ((q.size()!=0)||(i==0)) {
+		System.out.println("start");
+		while ((q.size()!=0)) {
 			Vecteur s=q.poll();
 			update3(s);
+			q.remove(s);
 			//System.out.println("update "+i);
 			i++;
-			}
+		}
 		
 	}
 }
