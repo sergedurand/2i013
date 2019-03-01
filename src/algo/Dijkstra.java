@@ -20,6 +20,7 @@ public class Dijkstra{
 	private ArrayList<Vecteur> arrivees;
 	private int scoreMAX;
 	private boolean enCour=false;
+	private boolean[][] visites;
 	
 	public Dijkstra(Circuit c) {
 		super();
@@ -35,11 +36,17 @@ public class Dijkstra{
 			}
 		}
 		
-		/*for (Vecteur p:arrivees) {
+		for (Vecteur p:arrivees) {
 			dist[(int)p.getX()][(int)p.getY()]=0;
 			q.add(p);
-		}*/
+		}
 		q.add(c.getPointDepart());
+		visites = new boolean[c.getWidth()][c.getHeight()];
+		for (int i=0;i<c.getWidth();i++) {
+			for (int j=0;j<c.getHeight();j++) {
+				visites[i][j]= false;
+			}
+		}
 		
 	}
 	
@@ -53,7 +60,8 @@ public class Dijkstra{
 				int nx = x+i;
 				int ny = y+j;
 				Vecteur temp = new Vecteur(nx,ny);
-				if(c.estDansCircuit(v) && (nx!=x|| ny!=y)) {
+				//System.out.println(temp.toString());
+				if(c.estDansCircuit(v) && (nx!=x|| ny!=y)&&(nx>=0)&&(nx<c.getWidth())&&(ny>=0)&&(ny<c.getHeight())&& !(visites[nx][ny])) {
 					res.add(temp);
 				}
 			}
@@ -339,6 +347,7 @@ public class Dijkstra{
 						}
 						else {
 							dist[i][j]=10*poids;
+							
 						}
 					}
 				}
@@ -385,6 +394,7 @@ public class Dijkstra{
 	public void update3(Vecteur s) {
 		double x = s.getX();
 		double y = s.getY();
+		
 		int coef = 1; //poids pour alourdir la distance sur les bandes ou la boue
 		ArrayList<Vecteur> voisins = getVoisin(s);
 		double score=dist[(int)x][(int)y];
@@ -428,6 +438,7 @@ public class Dijkstra{
 					//if (i>=0&&i<dist.length&&j>=0&&j<dist[0].length) {
 						if (dist[i][j] > score) {
 							dist[i][j] = score;
+							visites[i][j]=true;
 							q.add(v);
 						}
 						
@@ -445,6 +456,7 @@ public class Dijkstra{
 						System.out.println("?????????");
 					}
 					dist[i][j] = score;
+					visites[i][j]=true;
 					q.add(v);
 				}
 			}
