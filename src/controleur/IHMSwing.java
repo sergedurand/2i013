@@ -27,7 +27,7 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 	}
 	
 	
-	public void paint(){
+	public void paint(BufferedImage im){
 		Graphics g = im.getGraphics();
         super.paint(g);
 
@@ -37,7 +37,11 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 	@Override
 	public void manageUpdate() {
 		// TODO Auto-generated method stub
-		repaint(); // ordre de mise à jour  
+		//repaint(); // ordre de mise à jour 
+		Graphics g = im.getGraphics();
+		for(ObserveurSwing o : lobs) {
+			o.print(g);
+		}
         /*try {      // temporisation (sinon, on ne voit rien)
             Thread.sleep(10);
         } catch (InterruptedException e) {

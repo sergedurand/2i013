@@ -145,10 +145,12 @@ public class Simulation {
 		int iteration = 0;
 		while(!(TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (iteration !=0))){
 				iteration++;
+				if(iteration%200 == 0) {
+					this.update(im);
+				}
 				Commande com = strat.getCommande();
 				commandes.add(com);
 				this.v.drive(com);
-				this.update(im);
 		}
 		System.out.println("Nombre d'itération : "+iteration);
 		try {
