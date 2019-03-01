@@ -44,7 +44,7 @@ public class TestSimulation {
 		System.out.println("finifini");
 		Strategy strat2 = new StrategyRadarSimple(rad1);
 		Simulation simu2 = new Simulation(v2, strat2, c);
-		simu2.play(5000);
+		simu2.play("test");
 		System.out.println(" c.getWidth: " + c.getWidth());
 		System.out.println("c.getHeight : " + c.getHeight());
 		

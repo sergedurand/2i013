@@ -11,4 +11,5 @@ public interface Voiture {
     public Vecteur getPosition();
     public Vecteur getDirection();
     public double getBraquage();
+	public boolean getDerapage();
 }

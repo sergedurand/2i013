@@ -112,4 +112,10 @@ public class VoitureImpl implements Voiture {
 		return braquage;
 	}
 
+	@Override
+	public boolean getDerapage() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

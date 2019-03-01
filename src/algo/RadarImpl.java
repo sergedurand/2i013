@@ -26,15 +26,28 @@ public class RadarImpl implements Radar {
 	}
 
 	
-
+	public RadarImpl() {
+		//TODO;
+	}
 	protected Voiture voiture;
 	private Circuit circuit;
 	private double[] angles;
 	private double[] distPix;
 	private int BestIndex;
 	
-	public RadarImpl() {
-		// TODO Auto-generated constructor stub
+	public void setAngles64() {
+		int taille = 64;
+		double angle = Math.PI/64;
+		double[] angles2 = new double[taille+1];
+		for(int i=1;i<=taille/2;i++) {
+			angles2[i-1]=angle*i;
+			angles2[angles2.length-i]=angle*-i;
+		}
+		angles2[32]=0;
+		this.angles = angles2;
+		this.distPix = new double[angles.length];
+		
+		
 	}
 
 	@Override

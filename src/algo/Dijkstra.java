@@ -1,8 +1,9 @@
 package algo;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.concurrent.PriorityBlockingQueue;
-
+import javax.swing.JFrame;
 import circuit.Circuit;
 import geometrie.Vecteur;
 import strategy.Strategy;
@@ -10,14 +11,15 @@ import terrain.Terrain;
 import terrain.TerrainTools;
 import voiture.Commande;
 import voiture.Voiture;
-
+ 
 public class Dijkstra{	
 	private PriorityBlockingQueue<Vecteur> q= new PriorityBlockingQueue<Vecteur>();
 	private double[][] dist;
 	private Circuit c;
 	private ComparatorDijk comp;
 	private ArrayList<Vecteur> arrivees;
-	
+	private int scoreMAX;
+	private boolean enCour=false;
 	
 	public Dijkstra(Circuit c) {
 		super();
@@ -35,6 +37,7 @@ public class Dijkstra{
 		
 		for (Vecteur p:arrivees) {
 			dist[(int)p.getX()][(int)p.getY()]=0;
+			q.add(p);
 		}
 		q.add(c.getPointDepart());
 		
@@ -305,7 +308,11 @@ public class Dijkstra{
 		int poids = 1; //poids pour alourdir la distance sur les bandes ou la boue
 		ArrayList<Vecteur> voisins = getVoisin(s);
 		double score=dist[(int)x][(int)y];
+		
+		
+		
 		for(Vecteur v : voisins) {
+			System.out.println(v.toString());
 			Vecteur ov = new Vecteur(v,s);
 			double prodscal = ov.prodScal(c.getDirectionArrivee());
 			int i = (int) v.getX();
@@ -358,7 +365,7 @@ public class Dijkstra{
 							score+=10*poids;
 						}
 					}
-					if (dist[i][j]+score>score) {
+					if (dist[i][j]>score) {
 						dist[i][j]=score;
 					}
 					
@@ -374,20 +381,90 @@ public class Dijkstra{
 		}
 	}
 	
+	
+	public void update3(Vecteur s) {
+		double x = s.getX();
+		double y = s.getY();
+		int coef = 1; //poids pour alourdir la distance sur les bandes ou la boue
+		ArrayList<Vecteur> voisins = getVoisin(s);
+		double score=dist[(int)x][(int)y];
+		for (Vecteur v: voisins) {
+			int i=(int)v.getX();
+			int j=(int)v.getY();
+			if (c.estDansCircuit(v)) {
+			if (c.getTerrain(s)==Terrain.EndLine) {
+					if ((c.getDirectionArrivee().prodScal(new Vecteur(i,j))>0)) {
+						continue;
+					}
+				}
+				
+				//System.out.println(v.toString());
+					if (c.getTerrain(v)==Terrain.Boue) {
+						coef=3;
+					}
+					else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
+						coef=2;
+					}
+					else {
+						coef=1;
+					}
+				
+				
+				if (score!=Double.POSITIVE_INFINITY) {
+					//System.out.println("Distance de s \E0 v: "+s.getDistance(v));
+					if (s.getDistance(v)>1) {
+						score += 14 * coef;
+					}
+						
+						
+					else {
+						score += 10 * coef;
+					}
+						
+					
+					if (score < 0) {
+						System.out.println("?????????");
+					}
+					//if (i>=0&&i<dist.length&&j>=0&&j<dist[0].length) {
+						if (dist[i][j] > score) {
+							dist[i][j] = score;
+							q.add(v);
+						}
+						
+					//}
+				}
+				else {
+					//System.out.println("Cas 2 Distance de s \E0 v: "+s.getDistance(v));
+					if (s.getDistance(v)>1) 
+						score = 14 * coef;
+						
+					else
+						score = 10 * coef;
+					
+					if (score < 0) {
+						System.out.println("?????????");
+					}
+					dist[i][j] = score;
+					q.add(v);
+				}
+			}
+			
+			
+			
+			
+		}
+		
+		
+	}
 
 	public void compute() {
-		Vecteur s=q.poll();
 		int i=0;
 		while ((q.size()!=0)||(i==0)) {
-			update(s);
-			q.remove(s);
-			System.out.println("update");
-			s = q.peek();
+			Vecteur s=q.poll();
+			update3(s);
+			//System.out.println("update "+i);
 			i++;
 			}
 		
 	}
-	
-	
-
 }

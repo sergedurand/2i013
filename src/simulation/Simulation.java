@@ -19,6 +19,8 @@ import javax.imageio.ImageIO;
 import circuit.*;
 import geometrie .*;
 import terrain .*;
+import observeurs.*;
+import controleur.*;
 
 /**
  * @author Serge et Kevin
@@ -30,6 +32,8 @@ public class Simulation {
 	private Strategy strat;
 	private Circuit c;
 	private ArrayList<Commande> commandes;
+	private ArrayList<UpdateEventListener> leventlistener;
+	
 
 	/**
 	 * Instancie un objet Simulation
@@ -43,8 +47,11 @@ public class Simulation {
 		this.strat = strat;
 		this.c = c;
 		this.commandes = new ArrayList<Commande>();
+		this.leventlistener = new ArrayList<UpdateEventListener>(0);
 	}
-	
+	public void addListeners(UpdateEventListener e) {
+		leventlistener.add(e);
+	}
 	public Voiture getV() {
 		return v;
 	}
@@ -123,24 +130,29 @@ public class Simulation {
         }
 
 }
+	public void update(BufferedImage im) {
+		for(UpdateEventListener l : leventlistener) {
+			((IHMSwing) l).setImage(im);
+			l.manageUpdate();
+			
+		}
+	}
 	
-	public void play(int iteration) throws VoitureException {
+	public void play(String image) throws VoitureException {
+		VoitureObserveur vobs = new VoitureObserveur(this.v);
 		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
 		//test orientation
-
-		for(int i=0;i<iteration;i++) {
+		int iteration = 0;
+		while(!(TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (iteration !=0))){
+				iteration++;
 				Commande com = strat.getCommande();
 				commandes.add(com);
 				this.v.drive(com);
-				Trace(im);
-				if (TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (iteration !=0)) {
-					System.out.println("Ligne d'arrivee franchie");
-					break;
-				}
-			
+				this.update(im);
 		}
+		System.out.println("Nombre d'itération : "+iteration);
 		try {
-           File outputfile = new File("FinSimu");
+           File outputfile = new File(image);
            ImageIO.write(im, "png", outputfile);
         } catch (IOException e) {
            System.out.println("Erreur lors de la sauvegarde");
