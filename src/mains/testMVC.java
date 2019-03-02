@@ -35,9 +35,9 @@ public class testMVC {
 		ihm.add(new VoitureObserveur(v));
 		ihm.add(new RadarObserveur(rad));
 		Simulation s = new Simulation(v,strat,c);
-		s.addListeners(ihm);
+		//s.addListeners(ihm);
 		try {
-			s.play("radar et voiture");
+			s.play(5000);
 		} catch (VoitureException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

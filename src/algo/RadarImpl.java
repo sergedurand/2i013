@@ -30,10 +30,10 @@ public class RadarImpl implements Radar {
 		//TODO;
 	}
 	protected Voiture voiture;
-	private Circuit circuit;
-	private double[] angles;
-	private double[] distPix;
-	private int BestIndex;
+	protected Circuit circuit;
+	protected double[] angles;
+	protected double[] distPix;
+	protected int BestIndex;
 	
 	public void setAngles64() {
 		int taille = 64;
@@ -89,11 +89,12 @@ public class RadarImpl implements Radar {
 	
 	
 	
-	private double calcScore(double angle,double epsilon) {
+	protected double calcScore(double angle,double epsilon) {
 		Vecteur p = voiture.getPosition().clone();
 		Vecteur direction = voiture.getDirection().rotation(angle);
 		int cpt=0;
-		while ((TerrainTools.charFromTerrain(circuit.getTerrain(p)) !='g')&&(circuit.estDansCircuit(p))) {
+		//System.out.println("Vecteur courant: "+p.toString());
+		while ((circuit.estDansCircuit(p)&&(TerrainTools.charFromTerrain(circuit.getTerrain(p)) !='g'))) {
 			cpt++;
 			p = p.addition(direction.multiplication(epsilon));
 		}

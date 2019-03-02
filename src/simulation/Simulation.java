@@ -19,8 +19,6 @@ import javax.imageio.ImageIO;
 import circuit.*;
 import geometrie .*;
 import terrain .*;
-import observeurs.*;
-import controleur.*;
 
 /**
  * @author Serge et Kevin
@@ -32,8 +30,6 @@ public class Simulation {
 	private Strategy strat;
 	private Circuit c;
 	private ArrayList<Commande> commandes;
-	private ArrayList<UpdateEventListener> leventlistener;
-	
 
 	/**
 	 * Instancie un objet Simulation
@@ -47,11 +43,8 @@ public class Simulation {
 		this.strat = strat;
 		this.c = c;
 		this.commandes = new ArrayList<Commande>();
-		this.leventlistener = new ArrayList<UpdateEventListener>(0);
 	}
-	public void addListeners(UpdateEventListener e) {
-		leventlistener.add(e);
-	}
+	
 	public Voiture getV() {
 		return v;
 	}
@@ -67,7 +60,7 @@ public class Simulation {
 	}
 
 	/**
-	 * Colorie un pixel sur l'image à la position courante de la voiture
+	 * Colorie un pixel sur l'image � la position courante de la voiture
 	 * @param im
 	 */
 	private void Trace(BufferedImage im) {
@@ -130,36 +123,40 @@ public class Simulation {
         }
 
 }
-	public void update(BufferedImage im) {
-		for(UpdateEventListener l : leventlistener) {
-			((IHMSwing) l).setImage(im);
-			l.manageUpdate();
-			
-		}
-	}
 	
-	public void play(String image) throws VoitureException {
-		VoitureObserveur vobs = new VoitureObserveur(this.v);
+	public void play(int iteration) throws VoitureException {
 		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
+		Graphics g=im.getGraphics();
 		//test orientation
-		int iteration = 0;
-		while(!(TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (iteration !=0))){
-				iteration++;
-				if(iteration%200 == 0) {
-					this.update(im);
-				}
+
+		for(int i=0;i<iteration;i++) {
 				Commande com = strat.getCommande();
 				commandes.add(com);
 				this.v.drive(com);
+				Trace(im);
+				//System.out.println(v.getPosition().toString());
+				g.setColor(new Color(0,0,255));
+				g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());
+				if ((this.v.getPosition().getX()>=0)&&((this.v.getPosition().getX()<c.getWidth()))&&(this.v.getPosition().getY()>=0)&&((this.v.getPosition().getY()<c.getHeight()))&&TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (iteration !=0) && TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
+					/*if ((c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))<=0)) {
+						continue;
+					}*/
+					System.out.println("Ligne d'arrivee franchie");
+					break;
+				}
+				//System.out.println("i: "+i);
+			
 		}
-		System.out.println("Nombre d'itération : "+iteration);
+		
 		try {
-           File outputfile = new File(image);
+           File outputfile = new File("Fin simulation.png");
            ImageIO.write(im, "png", outputfile);
         } catch (IOException e) {
            System.out.println("Erreur lors de la sauvegarde");
-        }		
+        }	
 	}
+	
+	
 	
 
 }
