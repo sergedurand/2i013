@@ -1,8 +1,16 @@
 package mains;
 import geometrie.Vecteur;
+import terrain.*;
 import circuit.*;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import algo.*;
 
@@ -17,17 +25,31 @@ public class Test {
 		
 		Dijkstra dijk = new Dijkstra(c);
 		dijk.compute();
-		for (int i=0;i<dijk.getDist().length;i++) {
-			for (int j=0;j<dijk.getDist()[0].length;j++) {
-				if(dijk.getDist()[i][j]!=Double.POSITIVE_INFINITY) {
-					System.out.print(dijk.getDist()[i][j]+" ");
+		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
+		Graphics g = im.getGraphics();
+		
+		for(int i = 0;i<c.getWidth();i++) {
+			for(int j = 0;j<c.getHeight();j++) {
+				System.out.println(dijk.getDist()[i][j]);
+				//System.out.println("couleur rouge:"+dijk.getDist()[i][j]%255);
+				g.setColor(new Color((int) (dijk.getDist()[i][j]%255),0,0));
+				if(TerrainTools.isRunnable(c.getTerrain(i, j))) {
+					g.drawLine(i, j, i, j);
 				}
 			}
-			System.out.print("\n");
 		}
 		
-		System.out.println(dijk.getDist()[(int) c.getPointDepart().getX()][(int) c.getPointDepart().getY()+1]);
+		try {
+            File outputfile = new File("dijkstra.png");
+            ImageIO.write(im, "png", outputfile);
+         } catch (IOException e) {
+            System.out.println("Erreur lors de la sauvegarde");
+         }
 
 	}
+	
+		
+
+	
 
 }
