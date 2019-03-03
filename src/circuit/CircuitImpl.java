@@ -100,10 +100,10 @@ public class CircuitImpl implements Circuit {
 	}
 	
 	public boolean estDansCircuit(Vecteur v) {
-		if (v.getX()<0 || v.getX()>=this.getWidth()) {
+		if (v.getX()<0 || v.getX()>=this.getWidth()-1) {
 			return false;
 		}
-		if (v.getY()<0 || v.getY()>=this.getHeight()) {
+		if (v.getY()<0 || v.getY()>=this.getHeight()-1) {
 			return false;
 		}
 		return true;

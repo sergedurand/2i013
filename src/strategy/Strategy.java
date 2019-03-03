@@ -1,6 +1,7 @@
 package strategy;
 import java.io.Serializable;
 
+import algo.Radar;
 import circuit.*;
 import voiture.*;
 

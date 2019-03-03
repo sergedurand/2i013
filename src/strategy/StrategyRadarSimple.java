@@ -13,6 +13,10 @@ public class StrategyRadarSimple implements Strategy{
 		this.radar = radar;
 	}
 	
+	public Radar getRadar() {
+		return radar;
+	}
+	
 	@Override
 	public Commande getCommande() {
 		radar.scores(0.1);
