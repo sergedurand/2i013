@@ -34,7 +34,7 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 		circuit = new CircuitObserveur(c);
 		this.im = circuit.getImage();
 	}
-	public void init() {
+	public void init() {//initialisation
 		
 	}
 	
