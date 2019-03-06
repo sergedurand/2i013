@@ -1,9 +1,10 @@
-
-/geometrie/
-/terrain/
-/mains/
-/tests/
-/djikstra/
-/strategy/
 /algo/
+/circuit/
+/controleur/
+/geometrie/
+/mains/
+/observeurs/
 /simulation/
+/strategy/
+/terrain/
+/voiture/

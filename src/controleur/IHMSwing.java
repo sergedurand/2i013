@@ -18,6 +18,11 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 		lobs = new ArrayList<ObserveurSwing>(0);
 		this.im = null;
 	}
+	
+	public IHMSwing(BufferedImage im){
+		super();
+		this.im=im;
+	}
 	public void add(ObserveurSwing o) {
 		lobs.add(o);
 	}
@@ -26,6 +31,9 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 		this.im = im;
 	}
 	
+	public BufferedImage getImage() {
+		return im;
+	}
 	
 	public void paint(BufferedImage im){
 		Graphics g = im.getGraphics();
