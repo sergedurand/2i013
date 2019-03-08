@@ -1,12 +1,17 @@
 package controleur;
 import observeurs.*;
+import simulation.*;
+import terrain.TerrainTools;
 import circuit.*;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 
 public class IHMSwing extends JPanel implements UpdateEventListener {
@@ -18,6 +23,7 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 	private ArrayList<ObserveurSwing> lobs;
 	private BufferedImage im;
 	private CircuitObserveur circuit; 
+	private Simulation simu;
 	
 	public IHMSwing() {
 		super();
@@ -30,12 +36,16 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 		this.im=im;
 	}
 	
-	public IHMSwing(Circuit c) {//construction a partir d'un circuit
+	public void addCircuit(Circuit c) {//construction a partir d'un circuit
 		circuit = new CircuitObserveur(c);
-		this.im = circuit.getImage();
+		im = TerrainTools.imageFromTerrain(c.getTerrain());
+		}
+	public void init(String nom) {
+
 	}
-	public void init() {//initialisation
-		
+	
+	public void add(Simulation simu) {
+		this.simu = simu;
 	}
 	
 	public void add(ObserveurSwing o) {
@@ -50,30 +60,36 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 		return im;
 	}
 	
-	public void paint(BufferedImage im){
-		Graphics g = im.getGraphics();
-        super.paint(g);
-
-        for(ObserveurSwing o: lobs)
+	public void paint(Graphics g){
+		super.paint(g);
+		circuit.print(g);
+        for(ObserveurSwing o: lobs) {
+        	/* nécessite de gérer les exceptions dans les observeurs*
+        	 * try {
+        	 
+        		o.print(g);
+        	}catch(IOException e) {
+        		e.printStackTrace();
+        	}*/
         	if(o!=null) {
-            	o.print(g);
+        		o.print(g);
         	}
-    }
+        }
+	}
 	@Override
 	public void manageUpdate() {
-		// TODO Auto-generated method stub
-		//repaint(); // ordre de mise à jour 
-		Graphics g = im.getGraphics();
-		for(ObserveurSwing o : lobs) {
-			if(o!=null) {
-			o.print(g);
-			}
-		}
-        /*try {      // temporisation (sinon, on ne voit rien)
-            Thread.sleep(10);
+		repaint();
+		try {
+            Thread.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                repaint();
+            }
+        });
+
 	}
 
 }

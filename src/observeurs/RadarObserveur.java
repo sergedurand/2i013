@@ -21,6 +21,7 @@ public class RadarObserveur implements ObserveurSwing {
 	@Override
 	public void print(Graphics g) {
 		// TODO Auto-generated method stub
+		
 		g.setColor(Color.blue);
 		Vecteur vdir;
 		for (int i=0;i<rad.getDistPix().length;i++) {

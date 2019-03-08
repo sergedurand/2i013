@@ -32,15 +32,15 @@ public class VoitureObserveur implements ObserveurSwing {
 
 	 public void print(Graphics g){
          // Attention a l'inversion eventuelle des coordonnees
-         g.setColor(this.getColor());
+		 g.setColor(Color.red);
          g.drawRect(this.getX(), this.getY(), 2, 2);
-         g.setColor(Color.red);
-         g.drawLine(this.getX(),this.getY(),this.getX()+(int)voiture.getDirection().getX()*10,this.getY()+(int)voiture.getDirection().getY()*10);
+         
+         //g.drawLine(this.getX(),this.getY(),this.getX()+(int)voiture.getDirection().getX()*10,this.getY()+(int)voiture.getDirection().getY()*10);
 
-         g.setColor(Color.black);
+         /*g.setColor(Color.black);
          g.drawString(String.format("v: %.2f d: (%6.2f, %6.2f) derap: ", voiture.getVitesse(),
                          voiture.getDirection().getX(), voiture.getDirection().getY()) + voiture.getDerapage(),
-                         10, 10);
+                         10, 10);*/
 
 
  }

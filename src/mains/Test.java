@@ -46,7 +46,7 @@ public class Test {
 			}
 		}*/
 		r.scores(0.1);
-		s1.play(5000);
+		s1.play();
 		/*try {
             File outputfile = new File("dijkstraa.png");
             ImageIO.write(im, "png", outputfile);
