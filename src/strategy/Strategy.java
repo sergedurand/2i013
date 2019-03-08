@@ -1,9 +1,9 @@
 package strategy;
 import java.io.Serializable;
 
-import algo.Radar;
-import circuit.*;
-import voiture.*;
+import circuit.Circuit;
+import voiture.Commande;
+import voiture.Voiture;
 
 
 public interface Strategy extends Serializable {

@@ -1,7 +1,6 @@
 package voiture;
 import circuit.Circuit;
 import geometrie.*;
-import voiture.*;
 
 
 public class VoitureFactory {

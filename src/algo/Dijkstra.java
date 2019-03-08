@@ -1,17 +1,11 @@
 package algo;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.PriorityBlockingQueue;
-import javax.swing.JFrame;
 import circuit.Circuit;
 import geometrie.Vecteur;
-import strategy.Strategy;
 import terrain.Terrain;
 import terrain.TerrainTools;
-import voiture.Commande;
-import voiture.Voiture;
  
 public class Dijkstra{	
 	private PriorityBlockingQueue<Vecteur> q= new PriorityBlockingQueue<Vecteur>();
@@ -34,7 +28,7 @@ public class Dijkstra{
 		}
 		
 		for (Vecteur p:arrivees) {
-			//System.out.println("Arriveés: "+p.toString());
+			//System.out.println("Arriveï¿½s: "+p.toString());
 			dist[(int)p.getX()][(int)p.getY()]=0;
 			q.add(p);
 		}	
@@ -114,14 +108,13 @@ public class Dijkstra{
 	}
 
 	public void compute() {
-		int i=0;
+
 		System.out.println("start");
 		while ((q.size()!=0)) {
 			Vecteur s=q.poll();
 			update3(s);
 			q.remove(s);
-			//System.out.println("update "+i);
-			i++;
+
 		}
 		
 	}

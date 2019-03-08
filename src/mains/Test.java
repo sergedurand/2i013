@@ -1,8 +1,6 @@
 package mains;
-import geometrie.Vecteur;
 import simulation.Simulation;
 import strategy.Strategy;
-import strategy.StrategyLigneDroite;
 import strategy.StrategyRadarSimple;
 import terrain.*;
 import voiture.Voiture;
@@ -10,15 +8,8 @@ import voiture.VoitureException;
 import voiture.VoitureFactory;
 import circuit.*;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-
 import algo.*;
 
 

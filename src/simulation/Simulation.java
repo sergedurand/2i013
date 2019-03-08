@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import circuit.*;
-import geometrie .*;
 import terrain .*;
 
 /**
@@ -60,7 +59,7 @@ public class Simulation {
 	}
 
 	/**
-	 * Colorie un pixel sur l'image à la position courante de la voiture
+	 * Colorie un pixel sur l'image ï¿½ la position courante de la voiture
 	 * @param im
 	 */
 	private void Trace(BufferedImage im) {
@@ -117,6 +116,7 @@ public class Simulation {
                         t = os.readDouble();
                         liste.add(new Commande(a,t));
                 }
+                
 
         } catch (EOFException e){
                 return liste;

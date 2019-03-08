@@ -74,7 +74,7 @@ public class CircuitImpl implements Circuit {
 
 	@Override
 	public ArrayList<Vecteur> getArrivees() {
-		ArrayList<Vecteur> a = new ArrayList();
+		ArrayList<Vecteur> a = new ArrayList<Vecteur>();
 		for(int i =0;i<this.getHeight();i++) {
 			for(int j = 0;j<this.getWidth();j++) {
 				//System.out.println("x = " + i +"y = "+ j);

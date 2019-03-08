@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import circuit.Circuit;
 import geometrie.Vecteur;
 import terrain.Terrain;
-import terrain.TerrainTools;
 import voiture.Voiture;
 
 public class RadarDijkstra extends RadarImpl {
@@ -48,7 +47,7 @@ public class RadarDijkstra extends RadarImpl {
 			cpt++;
 		}
 		//distPix[indicemax] = (int) (cpt * 0.1);
-		return n; //On renvoie la distance minimale trouvée dans le tableau dist parmi les vecteurs explorés
+		return n; //On renvoie la distance minimale trouvï¿½e dans le tableau dist parmi les vecteurs explorï¿½s
 	}
 	
 	public double[] scores(double epsilon) {

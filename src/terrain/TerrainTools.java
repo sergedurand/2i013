@@ -1,12 +1,14 @@
 package terrain;
+import java.awt.Color;
 import java.awt.Graphics;
-import circuit .*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
-
-import java.awt.Color;
 
 /** Cette classe contient les outils pour la gestion des terrains
  * 
