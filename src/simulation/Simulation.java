@@ -138,42 +138,66 @@ public class Simulation implements UpdateEventSender{
 		}
 	}
 	
+	public Color getColor() {
+		if(v.getVitesse()<0.3) // vitesse faible -> cyan
+            return new Color(0, (int)(v.getVitesse()*255*2), (int) (v.getVitesse()*255*2));
+
+         if(v.getVitesse() == 0.9)
+           return new Color((int)(v.getVitesse()*255),  (int) (v.getVitesse()*255), 0);
+
+         return new Color((int)(v.getVitesse()*255), 0, (int) (v.getVitesse()*255));
+	}
+	
 	public void play() throws VoitureException {
-		//BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
-		//Graphics g=im.getGraphics();
+		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
+		Graphics g=im.getGraphics();
 		//test orientation
 		int i = 0;
 
-		while(i<10000) {
-				Commande com = strat.getCommande();
-				commandes.add(com);
-				this.v.drive(com);
+		while(i<5000) {
+			Commande com = strat.getCommande();
+			if (TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
+			commandes.add(com);
+			this.v.drive(com);
+			}
+		
+			
+			else {
+				//System.out.println("aaaaaaaaaaaaaaaaaaaa");
+				//v.setDirection(v.getDirection().multiplication(-1));
+				//v.setPosition(v.getPosition().addition(v.getDirection().multiplication(v.getVitesse())));
+			}
 				// j'enlÃ¨ve tout le traÃ§age : on le gÃ¨re via le MVC, cf ihm
 				/*Trace(im);
 				System.out.println(v.getPosition().toString());
-				g.setColor(new Color(0,0,255));
-				g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());
-				*/
+				g.setColor(getColor());
+				g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());*/
+				
 				this.update();
-				if ((this.v.getPosition().getX()>=0)&&((this.v.getPosition().getX()<c.getWidth()))&&(this.v.getPosition().getY()>=0)&&((this.v.getPosition().getY()<c.getHeight()))&&TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (i !=0) && TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
+				if ((this.v.getPosition().getX()>=0)&&((this.v.getPosition().getX()<c.getWidth()))&&(this.v.getPosition().getY()>=0)&&((this.v.getPosition().getY()<c.getHeight()))&&TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (i!=0) && TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
 					/*if ((c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))<=0)) {
+						System.out.println("Mauvais côté de la ligne: x="+this.v.getPosition().getX()+" y="+this.v.getPosition().getX()+" prod scal: "+(c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))));
+						v.setDirection(c.getDirectionDepart());
+						g.setColor(new Color(0,0,0));
+						g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());
 						continue;
 					}*/
-					System.out.println("Ligne d'arrivee franchie");
+					System.out.println("Ligne d'arrivee franchie: "+i+" itérations");
 					break;
-				}
+				} //A décommenter pour le circuit 2_safe.trk
 				i++;
 				//System.out.println("i: "+i);
 			
 		}
-		System.out.println("nombre d'itÃ©ration = " + i);
+		System.out.println("nombre d'itération = " + i);
 		
 		/*try {
-           File outputfile = new File("Fin simulation.png");
+           File outputfile = new File("Fin simulation simple.png");
            ImageIO.write(im, "png", outputfile);
         } catch (IOException e) {
            System.out.println("Erreur lors de la sauvegarde");
         }*/
+		return;
 	}
 
 	@Override

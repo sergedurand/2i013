@@ -8,8 +8,14 @@ import voiture.VoitureException;
 import voiture.VoitureFactory;
 import circuit.*;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import algo.*;
 
 
@@ -17,7 +23,7 @@ public class Test {
 
 	public static void main(String[] args) throws VoitureException {
 		// TODO Auto-generated method stub
-		Circuit c = CircuitFactoryFromFile.build("aufeu.trk");
+		Circuit c = CircuitFactoryFromFile.build("bond_safe.trk");
 		Voiture v = VoitureFactory.build(c);
 	
 		int taille = 64;
@@ -31,6 +37,7 @@ public class Test {
 		Dijkstra dijk = new Dijkstra(c);
 		dijk.compute();
 		Radar r=new RadarDijkstra(v,c,angles,dijk);
+		//Radar r=new RadarImpl(v,c,angles);
 		Strategy strat = new StrategyRadarSimple(r);
 		Simulation s1 = new Simulation(v,strat,c);
 		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
@@ -41,14 +48,14 @@ public class Test {
 				//System.out.println("couleur rouge:"+dijk.getDist()[i][j]%255);
 				g.setColor(new Color((int) (dijk.getDist()[i][j]%255),0,0));
 				if(TerrainTools.isRunnable(c.getTerrain(i, j))) {
-					//g.drawLine(i, j, i, j);
+					g.drawLine(i, j, i, j);
 				}
 			}
 		}*/
 		r.scores(0.1);
 		s1.play();
 		/*try {
-            File outputfile = new File("dijkstraa.png");
+            File outputfile = new File("dijkstra.png");
             ImageIO.write(im, "png", outputfile);
          } catch (IOException e) {
             System.out.println("Erreur lors de la sauvegarde");

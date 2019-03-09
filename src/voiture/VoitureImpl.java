@@ -48,9 +48,9 @@ public class VoitureImpl implements Voiture {
         	throw new VoitureException("Erreur dans l'accélération");
         }
         // 2) Est ce que la rotation demandée est compatible avec la vitesse actuelle, sinon, throw new VoitureException
-      /*  if (c.getTurn()>getMaxTurn()) {
-        	throw new VoitureException("Erreur : Voiture trop rapide pour tourner");
-        }*/
+        if (c.getTurn()>getMaxTurn()) {
+        	drive(new Commande(-1*(c.getAcc()),c.getTurn()*(1/2)));
+        }
         
         // approche normale
         // 1.1) gestion du volant
@@ -106,6 +106,14 @@ public class VoitureImpl implements Voiture {
 		return direction;
 	}
 
+	public void setDirection (Vecteur v) {
+		this.direction=v;
+	}
+	
+	public void setPosition (Vecteur v) {
+		this.position=v;
+	}
+	
 	@Override
 	public double getBraquage() {
 		// TODO Auto-generated method stub
