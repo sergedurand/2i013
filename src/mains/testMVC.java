@@ -31,6 +31,7 @@ public class testMVC {
 		IHMSwing ihm = new IHMSwing();
 		ihm.add(new VoitureObserveur(v));
 		ihm.add(new RadarObserveur(rad));
+		ihm.add(new TrajectoireObserveur(v));
 		ihm.addCircuit(c);
 		Simulation simu = new Simulation(v,strat,c);
 		

@@ -4,7 +4,7 @@ import geometrie.Vecteur;
 
 public class VoitureImpl implements Voiture {
 	// état à l'instant t
-	private double vitesse;
+	private double vitesse = 0;
 	private Vecteur position;
 	private Vecteur direction;
 	
