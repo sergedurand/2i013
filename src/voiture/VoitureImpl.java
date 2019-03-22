@@ -2,7 +2,7 @@ package voiture;
 
 import geometrie.Vecteur;
 
-public class VoitureImpl implements Voiture {
+public class VoitureImpl implements Voiture{
 	// état à l'instant t
 	private double vitesse = 0;
 	private Vecteur position;

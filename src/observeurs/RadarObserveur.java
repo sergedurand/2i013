@@ -6,17 +6,15 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 public class RadarObserveur implements ObserveurSwing {
+	private Radar rad;
+	private Color coul;
 	
-	public RadarObserveur(RadarImpl rad) {
+	public RadarObserveur(Radar rad2) {
 		super();
-		this.rad = rad;
+		this.rad = rad2;
+		coul = Color.YELLOW;
 	}
 
-
-
-	private RadarImpl rad;
-	
-	
 
 	@Override
 	public void print(Graphics g) {
@@ -45,6 +43,13 @@ public class RadarObserveur implements ObserveurSwing {
 	private int getY() {
 		// TODO Auto-generated method stub
 		return (int) rad.getVoiture().getPosition().getY();
+	}
+
+
+	@Override
+	public void setColor(Color c) {
+		// TODO Auto-generated method stub
+		coul = c;
 	}
 
 }

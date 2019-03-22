@@ -28,11 +28,11 @@ import terrain .*;
  *
  */
 public class Simulation implements UpdateEventSender{
-	private Voiture v;
-	private Strategy strat;
+	private ArrayList<Voiture> voitures = new  ArrayList<Voiture>();
+	private ArrayList<Strategy> strategies = new ArrayList<Strategy>();
 	private Circuit c;
-	private ArrayList<Commande> commandes;
-	private ArrayList<UpdateEventListener> listeners;
+	private ArrayList<ArrayList<Commande>> commandes = new ArrayList<ArrayList<Commande>>();
+	private ArrayList<UpdateEventListener> listeners = new ArrayList<UpdateEventListener>();
 
 	/**
 	 * Instancie un objet Simulation
@@ -40,57 +40,61 @@ public class Simulation implements UpdateEventSender{
 	 * @param strat
 	 * @param c
 	 */
-	public Simulation(Voiture v, Strategy strat, Circuit c) {
-		super();
-		this.v = v;
-		this.strat = strat;
+
+	public Simulation(Circuit c) {
 		this.c = c;
-		this.commandes = new ArrayList<Commande>();
-		listeners = new ArrayList<UpdateEventListener>();
+	}
+
+	public Simulation(ArrayList<Voiture> voitures, ArrayList<Strategy> strategies, Circuit c,
+			ArrayList<ArrayList<Commande>> commandes, ArrayList<UpdateEventListener> listeners) {
+		super();
+		this.voitures = voitures;
+		this.strategies = strategies;
+		this.c = c;
+		this.commandes = commandes;
+		this.listeners = listeners;
 	}
 	
-	public Voiture getV() {
-		return v;
+	public void addVoitureStrategies(Voiture v, Strategy s) {
+		voitures.add(v);
+		strategies.add(s);
 	}
-	public Strategy getStrat() {
-		return strat;
+	public ArrayList<Voiture> getVoitures() {
+		return voitures;
 	}
+	public void setVoitures(ArrayList<Voiture> voitures) {
+		this.voitures = voitures;
+	}
+	public ArrayList<Strategy> getStrategies() {
+		return strategies;
+	}
+	public void setStrategies(ArrayList<Strategy> strategies) {
+		this.strategies = strategies;
+	}
+	public ArrayList<UpdateEventListener> getListeners() {
+		return listeners;
+	}
+	public void setListeners(ArrayList<UpdateEventListener> listeners) {
+		this.listeners = listeners;
+	}
+	public void setC(Circuit c) {
+		this.c = c;
+	}
+	public void setCommandes(ArrayList<ArrayList<Commande>> commandes) {
+		this.commandes = commandes;
+	}
+	public ArrayList<ArrayList<Commande>> getCommandes(){
+		return commandes;
+	}
+
 	public Circuit getC() {
 		return c;
 	}
-	@Override
-	public String toString() {
-		return "Simulation [v=" + v + ", strat=" + strat + ", c=" + c + "]";
+	public void setSimu(Voiture v, Strategy strat) {
+		voitures.add(v);
+		strategies.add(strat);
 	}
 
-	/**
-	 * Colorie un pixel sur l'image ï¿½ la position courante de la voiture
-	 * @param im
-	 */
-	private void Trace(BufferedImage im) {
-		
-		//on met une image et pas un circuit en parametre : on veut creer l'image une seule fois dans la simulation
-		int x = (int)v.getPosition().getX();
-		int y = (int)v.getPosition().getY();
-		Color c = new Color(255,165,0);
-		Graphics g = im.getGraphics();
-		g.setColor(c);
-		g.drawLine(x, y, x, y);		
-	}
-	
-	public ArrayList<Commande> getCommandes(){
-		return this.commandes;
-	}
-	
-	/*private void TraceSortie(BufferedImage im) {
-		
-		//on met une image et pas un circuit en parametre : on veut creer l'image une seule fois dans la simulation
-		int x = (int)v.getPosition().getX();
-		int y = (int)v.getPosition().getY();
-		Color c = new Color(255,0,0);
-		im.setRGB(x, y, c.getRGB());
-		
-	}*/
 	/**
 	 * lance une simulation
 	 * @throws VoitureException 
@@ -132,80 +136,124 @@ public class Simulation implements UpdateEventSender{
 	
 	public void update() {
 		for(UpdateEventListener e: listeners) {
-			if(e!=null) {
-				e.manageUpdate();
-			}
+				if(e!=null) {
+					e.manageUpdate();
+				}
 		}
+			
 	}
 	
-	public Color getColor() {
-		if(v.getVitesse()<0.3) // vitesse faible -> cyan
-            return new Color(0, (int)(v.getVitesse()*255*2), (int) (v.getVitesse()*255*2));
 
-         if(v.getVitesse() == 0.9)
-           return new Color((int)(v.getVitesse()*255),  (int) (v.getVitesse()*255), 0);
-
-         return new Color((int)(v.getVitesse()*255), 0, (int) (v.getVitesse()*255));
-	}
-	
 	public void play() throws VoitureException {
-		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
-		Graphics g=im.getGraphics();
+
 		//test orientation
 		int i = 0;
-
+		ArrayList<Voiture> varrivee =  new ArrayList<Voiture>();
 		while(i<5000) {
-			Commande com = strat.getCommande();
-			if (TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
-			commandes.add(com);
-			this.v.drive(com);
-			}
-		
-			
-			else {
-				//System.out.println("aaaaaaaaaaaaaaaaaaaa");
-				//v.setDirection(v.getDirection().multiplication(-1));
-				//v.setPosition(v.getPosition().addition(v.getDirection().multiplication(v.getVitesse())));
-			}
-				// j'enlÃ¨ve tout le traÃ§age : on le gÃ¨re via le MVC, cf ihm
-				/*Trace(im);
-				System.out.println(v.getPosition().toString());
-				g.setColor(getColor());
-				g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());*/
+			for(Voiture v : voitures) {
+				if(i==0){
+					commandes.add(new ArrayList<Commande>());
+				}
+				if(varrivee.size()==voitures.size()) {
+					return;
+				}
+				if(!(varrivee.contains(v))){
+					int index = voitures.indexOf(v);
+					if(index==0 && i<20) {
+						continue;
+					}
+					Commande com = strategies.get(index).getCommande();
+					if (TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
+						commandes.get(index).add(com);
+						v.drive(com);
+					}
 				
-				this.update();
-				if ((this.v.getPosition().getX()>=0)&&((this.v.getPosition().getX()<c.getWidth()))&&(this.v.getPosition().getY()>=0)&&((this.v.getPosition().getY()<c.getHeight()))&&TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (i!=0) && TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
-					/*if ((c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))<=0)) {
-						System.out.println("Mauvais côté de la ligne: x="+this.v.getPosition().getX()+" y="+this.v.getPosition().getX()+" prod scal: "+(c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))));
+					
+					
+					this.update();
+					
+					if ((v.getPosition().getX()>=0)&&((v.getPosition().getX()<c.getWidth()))&&(v.getPosition().getY()>=0)&&((v.getPosition().getY()<c.getHeight()))&&TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (i!=0) && TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
+						/*if ((c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))<=0)) {
+						System.out.println("Mauvais cÃ´tÃ© de la ligne: x="+this.v.getPosition().getX()+" y="+this.v.getPosition().getX()+" prod scal: "+(c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))));
 						v.setDirection(c.getDirectionDepart());
 						g.setColor(new Color(0,0,0));
 						g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());
 						continue;
 					}*/
-					System.out.println("Ligne d'arrivee franchie: "+i+" itérations");
-					break;
-				} //A décommenter pour le circuit 2_safe.trk
-				i++;
-				//System.out.println("i: "+i);
+						System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" itï¿½rations");
+						varrivee.add(v);
+						break;
+					} //A dï¿½commenter pour le circuit 2_safe.trk
+				
+				}
+			}i++;
+				
 			
 		}
-		System.out.println("nombre d'itération = " + i);
+		System.out.println("nombre d'iteration = " + i);
 		
-		/*try {
-           File outputfile = new File("Fin simulation simple.png");
-           ImageIO.write(im, "png", outputfile);
-        } catch (IOException e) {
-           System.out.println("Erreur lors de la sauvegarde");
-        }*/
 		return;
 	}
+	
+	public void playNoDisplay() throws VoitureException {
 
+		//test orientation
+		int i = 0;
+		ArrayList<Voiture> varrivee =  new ArrayList<Voiture>();
+		while(i<5000) {
+			for(Voiture v : voitures) {
+				if(i==0){
+					commandes.add(new ArrayList<Commande>());
+				}
+				if(varrivee.size()==voitures.size()) {
+					break;
+				}
+				if(!(varrivee.contains(v))){
+					int index = voitures.indexOf(v);
+					if(index==0 && i<20) {
+						continue;
+					}
+					Commande com = strategies.get(index).getCommande();
+					if (TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
+						commandes.get(index).add(com);
+						v.drive(com);
+					}
+				
+					
+					
+					//this.update();
+					
+					if ((v.getPosition().getX()>=0)&&((v.getPosition().getX()<c.getWidth()))&&(v.getPosition().getY()>=0)&&((v.getPosition().getY()<c.getHeight()))&&TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (i!=0) && TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
+						/*if ((c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))<=0)) {
+						System.out.println("Mauvais cÃ´tÃ© de la ligne: x="+this.v.getPosition().getX()+" y="+this.v.getPosition().getX()+" prod scal: "+(c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))));
+						v.setDirection(c.getDirectionDepart());
+						g.setColor(new Color(0,0,0));
+						g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());
+						continue;
+					}*/
+						System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" itï¿½rations");
+						varrivee.add(v);
+						break;
+					} //A dï¿½commenter pour le circuit 2_safe.trk
+				
+				}
+				
+			}
+			i++;
+				
+			
+		}
+		System.out.println("nombre d'iteration = " + i);
+		
+		return;
+	}
 	@Override
 	public void add(UpdateEventListener listener) {
 		// TODO Auto-generated method stub
 		listeners.add(listener);
-		
 	}
+
+
 	
 	
 	
