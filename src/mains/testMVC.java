@@ -3,6 +3,7 @@ import terrain.*;
 import voiture.Voiture;
 import voiture.VoitureException;
 import voiture.VoitureFactory;
+import vue.Fenetre;
 import circuit.*;
 import controleur.IHMSwing;
 
@@ -36,14 +37,15 @@ public class testMVC {
 		Simulation simu = new Simulation(v,strat,c);
 		
 		//System.out.println("fini");
-		JFrame fen = new JFrame("test");
+		//JFrame fen = new JFrame("test");
 		simu.add(ihm);
 		//ci-dessous : pour que la fenetre prenne en compte 
 		ihm.setPreferredSize(new Dimension(768,1024));
-		fen.getContentPane().add(ihm);
-		fen.pack();
-        fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fen.setVisible(true);
+		Fenetre fen = new Fenetre(ihm,"test");
+//		fen.getContentPane().add(ihm);
+//		fen.pack();
+//        fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		fen.setVisible(true);
 		try {
 			simu.play();
 		} catch (VoitureException e) {
