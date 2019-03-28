@@ -1,5 +1,7 @@
 package voiture;
 
+import java.util.ArrayList;
+
 import geometrie.Vecteur;
 
 public interface Voiture {
@@ -14,4 +16,8 @@ public interface Voiture {
 	public boolean getDerapage();
 	public void setDirection(Vecteur v);
 	public void setPosition(Vecteur v);
+
+	void tryToDrive(Commande com, ArrayList<Commande> commandes, boolean bool, boolean bool2, int i)
+			throws VoitureException;
+	Commande setVitesseConstante(boolean bool, Commande com);
 }

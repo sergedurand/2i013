@@ -150,7 +150,9 @@ public class Simulation implements UpdateEventSender{
 		//test orientation
 		int i = 0;
 		ArrayList<Voiture> varrivee =  new ArrayList<Voiture>();
-		while(i<5000) {
+		while(i<150000) {
+			boolean bool=true;
+			boolean bool2=false;
 			for(Voiture v : voitures) {
 				if(i==0){
 					commandes.add(new ArrayList<Commande>());
@@ -165,8 +167,13 @@ public class Simulation implements UpdateEventSender{
 					}
 					Commande com = strategies.get(index).getCommande();
 					if (TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
-						commandes.get(index).add(com);
-						v.drive(com);
+						if (strategies.get(index) instanceof StrategyPrudente) {
+							v.tryToDrive(com,commandes.get(0),bool,bool2,0);
+						}
+						else {
+							v.tryToDrive(com,commandes.get(0),bool,bool2,1);
+						}
+						
 					}
 				
 					
@@ -197,106 +204,7 @@ public class Simulation implements UpdateEventSender{
 	}
 		
 		
-	public void play() throws VoitureException {
-		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
-		Graphics g=im.getGraphics();
-		//test orientation
-		int i = 0;
-		
-		while(i<5000) {
-			boolean bool=true;
-			boolean bool2=false;
-			Commande com = strat.getCommande();
-			if (TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
-				double turn=com.getTurn();
-				
-				if (((com.getTurn())>v.getMaxTurn()&&turn>=0)||((com.getTurn())<v.getMaxTurn()*-1&&turn<0)) {
-					while(turn>=0&&(turn>v.getMaxTurn())) {
-						if (com.getAcc()>0) {
-			        		turn*=0.5;
-			        		bool=false;
-			        	}
-			        	else {
-			        		turn*=0.5;
-			        		bool=false;
-			        	}
-					}
-					if (bool==false) {
-						if (com.getAcc()>0) {
-							commandes.add(new Commande(-1,turn));
-							this.v.drive(new Commande(-1,turn));
-						}
-						else {
-							commandes.add(new Commande(com.getAcc(),turn));
-							this.v.drive(new Commande(com.getAcc(),turn));
-						}
-					}
-					
-					while ((turn<0)&&(turn<v.getMaxTurn()*-1)) {
-						//System.out.println("turn = "+turn+"   getMaxTurn= "+v.getMaxTurn());
-						if (com.getAcc()>0) {
-			        		turn*=0.5;
-			        		//System.out.println("2eme version de turn:"+ turn);
-			        		bool2=false;
-			        		bool=false;
-			        	}
-			        	else {
-			        		turn*=0.5;
-			        		bool2=false;
-			        		bool=false;
-			        	}
-					}
-					if (bool2==false) {
-						if (com.getAcc()>0) {
-							commandes.add(new Commande(-1,turn));
-							this.v.drive(new Commande(-1,turn));
-						}
-						else {
-							commandes.add(new Commande(com.getAcc(),turn));
-							this.v.drive(new Commande(com.getAcc(),turn));
-						}
-					}
-					
-			
-		        }
-				
-				if (bool==true) {
-					commandes.add(com);
-					this.v.drive(com);
-				}
-				
-			}
-		
-			
-			else {
-				//System.out.println("aaaaaaaaaaaaaaaaaaaa");
-				//v.setDirection(v.getDirection().multiplication(-1));
-				//v.setPosition(v.getPosition().addition(v.getDirection().multiplication(v.getVitesse())));
-			}
-				// j'enlève tout le traçage : on le gère via le MVC, cf ihm
-				/*Trace(im);
-				System.out.println(v.getPosition().toString());
-				g.setColor(getColor());
-				g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());*/
-				
-				this.update();
-				if ((this.v.getPosition().getX()>=0)&&((this.v.getPosition().getX()<c.getWidth()))&&(this.v.getPosition().getY()>=0)&&((this.v.getPosition().getY()<c.getHeight()))&&TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (i!=0) && TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
-						System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" it�rations");
-						varrivee.add(v);
-						break;
-					}
-				
-				}
-				
-			}
-			i++;
-				
-			
-		}
-		System.out.println("nombre d'iteration = " + i);
-		
-		return;
-	}
+	
 
 
 

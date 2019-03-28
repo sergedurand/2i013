@@ -61,9 +61,9 @@ public class RadarDijkstra extends RadarImpl {
 		double scorecroise=0;
 		for (int i=0;i<taille;i++) {
 			scores2[i]=1/Math.log(oneScore(i)+500000); //Impl�mentation pour les circuits simples
-			//scores2[i]=1/oneScore(i); //Impl�mentation pour les circuits compliqu�s
+			//scores2[i]=1/(oneScore(i)+2); //Impl�mentation pour les circuits compliqu�s
 			scores[i]=calcScore(angles[i],epsilon);
-			scorecroise=scores[i]*scores2[i];
+			scorecroise=Math.log(scores[i])*scores2[i];
 			//System.out.println("itération");
 			if(scorecroise>max) {
 				max = scorecroise;
@@ -74,9 +74,9 @@ public class RadarDijkstra extends RadarImpl {
 				max = scores[i];
 				imax = i;
 			}*/
+			distPix[i]=scores[i]*epsilon;
 			
 		}
-		distPix[imax]=scores[imax]*epsilon;
 		this.BestIndex = imax;
 		return scores;
 	}

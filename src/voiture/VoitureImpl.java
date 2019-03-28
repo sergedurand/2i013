@@ -1,14 +1,16 @@
 package voiture;
 
+import java.util.ArrayList;
+
 import geometrie.Vecteur;
 
-public class VoitureImpl implements Voiture{
+public class VoitureImpl implements Voiture {
 	// état à l'instant t
 	private double vitesse = 0;
 	private Vecteur position;
 	private Vecteur direction;
-	
-	
+	public boolean vc=false;
+	public int i=0;
 	//Constantes définies dans la factory
 	private double[] tabVitesse;
 	private double[] tabTurn;
@@ -97,7 +99,135 @@ public class VoitureImpl implements Voiture{
 
         position = position.addition(direction.multiplication(vitesse));
 	}
+	
+	
 
+	@Override
+	public void tryToDrive(Commande com,ArrayList<Commande> commandes,boolean bool, boolean bool2,int j) throws VoitureException {
+		double turn=com.getTurn();
+		i++;
+		if (j==0) {
+		if (this.getVitesse()<0.5 && i>20) {
+			com =this.setVitesseConstante(vc,com);
+			vc=!vc;
+			if (((com.getTurn())>this.getMaxTurn()&&turn>=0)||((com.getTurn())<this.getMaxTurn()*-1&&turn<0)) {
+				while(turn>=0&&(turn>this.getMaxTurn())) {
+					if (com.getAcc()>0) {
+		        		turn/=2;
+		        		bool=false;
+		        	}
+		        	else {
+		        		turn*=0.50;
+		        		bool=false;
+		        	}
+				}
+				if (bool==false) {
+					if (com.getAcc()>0) {
+						commandes.add(new Commande(-com.getAcc(),turn));
+						this.drive(new Commande(-com.getAcc(),turn));
+					}
+					else {
+						commandes.add(new Commande(com.getAcc(),turn));
+						this.drive(new Commande(com.getAcc(),turn));
+					}
+				}
+				
+				while ((turn<0)&&(turn<this.getMaxTurn()*-1)) {
+					//System.out.println("turn = "+turn+"   getMaxTurn= "+this.getMaxTurn());
+					if (com.getAcc()>0) {
+		        		turn*=0.50;
+		        		//System.out.println("2eme version de turn:"+ turn);
+		        		bool2=false;
+		        		bool=false;
+		        	}
+		        	else {
+		        		turn*=0.50;
+		        		bool2=false;
+		        		bool=false;
+		        	}
+				}
+				if (bool2==false) {
+					if (com.getAcc()>0) {
+						commandes.add(new Commande(-com.getAcc(),turn));
+						this.drive(new Commande(-com.getAcc(),turn));
+					}
+					else {
+						commandes.add(new Commande(com.getAcc(),turn));
+						this.drive(new Commande(com.getAcc(),turn));
+					}
+				}
+				
+		
+	        }
+			
+			
+			
+			if (bool==true) {
+				commandes.add(com);
+				this.drive(com);
+			}
+			return;
+		}
+		}
+		else {
+		if (((com.getTurn())>this.getMaxTurn()&&turn>=0)||((com.getTurn())<this.getMaxTurn()*-1&&turn<0)) {
+			while(turn>=0&&(turn>this.getMaxTurn())) {
+				if (com.getAcc()>0) {
+	        		turn/=2;
+	        		bool=false;
+	        	}
+	        	else {
+	        		turn*=0.50;
+	        		bool=false;
+	        	}
+			}
+			if (bool==false) {
+				if (com.getAcc()>0) {
+					commandes.add(new Commande(-com.getAcc(),turn));
+					this.drive(new Commande(-com.getAcc(),turn));
+				}
+				else {
+					commandes.add(new Commande(com.getAcc(),turn));
+					this.drive(new Commande(com.getAcc(),turn));
+				}
+			}
+			
+			while ((turn<0)&&(turn<this.getMaxTurn()*-1)) {
+				//System.out.println("turn = "+turn+"   getMaxTurn= "+this.getMaxTurn());
+				if (com.getAcc()>0) {
+	        		turn*=0.50;
+	        		//System.out.println("2eme version de turn:"+ turn);
+	        		bool2=false;
+	        		bool=false;
+	        	}
+	        	else {
+	        		turn*=0.50;
+	        		bool2=false;
+	        		bool=false;
+	        	}
+			}
+			if (bool2==false) {
+				if (com.getAcc()>0) {
+					commandes.add(new Commande(-com.getAcc(),turn));
+					this.drive(new Commande(-com.getAcc(),turn));
+				}
+				else {
+					commandes.add(new Commande(com.getAcc(),turn));
+					this.drive(new Commande(com.getAcc(),turn));
+				}
+			}
+			
+	
+        }
+		}
+		
+		
+		if (bool==true) {
+			commandes.add(com);
+			this.drive(com);
+		}
+	}
+	
 	@Override
 	public double getMaxTurn() {
 		// TODO Auto-generated method stub
@@ -159,6 +289,14 @@ public class VoitureImpl implements Voiture{
 	
 	public void setPosition (Vecteur v) {
 		this.position=v;
+	}
+	@Override
+	public Commande setVitesseConstante (boolean bool,Commande com) {
+		if (bool==true) {
+			return new Commande(0.2,com.getTurn());
+		}
+		return new Commande(-0.1,com.getTurn());
+		
 	}
 	
 	@Override

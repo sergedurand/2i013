@@ -48,20 +48,7 @@ public class RadarImpl implements Radar {
 	protected double[] distPix;
 	protected int BestIndex;
 	
-	public void setAngles64() {
-		int taille = 64;
-		double angle = Math.PI/64;
-		double[] angles2 = new double[taille+1];
-		for(int i=1;i<=taille/2;i++) {
-			angles2[i-1]=angle*i;
-			angles2[angles2.length-i]=angle*-i;
-		}
-		angles2[32]=0;
-		this.angles = angles2;
-		this.distPix = new double[angles.length];
-		
-		
-	}
+
 
 	@Override
 	public double[] scores(double epsilon) {
@@ -153,6 +140,17 @@ public class RadarImpl implements Radar {
 		circuit=c;
 		voiture=v;
 		
+	}
+	
+	@Override
+	public double getDistMin() {
+		double min=Double.POSITIVE_INFINITY;
+		for (int i=0;i<distPix.length;i++) {
+			if (distPix[i]<min && distPix[i]!=0) {
+				min=distPix[i];
+			}
+		}
+		return min;
 	}
 
 }
