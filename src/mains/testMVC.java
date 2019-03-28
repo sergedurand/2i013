@@ -27,13 +27,14 @@ public class testMVC {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
+		Circuit c = CircuitFactoryFromFile.build("2_safe.trk");
 		Voiture v = VoitureFactory.build(c);
-		Radar rad = new RadarImpl(v,c,64);
+		Dijkstra dijk = new Dijkstra(c);
+		Radar rad = new RadarDijkstra(v,c,12,dijk);
 		StrategyRadarSimple strat = new StrategyRadarSimple(rad);
 		IHMSwing ihm = new IHMSwing();
 		//ihm.add(new VoitureObserveur(v));
-		//ihm.add(new RadarObserveur(rad));
+		ihm.add(new RadarObserveur(rad));
 		ihm.add(new TrajectoireObserveur(v));
 		ihm.addCircuit(c);
 		Simulation simu = new Simulation(c);
@@ -46,18 +47,18 @@ public class testMVC {
 		ihm.setPreferredSize(new Dimension(768,1024));
 		Voiture v2 = VoitureFactory.build(c);
 		v2.setPosition(new Vecteur(v2.getPosition().getX()+5,v2.getPosition().getY()));
-		Dijkstra dijk = new Dijkstra(c);
-		Radar rad2 = new RadarDijkstra(v2,c,64,dijk);
+		Radar rad2 = new RadarImpl(v2,c,64);
+		//ArrayList<Commande> liste = Simulation.loadListeCommande(filename)
 		Strategy strat2 = new StrategyRadarSimple(rad2);
 		TrajectoireObserveur trajobs2 = new TrajectoireObserveur(v2);
-		
+		ihm.add(new RadarObserveur(rad2));
 		trajobs2.setColor(Color.BLUE);
 		VoitureObserveur voitobs2 = new VoitureObserveur(v2);
 		voitobs2.setColor(Color.BLUE);
 		simu.addVoitureStrategies(v2, strat2);
 		ihm.add(trajobs2);
 		
-		simu.addVoitureStrategies(v2, strat2);;
+		//simu.addVoitureStrategies(v2, strat2);;
 		Fenetre fen = new Fenetre(ihm,"test");
 //		fen.getContentPane().add(ihm);
 //		fen.pack();

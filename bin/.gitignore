@@ -1,6 +1,11 @@
-/simulation/
-/mains/
-/voiture/
 /algo/
+/circuit/
 /controleur/
+/geometrie/
+/mains/
 /observeurs/
+/simulation/
+/strategy/
+/terrain/
+/voiture/
+/vue/

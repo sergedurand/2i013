@@ -22,12 +22,8 @@ public class TrajectoireObserveur implements ObserveurSwing {
 	public void print(Graphics g) {
 		// TODO Auto-generated method stub
 		g.setColor(coul);
-		if(trajectoire.size()<100) {
-			trajectoire.add(voit.getPosition());
-		}else { //pour ne pas faire toute la trajectoire:
-			trajectoire.remove(0);
-			trajectoire.add(voit.getPosition());
-		}
+		trajectoire.add(voit.getPosition());
+		
 		for(Vecteur v : trajectoire) {
 			g.fillRect((int)v.getX(),(int) v.getY(), 2, 2);
 		}
