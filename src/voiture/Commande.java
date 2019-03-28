@@ -17,6 +17,15 @@ public class Commande {
 	public double getTurn() {
 		return turn;
 	}
+	
+	public void setTurn(double turn) {
+		this.turn=turn;
+	}
+	
+	public void setAcc(double acc) {
+		this.acc=acc;
+	}
+	
 
 	@Override
 	public String toString() {

@@ -101,13 +101,14 @@ public class Simulation implements UpdateEventSender{
                 for(Commande c:liste){
                         os.writeDouble(c.getAcc());
                         os.writeDouble(c.getTurn());
+
                 }
                 os.close();
         } catch (IOException e) {
                 e.printStackTrace();
         }
 }
-
+	
 	public static ArrayList<Commande> loadListeCommande(  String filename) throws IOException{
         ArrayList<Commande> liste = null;
 
@@ -148,17 +149,78 @@ public class Simulation implements UpdateEventSender{
          return new Color((int)(v.getVitesse()*255), 0, (int) (v.getVitesse()*255));
 	}
 	
+	
+	
+	
+	
 	public void play() throws VoitureException {
 		BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
 		Graphics g=im.getGraphics();
 		//test orientation
 		int i = 0;
-
+		
 		while(i<5000) {
+			boolean bool=true;
+			boolean bool2=false;
 			Commande com = strat.getCommande();
 			if (TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
-			commandes.add(com);
-			this.v.drive(com);
+				double turn=com.getTurn();
+				
+				if (((com.getTurn())>v.getMaxTurn()&&turn>=0)||((com.getTurn())<v.getMaxTurn()*-1&&turn<0)) {
+					while(turn>=0&&(turn>v.getMaxTurn())) {
+						if (com.getAcc()>0) {
+			        		turn*=0.5;
+			        		bool=false;
+			        	}
+			        	else {
+			        		turn*=0.5;
+			        		bool=false;
+			        	}
+					}
+					if (bool==false) {
+						if (com.getAcc()>0) {
+							commandes.add(new Commande(-1,turn));
+							this.v.drive(new Commande(-1,turn));
+						}
+						else {
+							commandes.add(new Commande(com.getAcc(),turn));
+							this.v.drive(new Commande(com.getAcc(),turn));
+						}
+					}
+					
+					while ((turn<0)&&(turn<v.getMaxTurn()*-1)) {
+						//System.out.println("turn = "+turn+"   getMaxTurn= "+v.getMaxTurn());
+						if (com.getAcc()>0) {
+			        		turn*=0.5;
+			        		//System.out.println("2eme version de turn:"+ turn);
+			        		bool2=false;
+			        		bool=false;
+			        	}
+			        	else {
+			        		turn*=0.5;
+			        		bool2=false;
+			        		bool=false;
+			        	}
+					}
+					if (bool2==false) {
+						if (com.getAcc()>0) {
+							commandes.add(new Commande(-1,turn));
+							this.v.drive(new Commande(-1,turn));
+						}
+						else {
+							commandes.add(new Commande(com.getAcc(),turn));
+							this.v.drive(new Commande(com.getAcc(),turn));
+						}
+					}
+					
+			
+		        }
+				
+				if (bool==true) {
+					commandes.add(com);
+					this.v.drive(com);
+				}
+				
 			}
 		
 			
@@ -176,20 +238,20 @@ public class Simulation implements UpdateEventSender{
 				this.update();
 				if ((this.v.getPosition().getX()>=0)&&((this.v.getPosition().getX()<c.getWidth()))&&(this.v.getPosition().getY()>=0)&&((this.v.getPosition().getY()<c.getHeight()))&&TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (i!=0) && TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
 					/*if ((c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))<=0)) {
-						System.out.println("Mauvais côté de la ligne: x="+this.v.getPosition().getX()+" y="+this.v.getPosition().getX()+" prod scal: "+(c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))));
+						System.out.println("Mauvais cï¿½tï¿½ de la ligne: x="+this.v.getPosition().getX()+" y="+this.v.getPosition().getX()+" prod scal: "+(c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))));
 						v.setDirection(c.getDirectionDepart());
 						g.setColor(new Color(0,0,0));
 						g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());
 						continue;
 					}*/
-					System.out.println("Ligne d'arrivee franchie: "+i+" itérations");
+					System.out.println("Ligne d'arrivee franchie: "+i+" itï¿½rations");
 					break;
-				} //A décommenter pour le circuit 2_safe.trk
+				} //A dï¿½commenter pour le circuit 2_safe.trk
 				i++;
 				//System.out.println("i: "+i);
 			
 		}
-		System.out.println("nombre d'itération = " + i);
+		System.out.println("nombre d'itï¿½ration = " + i);
 		
 		/*try {
            File outputfile = new File("Fin simulation simple.png");

@@ -35,6 +35,7 @@ public class VoitureImpl implements Voiture {
 
 	@Override
 	public void drive(Commande c) throws VoitureException{
+		boolean bool=true;
 		if(c==null) {
 			System.out.println("Commande vide");
 			return;
@@ -48,10 +49,30 @@ public class VoitureImpl implements Voiture {
         	throw new VoitureException("Erreur dans l'accélération");
         }
         // 2) Est ce que la rotation demandée est compatible avec la vitesse actuelle, sinon, throw new VoitureException
-        if (c.getTurn()>getMaxTurn()) {
-        	drive(new Commande(-1*(c.getAcc()),c.getTurn()*(1/2)));
+        double turn=c.getTurn();
+        double acc=c.getAcc();
+        if ((turn>getMaxTurn()&&turn>=0)||(turn<getMaxTurn()*-1&&turn<0)) {
+        	System.out.println("ERREURRRRRRRRRRRRRRR");
+        	if(turn>=0&&(turn>getMaxTurn())) {
+        		if (acc>=0) {
+            		drive(new Commande(-1,getMaxTurn()*0.9));
+            		return;
+            	}
+        	}
+        	
+        	else if (turn<0&&(turn<getMaxTurn()*-1)) {
+        		if (acc>=0) {
+            		drive(new Commande(-1,getMaxTurn()*(-0.9)));
+            		return;
+            	}
+        	}
+        	
+        	
         }
-        
+        /*if (bool==false) {
+        	drive(new Commande(-1*acc,turn));
+        	return;
+        }*/
         // approche normale
         // 1.1) gestion du volant
         direction = direction.rotation(c.getTurn() * braquage); // modif de direction
@@ -80,13 +101,39 @@ public class VoitureImpl implements Voiture {
 	@Override
 	public double getMaxTurn() {
 		// TODO Auto-generated method stub
-		for (int i=0;i<tabVitesse.length;i++) {
-			if(vitesse<tabVitesse[i]) {
-				return tabTurn[i];
-			}
+		if (vitesse<tabVitesse[0]*vmax) {
+			return tabTurn[0];
+		}
+		if (vitesse<tabVitesse[1]*vmax) {
+			return tabTurn[1];
+		}
+		if (vitesse<tabVitesse[2]*vmax) {
+			return tabTurn[2];
+		}
+		if (vitesse<tabVitesse[3]*vmax) {
+			return tabTurn[3];
+		}
+		if (vitesse<tabVitesse[4]*vmax) {
+			return tabTurn[4];
+		}
+		if (vitesse<tabVitesse[5]*vmax) {
+			return tabTurn[5];
+		}
+		if (vitesse<tabVitesse[6]*vmax) {
+			return tabTurn[6];
+		}
+		if (vitesse<tabVitesse[7]*vmax) {
+			return tabTurn[7];
+		}
+		if (vitesse<tabVitesse[8]*vmax) {
+			return tabTurn[8];
+		}
+		if (vitesse<tabVitesse[9]*vmax) {			
+			return tabTurn[9];
 		}
 		return 0.;
 	}
+	
 
 	@Override
 	public double getVitesse() {

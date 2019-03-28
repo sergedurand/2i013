@@ -7,14 +7,14 @@ import java.awt.Color;
 
 public class RadarObserveur implements ObserveurSwing {
 	
-	public RadarObserveur(RadarImpl rad) {
+	public RadarObserveur(Radar r) {
 		super();
-		this.rad = rad;
+		this.rad = r;
 	}
 
 
 
-	private RadarImpl rad;
+	private Radar rad;
 	
 	
 

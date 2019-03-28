@@ -4,6 +4,7 @@ import simulation.*;
 import terrain.TerrainTools;
 import circuit.*;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -80,7 +81,7 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 	public void manageUpdate() {
 		repaint();
 		try {
-            Thread.sleep(20);
+            Thread.sleep(2);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -90,6 +91,11 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
             }
         });
 
+	}
+	
+	public void virage() {
+		Graphics g=im.getGraphics();
+		g.fillRect(514, 864, 20, 20);
 	}
 
 }

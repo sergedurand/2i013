@@ -14,7 +14,6 @@ public class CalculetteVue  extends JFrame
     private JTextField  edit;   
     
     private boolean total_affiche=false;
-
     /**
      * Constructeur de  CalculetteVue
      */

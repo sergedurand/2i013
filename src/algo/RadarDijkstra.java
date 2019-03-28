@@ -60,8 +60,8 @@ public class RadarDijkstra extends RadarImpl {
 		int imax = 0;
 		double scorecroise=0;
 		for (int i=0;i<taille;i++) {
-			//scores2[i]=1/Math.log(oneScore(i)+500000); //Implémentation pour les circuits simples
-			scores2[i]=1/oneScore(i); //Implémentation pour les circuits compliqués
+			scores2[i]=1/Math.log(oneScore(i)+500000); //Implï¿½mentation pour les circuits simples
+			//scores2[i]=1/(oneScore(i)*oneScore(i)); //Implï¿½mentation pour les circuits compliquï¿½s
 			scores[i]=calcScore(angles[i],epsilon);
 			scorecroise=scores[i]*scores2[i];
 			//System.out.println("itÃ©ration");

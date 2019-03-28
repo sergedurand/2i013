@@ -25,12 +25,23 @@ public class testMVC {
 		//BufferedImage im = TerrainTools.imageFromTerrain(c.getTerrain());
 		//Graphics g = im.getGraphics();
 		Voiture v = VoitureFactory.build(c);
-		RadarImpl rad = new RadarImpl(v,c, new double[1]);
-		rad.setAngles64();
-		StrategyRadarSimple strat = new StrategyRadarSimple(rad);
+		/*RadarImpl r = new RadarImpl(v,c, new double[1]);
+		r.setAngles64();*/
+		int taille = 64;
+		double angle = Math.PI/64;
+		double[] angles = new double[taille+1];
+		for(int i=1;i<=taille/2;i++) {
+			angles[i-1]=angle*i;
+			angles[angles.length-i]=angle*-i;
+		}
+		angles[32]=0;
+		Dijkstra dijk = new Dijkstra(c);
+		dijk.compute();
+		Radar r=new RadarDijkstra(v,c,angles,dijk);
+		StrategyRadarSimple strat = new StrategyRadarSimple(r);
 		IHMSwing ihm = new IHMSwing();
 		ihm.add(new VoitureObserveur(v));
-		ihm.add(new RadarObserveur(rad));
+		ihm.add(new RadarObserveur(r));
 		ihm.add(new TrajectoireObserveur(v));
 		ihm.addCircuit(c);
 		Simulation simu = new Simulation(v,strat,c);
@@ -50,6 +61,7 @@ public class testMVC {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Simulation.saveListeCommande(simu.getCommandes(), "listecommandes.txt");
 		
 		
 	}

@@ -1,8 +1,5 @@
-
-
 import  java.awt.event.*;
 import  javax.swing.*;
-
 
 public class CalculetteControleur   implements  ActionListener
 {
@@ -75,3 +72,62 @@ public class CalculetteControleur   implements  ActionListener
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 
 
 public class CalculetteModele
-{
+{  
     private int   total;  //total en cours
     
     public  static  final   int RIEN=0;
@@ -108,10 +108,11 @@ public class CalculetteModele
     }
     
     /**
-     * point d'entré
+     * point d'entrï¿½
      */
     public  static  void    main(String args[])
     {
+    	System.out.println("1");
         CalculetteModele    modele=new  CalculetteModele();
         CalculetteVue   vue=new CalculetteVue(modele);
     }
