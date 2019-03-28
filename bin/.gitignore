@@ -1,6 +1,20 @@
+<<<<<<< HEAD
 /voiture/
 /mains/
 /simulation/
 /controleur/
 /observeurs/
 /algo/
+=======
+/algo/
+/circuit/
+/controleur/
+/geometrie/
+/mains/
+/observeurs/
+/simulation/
+/strategy/
+/terrain/
+/voiture/
+/vue/
+>>>>>>> a6fddba7f1e9e005cde234a8c975a86e4348b72a

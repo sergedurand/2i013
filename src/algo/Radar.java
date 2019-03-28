@@ -11,5 +11,7 @@ public interface Radar {
     public void traceRadar();
 	double[] getDistPix();
 	public void init(Voiture v,Circuit c);
+	//public Radar(int n); //constructeur avec le nombre d'angles en paramètres
+	public void setAngles64();
 }
 

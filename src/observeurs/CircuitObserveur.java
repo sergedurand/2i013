@@ -2,6 +2,7 @@ package observeurs;
 import circuit.*;
 import terrain.*;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -21,6 +22,12 @@ public class CircuitObserveur implements ObserveurSwing {//dans cette classe on 
 		// TODO Auto-generated method stub
 		g.drawImage(im, 1, 1, null);
 
+	}
+
+	@Override
+	public void setColor(Color c) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

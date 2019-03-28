@@ -13,8 +13,8 @@ public class RadarDijkstra extends RadarImpl {
 	Vecteur dep;
 	ArrayList<Vecteur> arrivees;
 	
-	public RadarDijkstra(Voiture voiture, Circuit circuit, double[] angles,Dijkstra dij) {
-		super(voiture, circuit, angles);
+	public RadarDijkstra(Voiture voiture, Circuit circuit, int n,Dijkstra dij) {
+		super(voiture, circuit, n);
 		this.dij=dij;
 		arr=circuit.getDirectionArrivee();
 		dep=circuit.getDirectionDepart();
@@ -61,7 +61,7 @@ public class RadarDijkstra extends RadarImpl {
 		double scorecroise=0;
 		for (int i=0;i<taille;i++) {
 			scores2[i]=1/Math.log(oneScore(i)+500000); //Impl�mentation pour les circuits simples
-			//scores2[i]=1/(oneScore(i)*oneScore(i)); //Impl�mentation pour les circuits compliqu�s
+			//scores2[i]=1/oneScore(i); //Impl�mentation pour les circuits compliqu�s
 			scores[i]=calcScore(angles[i],epsilon);
 			scorecroise=scores[i]*scores2[i];
 			//System.out.println("itération");

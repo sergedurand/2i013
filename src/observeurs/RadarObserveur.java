@@ -6,23 +6,21 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 public class RadarObserveur implements ObserveurSwing {
+	private Radar rad;
+	private Color coul;
 	
-	public RadarObserveur(Radar r) {
+	public RadarObserveur(Radar rad2) {
 		super();
-		this.rad = r;
+		this.rad = rad2;
+		coul = Color.BLUE;
 	}
 
-
-
-	private Radar rad;
-	
-	
 
 	@Override
 	public void print(Graphics g) {
 		// TODO Auto-generated method stub
 		
-		g.setColor(Color.blue);
+		g.setColor(coul);
 		Vecteur vdir;
 		for (int i=0;i<rad.getDistPix().length;i++) {
 			vdir=rad.getVoiture().getDirection().rotation(rad.getAngles()[i]);
@@ -45,6 +43,13 @@ public class RadarObserveur implements ObserveurSwing {
 	private int getY() {
 		// TODO Auto-generated method stub
 		return (int) rad.getVoiture().getPosition().getY();
+	}
+
+
+	@Override
+	public void setColor(Color c) {
+		// TODO Auto-generated method stub
+		coul = c;
 	}
 
 }

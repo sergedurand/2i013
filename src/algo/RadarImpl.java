@@ -16,11 +16,24 @@ import terrain.*;
 
 public class RadarImpl implements Radar {
 
-	public RadarImpl(Voiture voiture, Circuit circuit, double[] angles) {
+	public RadarImpl(Voiture voiture, Circuit circuit, int nb_angles) {
 		super();
 		this.voiture = voiture;
 		this.circuit = circuit;
-		this.angles = angles;
+		int taille;
+		if(nb_angles%2 != 0) { //pour etre sur que la taille est paire
+			taille=nb_angles+1;
+		}
+		else {
+			taille = nb_angles;
+		}
+		this.angles = new double[taille];
+		double angle = Math.PI/taille;
+		for(int i = 1;i<=taille/2;i++) {
+			angles[i-1]=angle*i;
+			angles[taille-i]=angle*-i;
+		}
+		angles[taille/2]=0;
 		this.distPix = new double[angles.length];
 		BestIndex = 0;
 	}

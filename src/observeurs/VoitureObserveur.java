@@ -6,10 +6,12 @@ import voiture.Voiture;
 
 public class VoitureObserveur implements ObserveurSwing {
 	private Voiture voiture;
+	private Color coul;
 
 	
 	public VoitureObserveur(Voiture voiture) {
 		this.voiture=voiture;
+		coul = Color.YELLOW;
 	}
 	
 	
@@ -28,6 +30,10 @@ public class VoitureObserveur implements ObserveurSwing {
            return new Color((int)(voiture.getVitesse()*255),  (int) (voiture.getVitesse()*255), 0);
 
          return new Color((int)(voiture.getVitesse()*255), 0, (int) (voiture.getVitesse()*255));
+	}
+	
+	public void setColor(Color c) {
+		coul = c;
 	}
 
 	 public void print(Graphics g){

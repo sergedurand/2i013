@@ -24,18 +24,11 @@ public class TestSimulation {
 		Voiture v2 = VoitureFactory.build(c);
 		Voiture v = VoitureFactory.build(c);
 		Strategy strat = new StrategyLigneDroite();
-		Simulation s1 = new Simulation(v,strat,c);
+		Simulation s1 = new Simulation(c);
+		s1.addVoitureStrategies(v, strat);
 		//s1.play(100);
 		
-		int taille = 64;
-		double angle = Math.PI/64;
-		double[] angles = new double[taille+1];
-		for(int i=1;i<=taille/2;i++) {
-			angles[i-1]=angle*i;
-			angles[angles.length-i]=angle*-i;
-		}
-		angles[32]=0;
-		Radar rad1 = new RadarImpl(v2,c,angles);
+		Radar rad1 = new RadarImpl(v2,c,64);
 		rad1.scores(0.1);
 		System.out.println(rad1.toString());
 		System.out.println(rad1.getBestIndex());
@@ -43,7 +36,8 @@ public class TestSimulation {
 		
 		System.out.println("finifini");
 		Strategy strat2 = new StrategyRadarSimple(rad1);
-		Simulation simu2 = new Simulation(v2, strat2, c);
+		Simulation simu2 = new Simulation(c);
+		simu2.addVoitureStrategies(v2, strat2);
 		//simu2.play("test");
 		System.out.println(" c.getWidth: " + c.getWidth());
 		System.out.println("c.getHeight : " + c.getHeight());
