@@ -56,7 +56,10 @@ public class Test {
        for(int i : l1){
            System.out.println("l1 " + i);
        }
-
+       
+       String res = "Valeur neurone : "+ 3.3 +" \n";
+       res += "biais = " + 4.5 +"\n";
+       System.out.println(res);
 	}
 	
 		
