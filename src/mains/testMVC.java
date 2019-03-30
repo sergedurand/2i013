@@ -23,12 +23,13 @@ import algo.*;
 import observeurs.*;
 import strategy.Strategy;
 import strategy.StrategyListeCommande;
+import strategy.StrategyPoint;
 import strategy.StrategyPrudente;
 import strategy.StrategyRadarSimple;
 
 public class testMVC {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
 		Voiture v = VoitureFactory.build(c);
@@ -37,12 +38,13 @@ public class testMVC {
 		dijk.compute();
 		Radar rad = new RadarDijkstra(v,c,12,dijk);
 		//RadarImpl rad=new RadarImpl(v,c,12);
-		//StrategyRadarSimple strat1 = new StrategyRadarSimple(rad);
-		StrategyPrudente strat = new StrategyPrudente(rad);
+		StrategyRadarSimple strat = new StrategyRadarSimple(rad);
+		/*StrategyPoint strat = new StrategyPoint(rad,v);
+		strat.addPoint(new Vecteur(600,520));
+		strat.addPoint(new Vecteur(550,550)); test du fonctionnement de la stratégie point à point */
 		IHMSwing ihm = new IHMSwing();
-		//ihm.add(new VoitureObserveur(v));
-		//ihm.add(new RadarObserveur(rad));
-
+		ihm.add(new VoitureObserveur(v));
+		ihm.add(new RadarObserveur(rad));
 		ihm.add(new TrajectoireObserveur(v));
 		ihm.addCircuit(c);
 		Simulation simu = new Simulation(c);
@@ -84,6 +86,7 @@ public class testMVC {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		Simulation.saveListeCommande(simu.getCommandes().get(0), "listecommandes0.txt");
 //		
 //		Simulation.saveListeCommande(simu.getCommandes().get(0), "listecommandes0.txt");
 ////		Simulation.saveListeCommande(simu.getCommandes().get(1), "listecommandes1.txt");

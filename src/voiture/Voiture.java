@@ -17,7 +17,7 @@ public interface Voiture {
 	public void setDirection(Vecteur v);
 	public void setPosition(Vecteur v);
 
-	void tryToDrive(Commande com, ArrayList<Commande> commandes, boolean bool, boolean bool2, int i)
+	void tryToDrive(Commande com, ArrayList<Commande> commandes, boolean bool, boolean bool2)
 			throws VoitureException;
 	Commande setVitesseConstante(boolean bool, Commande com);
 }

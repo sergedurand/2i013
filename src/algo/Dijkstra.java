@@ -116,6 +116,11 @@ public class Dijkstra{
 			q.remove(s);
 
 		}
+		for (int i=0;i<c.getWidth();i++) {
+			for (int j=0;j<c.getHeight();j++) {
+				dist[i][j]=dist[i][j];
+			}
+		}
 		
 	}
 }

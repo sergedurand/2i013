@@ -150,6 +150,7 @@ public class Simulation implements UpdateEventSender{
 		//test orientation
 		int i = 0;
 		ArrayList<Voiture> varrivee =  new ArrayList<Voiture>();
+		
 		while(i<150000) {
 			boolean bool=true;
 			boolean bool2=false;
@@ -165,13 +166,27 @@ public class Simulation implements UpdateEventSender{
 					if(index==0 && i<20) {
 						continue;
 					}
-					Commande com = strategies.get(index).getCommande();
+					Commande com = null;
 					if (TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
 						if (strategies.get(index) instanceof StrategyPrudente) {
-							v.tryToDrive(com,commandes.get(0),bool,bool2,0);
+							StrategyPrudente strat=(StrategyPrudente)strategies.get(index);
+							strat.setVoiture(v);
+							com=strat.getCommande();
+							v.drive(com);
+							strat.setVoiture(v);
 						}
+						
+						if (strategies.get(index) instanceof StrategyPoint) {
+							StrategyPoint strat=(StrategyPoint)strategies.get(index);
+							strat.setVoiture(v);
+							com=strat.getCommande();
+							v.tryToDrive(com,commandes.get(0),bool,bool2);
+							strat.setVoiture(v);
+						}
+						
+						
 						else {
-							v.tryToDrive(com,commandes.get(0),bool,bool2,1);
+							v.tryToDrive(strategies.get(index).getCommande(),commandes.get(0),bool,bool2);
 						}
 						
 					}

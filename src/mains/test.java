@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 import algo.*;
 
 
-public class Test {
+public class test {
 
 	public static void main(String[] args) throws VoitureException {
 		// TODO Auto-generated method stub

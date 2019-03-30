@@ -35,11 +35,13 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 	public IHMSwing(BufferedImage im){
 		super();
 		this.im=im;
+		
 	}
 	
 	public void addCircuit(Circuit c) {//construction a partir d'un circuit
 		circuit = new CircuitObserveur(c);
 		im = TerrainTools.imageFromTerrain(c.getTerrain());
+		
 		}
 	public void init(String nom) {
 
@@ -79,12 +81,14 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 	}
 	@Override
 	public void manageUpdate() {
+
 		repaint();
 		try {
             Thread.sleep(0);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+		
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 repaint();
