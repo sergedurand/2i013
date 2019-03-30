@@ -4,15 +4,36 @@ import java.util.ArrayList;
 
 public class CoucheEntree extends CoucheNeurone {
 
-	public CoucheEntree(int taille) {
-		super(taille);
+	public CoucheEntree(int taille, ArrayList<Neurone> neurones) {
+		super(taille, neurones);
 		// TODO Auto-generated constructor stub
 	}
-	
-	public void initAleatoire(int output, double min,  double max) {
-		super.initAleatoire(0, output, min, max);
+
+	/**
+	 * Instantiate a layer of given size and given values.
+	 * @param taille
+	 */
+	public CoucheEntree(ArrayList<Double> values) {
+		super(values.size());
+		int taille = values.size();
+		for(int i = 0;i<taille;i++) {
+			this.getNeurones().set(i, new Neurone(values.get(i)));
+		}
 	}
 	
+	public CoucheEntree(int taille) {
+		// TODO Auto-generated constructor stub
+		super(taille);
+	}
+
+	public CoucheEntree(ArrayList<ArrayList<ArrayList<Double>>> listePoidsNeurones, ArrayList<Double> biais) {
+		super(listePoidsNeurones,biais);
+	}
+
+	
+
+	
+
 	public void setInput(ArrayList<Double> inputs) {
 		if(inputs.size()!=this.getTaille()) {
 			System.out.println("Liste ne correspondant pas au nombre de neurone");
