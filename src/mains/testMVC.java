@@ -40,8 +40,17 @@ public class testMVC {
 		//RadarImpl rad=new RadarImpl(v,c,12);
 		//StrategyRadarSimple strat = new StrategyRadarSimple(rad);
 		StrategyPoint strat = new StrategyPoint(rad,v);
+		
+		
+		strat.addPoint(new Vecteur(200,455));
+		strat.addPoint(new Vecteur(400,455));
 		strat.addPoint(new Vecteur(600,520));
-		strat.addPoint(new Vecteur(530,630)); //test du fonctionnement de la stratégie point à point 
+		strat.addPoint(new Vecteur(530,650));
+		strat.addPoint(new Vecteur(400,400));
+		strat.addPoint(new Vecteur(400,350));
+		
+		 //test du fonctionnement de la stratégie point à point 
+		
 		IHMSwing ihm = new IHMSwing();
 		ihm.add(new VoitureObserveur(v));
 		ihm.add(new RadarObserveur(rad));
