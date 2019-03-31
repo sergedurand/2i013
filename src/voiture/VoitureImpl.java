@@ -55,7 +55,7 @@ public class VoitureImpl implements Voiture {
         double acc=c.getAcc();
         if ((turn>getMaxTurn()&&turn>=0)||(turn<getMaxTurn()*-1&&turn<0)) {
         	System.out.println("ERREURRRRRRRRRRRRRRR");
-        	if(turn>=0&&(turn>getMaxTurn())) {
+        	/*if(turn>=0&&(turn>getMaxTurn())) {
         		if (acc>=0) {
             		drive(new Commande(-1,getMaxTurn()*0.9));
             		return;
@@ -67,7 +67,7 @@ public class VoitureImpl implements Voiture {
             		drive(new Commande(-1,getMaxTurn()*(-0.9)));
             		return;
             	}
-        	}
+        	}*/
         	
         	
         }
@@ -103,73 +103,9 @@ public class VoitureImpl implements Voiture {
 	
 
 	@Override
-	public void tryToDrive(Commande com,ArrayList<Commande> commandes,boolean bool, boolean bool2,int j) throws VoitureException {
+	public void tryToDrive(Commande com,ArrayList<Commande> commandes,boolean bool, boolean bool2) throws VoitureException {
 		double turn=com.getTurn();
 		i++;
-		if (j==0) {
-		if (this.getVitesse()<0.5 && i>20) {
-			com =this.setVitesseConstante(vc,com);
-			vc=!vc;
-			if (((com.getTurn())>this.getMaxTurn()&&turn>=0)||((com.getTurn())<this.getMaxTurn()*-1&&turn<0)) {
-				while(turn>=0&&(turn>this.getMaxTurn())) {
-					if (com.getAcc()>0) {
-		        		turn/=2;
-		        		bool=false;
-		        	}
-		        	else {
-		        		turn*=0.50;
-		        		bool=false;
-		        	}
-				}
-				if (bool==false) {
-					if (com.getAcc()>0) {
-						commandes.add(new Commande(-com.getAcc(),turn));
-						this.drive(new Commande(-com.getAcc(),turn));
-					}
-					else {
-						commandes.add(new Commande(com.getAcc(),turn));
-						this.drive(new Commande(com.getAcc(),turn));
-					}
-				}
-				
-				while ((turn<0)&&(turn<this.getMaxTurn()*-1)) {
-					//System.out.println("turn = "+turn+"   getMaxTurn= "+this.getMaxTurn());
-					if (com.getAcc()>0) {
-		        		turn*=0.50;
-		        		//System.out.println("2eme version de turn:"+ turn);
-		        		bool2=false;
-		        		bool=false;
-		        	}
-		        	else {
-		        		turn*=0.50;
-		        		bool2=false;
-		        		bool=false;
-		        	}
-				}
-				if (bool2==false) {
-					if (com.getAcc()>0) {
-						commandes.add(new Commande(-com.getAcc(),turn));
-						this.drive(new Commande(-com.getAcc(),turn));
-					}
-					else {
-						commandes.add(new Commande(com.getAcc(),turn));
-						this.drive(new Commande(com.getAcc(),turn));
-					}
-				}
-				
-		
-	        }
-			
-			
-			
-			if (bool==true) {
-				commandes.add(com);
-				this.drive(com);
-			}
-			return;
-		}
-		}
-		else {
 		if (((com.getTurn())>this.getMaxTurn()&&turn>=0)||((com.getTurn())<this.getMaxTurn()*-1&&turn<0)) {
 			while(turn>=0&&(turn>this.getMaxTurn())) {
 				if (com.getAcc()>0) {
@@ -219,9 +155,6 @@ public class VoitureImpl implements Voiture {
 			
 	
         }
-		}
-		
-		
 		if (bool==true) {
 			commandes.add(com);
 			this.drive(com);
@@ -293,9 +226,9 @@ public class VoitureImpl implements Voiture {
 	@Override
 	public Commande setVitesseConstante (boolean bool,Commande com) {
 		if (bool==true) {
-			return new Commande(0.2,com.getTurn());
+			return new Commande(0.3,com.getTurn());
 		}
-		return new Commande(-0.1,com.getTurn());
+		return new Commande(-0.2,com.getTurn());
 		
 	}
 	
