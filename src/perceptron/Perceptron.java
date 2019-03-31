@@ -17,6 +17,8 @@ public class Perceptron {
 	
 	/**
 	 * creates a full network from a basic structure : a list of sizes of each layer. 
+	 * Has to be size 2 minimum as the minimal network has 2 layer
+	 * initiate all values, weights and bias at 0.
 	 * @param structure
 	 */
 	public Perceptron(ArrayList<Integer> structure) {
@@ -25,6 +27,8 @@ public class Perceptron {
 			return;
 		}
 		entree = new CoucheEntree(structure.get(0));
+		entree.setInputWeights(PerceptronTools.getListWeights(entree.getTaille(), 1));
+		
 		ArrayList<CoucheNeurone> cCachee = new ArrayList<CoucheNeurone>();
 		for(int i = 1;i<structure.size();i++) {
 			if(i<(structure.size()-1)) {
@@ -35,6 +39,38 @@ public class Perceptron {
 				}
 		}
 		this.coucheCachee = cCachee;
+		if(structure.size() == 2) {
+			entree.setOutputWeights(PerceptronTools.getListWeights(entree.getTaille(), sortie.getTaille()));
+			sortie.setInputWeightsFromLayer(entree);
+		}else {
+			int taille_cachee = this.getCoucheCachee().size();
+			CoucheNeurone couche_courante = this.getCoucheCachee().get(0);
+			entree.setOutputWeights(PerceptronTools.getListWeights(entree.getTaille(), couche_courante.getTaille()));
+			couche_courante.setInputWeightsFromLayer(entree);
+			if(taille_cachee==1) {
+				couche_courante.setOutputWeights(PerceptronTools.getListWeights(couche_courante.getTaille(), sortie.getTaille()));
+				sortie.setInputWeightsFromLayer(couche_courante);
+			}else {
+				couche_courante.setOutputWeights(PerceptronTools.getListWeights(couche_courante.getTaille(),this.getCoucheCachee().get(1).getTaille()));
+				for(int j = 1;j<taille_cachee;j++) {
+					CoucheNeurone couche_precedente = this.getCoucheCachee().get(j-1);
+					couche_courante = this.getCoucheCachee().get(j);
+					couche_courante.setInputWeightsFromLayer(couche_precedente);
+					if(j!=this.getCoucheCachee().size()-1) {
+						couche_courante.setOutputWeights(PerceptronTools.getListWeights(couche_courante.getTaille(), this.getCoucheCachee().get(j+1).getTaille()));
+					}
+					
+				}
+				
+				CoucheNeurone derniere_couche = this.getCoucheCachee().get(taille_cachee-1);
+				int nb_neurone = derniere_couche.getTaille();
+				int nb_sortie = sortie.getTaille();
+				derniere_couche.setOutputWeights(PerceptronTools.getListWeights(nb_neurone, nb_sortie));
+				sortie.setInputWeightsFromLayer(derniere_couche);
+			}
+
+		}
+		
 	}
 	
 	/**
@@ -86,47 +122,56 @@ public class Perceptron {
 		}
 	}
 	
+	/**
+	 * Sets random weights and bias everywhere.
+	 * Assumes the network has been initialiazed
+	 * @param min
+	 * @param max
+	 */
 	public void setRandomWeightsBias(double min, double max) {//il suffit de randomiser les couches sortantes uniquement.
-		int i = 0;
-		int input = 0;
-		int output = 0;
-		if(this.getCoucheCachee().size() == 0) {//cas du perceptron simple couche
-			output = sortie.getTaille();
-			entree.setRandomPoidsSortant(min, max);
-			sortie = new CoucheNeurone(entree,sortie.getBiais());
-			sortie.setRandomBiais(min, max);
-			return;
-		}else {
-			entree.setRandomPoidsSortant(min, max);
-			while(i<this.getCoucheCachee().size()) {
-				
-			}
+		entree.setRandomBias(min, max);
+		entree.setRandomPoidsSortant(min, max);
+		int taille_cachee = this.getCoucheCachee().size();
+		if(taille_cachee == 0) {
+			sortie.setInputWeightsFromLayer(entree);
+			sortie.setRandomBias(min, max);
 		}
-		sortie.setInputWeights(entree.get);
-		output = this.getCoucheCachee().get(i).getTaille();
-		entree.setRandomWeightsBias(output, min, max);
-		for(i=0;i<this.getCoucheCachee().size();i++) {
-			CoucheNeurone couche_courante = this.getCoucheCachee().get(i);
-			if(i==0) {
-				input = entree.getTaille();
+		
+		else{
+
+			for(int j = 0; j<taille_cachee;j++) {
+				this.getCoucheCachee().get(j).setRandomBias(min, max);
+				this.getCoucheCachee().get(j).setRandomPoidsSortant(min, max);
+
+				this.getCoucheCachee().get(0);
+				if(j==0) {
+					this.getCoucheCachee().get(j).setInputWeightsFromLayer(entree);
+
+				}else {
+					this.getCoucheCachee().get(j).setInputWeightsFromLayer(this.getCoucheCachee().get(j-1));
+
+				}
 			}
-			else {
-				input = this.getCoucheCachee().get(i-1).getTaille();
-			}
-			if(i==this.getCoucheCachee().size()-1) {
-				output = sortie.getTaille();
-			}else {
-				output = this.getCoucheCachee().get(i+1).getTaille();
-			}
-			couche_courante.setRandomWeightsBias(input, output, min, max);
+
+			sortie.setInputWeightsFromLayer(this.getCoucheCachee().get(taille_cachee-1));
+			sortie.setRandomBias(min, max);
 		}
 	}
 	
-	
-	
-	public Perceptron(int input, int output) {
-		CoucheEntree entree = new CoucheEntree(input);
+	/**
+	 * return the basic structure of the neural network
+	 * @return
+	 */
+	public ArrayList<Integer> getStructure(){
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		res.add(entree.getTaille());
+		for(CoucheNeurone couche : this.getCoucheCachee()) {
+			res.add(couche.getTaille());
+		}
+		res.add(sortie.getTaille());
+		return res;
 	}
+
 	public void setEntree(ArrayList<Double> inputs) {
 		this.entree.setInput(inputs);
 	}

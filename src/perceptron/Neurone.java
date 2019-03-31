@@ -58,8 +58,7 @@ public class Neurone {
 	
 	
 	/**
-	 * Instantiate a neuron with given size of inputs and outputs with random weights and bias in the given range
-	 * @param input
+	 * Instantiate a neuron with given size of outputs with random weights in the given range
 	 * @param output
 	 * @param min
 	 * @param max
@@ -67,10 +66,11 @@ public class Neurone {
 	public void setRandomPoidsSortant(int output,double min, double max) {
 		Random r = new Random();
 		this.nb_output=output;
-
+		ArrayList<Double> l_poids_sortants = new ArrayList<Double>();
 		for(int j = 0;j<output;j++) {
-			listePoidsSortants.add((min + (max - min)*r.nextDouble()));
+			l_poids_sortants.add((min + (max - min)*r.nextDouble()));
 		}
+		this.setListePoidsSortants(l_poids_sortants);
 		
 	}
 	
@@ -87,6 +87,7 @@ public class Neurone {
 
 	public void setListePoidsEntrants(ArrayList<Double> listePoidsEntrants) {
 		this.listePoidsEntrants = listePoidsEntrants;
+		this.setNb_input(listePoidsEntrants.size());
 	}
 
 	public ArrayList<Double> getListePoidsSortants() {
@@ -95,6 +96,7 @@ public class Neurone {
 
 	public void setListePoidsSortants(ArrayList<Double> listePoidsSortants) {
 		this.listePoidsSortants = listePoidsSortants;
+		this.setNb_output(listePoidsSortants.size());
 	}
 
 	public int getNb_input() {

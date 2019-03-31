@@ -68,6 +68,26 @@ public class CoucheNeurone {
 		this.setBiais(biais);
 	}
 	
+	/**
+	 * sets all input weights of the current layer to the output weights of the layer in parameter
+	 * @param couche1
+	 */
+	public void setInputWeightsFromLayer(CoucheNeurone couche1) {
+//		if(couche1.getNeurones().get(0).getNb_output() != this.getTaille()) {
+//			System.out.println("Nombre de sortie incompatible");
+//			return;
+//		}
+		int j = 0;
+		for(Neurone n : this.getNeurones()) { 
+			ArrayList<Double> l_poids_courant = new ArrayList<Double>();
+			for(int i = 0; i < couche1.getTaille();i++) {;
+				l_poids_courant.add(couche1.getNeurones().get(i).getListePoidsSortants().get(j));
+			}
+			n.setListePoidsEntrants(l_poids_courant);
+			j++;
+		}
+	}
+	
 	public ArrayList<Double> getBiais(){
 		ArrayList<Double> res = new ArrayList<Double>();
 		for(Neurone n : this.getNeurones()) {
@@ -76,9 +96,6 @@ public class CoucheNeurone {
 		return res;
 	}
 	
-	public void setRandomBiais(double min, double max) {
-		
-	}
 	public void setPoidsSortants(ArrayList<ArrayList<Double>> listePoids) {
 		int i = 0;
 		for(ArrayList<Double> l : listePoids) {
@@ -143,10 +160,6 @@ public class CoucheNeurone {
 		int i = 0;
 		for(ArrayList<Double> l : listepoids) {
 			Neurone neurone_courant = this.getNeurones().get(i);
-			if(l.size()!=neurone_courant.getNb_input()) {
-				System.out.println("nombre de poids entrant ne correspond pas au neurone");
-				return;
-			}
 			neurone_courant.setListePoidsEntrants(l);
 			i++;
 		}
@@ -164,15 +177,13 @@ public class CoucheNeurone {
 		int i = 0;
 		for(ArrayList<Double> l : listepoids) {
 			Neurone neurone_courant = this.getNeurones().get(i);
-			if(l.size()!=neurone_courant.getNb_output()) {
-				System.out.println("nombre de poids entrant ne correspond pas au neurone");
-				return;
-			}
 			neurone_courant.setListePoidsSortants(l);
 			i++;
 		}
 		
 	}
+	
+
 	
 	public void setBias(ArrayList<Double> lbiais) {
 		if(lbiais.size()!=this.getTaille()) {
@@ -198,7 +209,7 @@ public class CoucheNeurone {
 			n.setRandomPoidsSortant(n.getNb_output(), min, max);
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		String res = "taille couche : " + this.getTaille() + "\n";
@@ -206,6 +217,7 @@ public class CoucheNeurone {
 		for(Neurone n : this.getNeurones()) {
 			res += "Neurone : " + i + " : \n";
 			res += n.toString();
+			i++;
 		}
 		return res;
 		
