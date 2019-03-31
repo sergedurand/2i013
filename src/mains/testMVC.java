@@ -38,10 +38,10 @@ public class testMVC {
 		dijk.compute();
 		Radar rad = new RadarDijkstra(v,c,12,dijk);
 		//RadarImpl rad=new RadarImpl(v,c,12);
-		StrategyRadarSimple strat = new StrategyRadarSimple(rad);
-		/*StrategyPoint strat = new StrategyPoint(rad,v);
+		//StrategyRadarSimple strat = new StrategyRadarSimple(rad);
+		StrategyPoint strat = new StrategyPoint(rad,v);
 		strat.addPoint(new Vecteur(600,520));
-		strat.addPoint(new Vecteur(550,550)); test du fonctionnement de la stratégie point à point */
+		strat.addPoint(new Vecteur(530,630)); //test du fonctionnement de la stratégie point à point 
 		IHMSwing ihm = new IHMSwing();
 		ihm.add(new VoitureObserveur(v));
 		ihm.add(new RadarObserveur(rad));

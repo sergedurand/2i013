@@ -228,7 +228,7 @@ public class VoitureImpl implements Voiture {
 		if (bool==true) {
 			return new Commande(0.3,com.getTurn());
 		}
-		return new Commande(-0.20,com.getTurn());
+		return new Commande(-0.2,com.getTurn());
 		
 	}
 	

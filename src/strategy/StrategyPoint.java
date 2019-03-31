@@ -22,15 +22,20 @@ public class StrategyPoint implements Strategy {
 	public void addPoint(Vecteur v) {
 		points.add(v);
 	}
-	
+	public boolean zonepoint=false;
 	@Override
 	public Commande getCommande() {
-		boolean zonepoint=false;
+		
 		int index=0;
 		for (Vecteur point:points) {
 			if (v.getPosition().getDistance(point)<30) {
-				zonepoint=true;
 				index=points.indexOf(point);
+				if (index%2==0) {
+					zonepoint=true;
+				}
+				else {
+					zonepoint=false;
+				}
 			}
 		}
 		if (zonepoint==false) { //Si la voiture n'est pas dans un des points de l'ArrayList
@@ -38,6 +43,11 @@ public class StrategyPoint implements Strategy {
 			double rot = r.getAngles()[r.getBestIndex()]*2/Math.PI;
 			return new Commande(1,rot);
 		}
+		
+		if (zonepoint==false&&index%2==1) {
+			
+		}
+		
 		//Sinon
 		if (zonepoint==true && index%2==0) {
 			Vecteur arrivee = points.get(index+1);
