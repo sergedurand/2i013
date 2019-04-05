@@ -21,8 +21,18 @@ public class TestReseauNeurones {
 		
 		Perceptron perceptron = new Perceptron(structurebasique);
 		System.out.println(perceptron.toString());
-		perceptron.setRandomWeightsBias(-10, 10);
+		perceptron.setRandomWeightsBias(-1, 1);
 		System.out.println(perceptron.toString());
+		ArrayList<Double> valeur_entree = new ArrayList<Double>();
+		valeur_entree.add(20.);
+		valeur_entree.add(150.2);
+		valeur_entree.add(50.4);
+		perceptron.getEntree().setValues(valeur_entree);
+		
+		ArrayList<Double> res = perceptron.getResultat();
+		System.out.println(res.toString());
+		
+		
 		
 
 	}

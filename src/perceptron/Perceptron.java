@@ -23,7 +23,7 @@ public class Perceptron {
 	 */
 	public Perceptron(ArrayList<Integer> structure) {
 		if(structure.size()<2) {
-			System.out.println("Structure trop petite : au moins deux couches nécessaires");
+			System.out.println("Structure trop petite : au moins deux couches nï¿½cessaires");
 			return;
 		}
 		entree = new CoucheEntree(structure.get(0));
@@ -103,7 +103,7 @@ public class Perceptron {
 			return;
 			
 		}else {
-			//cas ou il y a des couches cachées
+			//cas ou il y a des couches cachï¿½es
 			int taille_cachee = taille-1; 
 			CoucheNeurone precedent = entree;
 			int i = 0;
@@ -196,8 +196,8 @@ public class Perceptron {
 	
 	/**
 	 * compute the feedforward between two specified layers. Uses tanh as the activation function
-	 * @param couche1
-	 * @param couche2
+	 * @param couche1 Starting Layer
+	 * @param couche2 Arrival Layer
 	 */
 	public void calculValeur(CoucheNeurone couche1, CoucheNeurone couche2) {
 		for(Neurone neuronearrivee : couche2.getNeurones()) {
@@ -206,9 +206,10 @@ public class Perceptron {
 			for(Neurone neuronedepart : couche1.getNeurones()) {
 				double poid = neuronearrivee.getListePoidsEntrants().get(i);
 				res += poid* neuronedepart.getValeur();
+				i++;
 			}
 			
-			res+= neuronearrivee.getBiais();
+			res += neuronearrivee.getBiais();
 			res = Math.tanh(res);
 			neuronearrivee.setValeur(res);
 		}
@@ -220,6 +221,18 @@ public class Perceptron {
 	public void calculTotal() {
 		if(coucheCachee.size()==0) {
 			calculValeur(entree,sortie);
+		}else {
+			int nb_cachee = this.getCoucheCachee().size();
+			calculValeur(entree,this.getCoucheCachee().get(0));
+			for(int i = 0;i<nb_cachee;i++) {
+				if(i==(nb_cachee-1)) {
+					//last layer reached
+					break;
+				}else {
+					calculValeur(this.getCoucheCachee().get(i),this.getCoucheCachee().get(i+1));
+				}
+			}
+			calculValeur(this.getCoucheCachee().get(nb_cachee-1), this.sortie);
 		}
 	}
 	
@@ -227,7 +240,8 @@ public class Perceptron {
 	 * 
 	 * @return Output computed by the neural network 
 	 */
-	public ArrayList<Double> resultat() {
+	public ArrayList<Double> getResultat() {
+		this.calculTotal();
 		ArrayList<Double> res = new ArrayList<Double>();
 		for(Neurone neurone : sortie.getNeurones()) {
 			double temp = neurone.getValeur();

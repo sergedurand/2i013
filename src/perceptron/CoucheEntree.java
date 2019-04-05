@@ -29,6 +29,8 @@ public class CoucheEntree extends CoucheNeurone {
 	public CoucheEntree(ArrayList<ArrayList<ArrayList<Double>>> listePoidsNeurones, ArrayList<Double> biais) {
 		super(listePoidsNeurones,biais);
 	}
+	
+
 
 	
 
@@ -47,7 +49,5 @@ public class CoucheEntree extends CoucheNeurone {
 		}
 	}
 	
-	public void feedForward() {
-	}
 
 }
