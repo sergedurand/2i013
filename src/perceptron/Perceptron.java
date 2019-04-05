@@ -250,10 +250,22 @@ public class Perceptron {
 		return res;
 	}
 	
+	
+	/**
+	 * Return the total number of layers
+	 * @return
+	 */
 	public int getTaille() {
 		return 2 + this.getCoucheCachee().size();
 	}
 	
+	/**
+	 * initialize the values of every neurons of the input layer
+	 * @param values
+	 */
+	public void setEntreeValues(ArrayList<Double> values) {
+		this.getEntree().setValues(values);
+	}
 	public String toString() {
 		String res = "taille du reseau = " + this.getTaille() + "\n";
 		res += "Entree : \n";
