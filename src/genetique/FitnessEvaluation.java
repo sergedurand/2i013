@@ -34,7 +34,7 @@ public class FitnessEvaluation {
 		return g;
 	}
 
-	public double evaluate() {
+	public void evaluate() {
 		Voiture v = VoitureFactory.build(c);
 		int taille_entree = g.getListe_poids().get(0).size();
 		if(taille_entree%2 == 0) {
@@ -62,15 +62,15 @@ public class FitnessEvaluation {
 			e.printStackTrace();
 			
 		}catch (ArriveeException e2) {
+			this.finish = false;
 			score = 10000000;
 			e2.printStackTrace();
 		}
 		
 		g.setScore(-score);
-		return -score;
 	}
 
-	public double evaluateWithDisplay() {
+	public void evaluateWithDisplay() {
 		Voiture v = VoitureFactory.build(c);
 		int taille_entree = g.getListe_poids().get(0).size();
 		if(taille_entree%2 == 0) {
@@ -111,12 +111,11 @@ public class FitnessEvaluation {
 			
 		}catch (ArriveeException e2) {
 			score = 10000000;
+			this.finish = false;
 			e2.printStackTrace();
 		}
 		
-		g.setScore(-score);
-		return -score;
-		
+		g.setScore(-score);		
 	}
 	public boolean isFinish() {
 		return finish;

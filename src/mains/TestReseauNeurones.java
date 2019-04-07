@@ -2,6 +2,7 @@ package mains;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -133,12 +134,15 @@ public class TestReseauNeurones {
 		test.add(g2);
 		test.add(g1);
 		ComparatorGenome comp = new ComparatorGenome();
-		test.sort(comp);
+		test.sort(comp.reversed());
 		for(Genome g : test) {
 			System.out.println(g.getScore());
 		}
 		
 		
+		MutationOperator mop = new MutationOperator();
+		mop.mutate(g3, 0.25, -1, 1);
+		System.out.println(g3.toString());
 //		
 //		try {
 //			simu.play();
@@ -148,9 +152,7 @@ public class TestReseauNeurones {
 //		}catch (ArriveeException e2) {
 //			e2.printStackTrace();
 //		}
-//		
-		System.out.println("on continue ?");
-		
+//				
 
 
 	}

@@ -1,6 +1,7 @@
 package genetique;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * 
@@ -56,5 +57,28 @@ public class CrossOperator {
 		}		
 		Genome res = new Genome(l_poids,biais);		
 		return res;		
+	}
+	
+	/**
+	 * cross a population (list of genomes). The population has to be of an even size. 
+	 * The parents are chosen step by step at random within the population until no more parents are available
+	 * @param population
+	 * @return
+	 */
+	public ArrayList<Genome> crossPop(ArrayList<Genome> population){
+		Random rand = new Random();
+		ArrayList<Genome> res = new ArrayList<Genome>();
+		ArrayList<Genome> parents = population;
+		while(parents.size()>0) {
+			int i = rand.nextInt(parents.size());
+			Genome father =  parents.get(i);
+			parents.remove(i);
+			int j = rand.nextInt(parents.size());
+			Genome mother =  parents.get(j);
+			parents.remove(j);
+			Genome son = cross(father,mother,0.5);
+			res.add(son);
+		}
+		return res;
 	}
 }
