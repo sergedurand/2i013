@@ -76,7 +76,7 @@ public class Perceptron {
 	/**
 	 * creates a network from a list of list of weights and bias. The list of weights must only have internal weights : 
 	 * we can have outputs from previous layers inputs weights. if the list is of size 1, the network is a single layer perceptron.
-	 * the only list is then a list of output weights from the point of vue of the entry layer, and input weights from the point of vue 
+	 * the only list is then a list of output weights from the point of view of the entry layer, and input weights from the point of view 
 	 * of the output layer.
 	 * @param listePoidsNeurones
 	 * @param biais
@@ -97,6 +97,7 @@ public class Perceptron {
 			neurone_courant.setListePoidsSortants(l_poids_courants);
 			neurone_courant.setListePoidsEntrants(new ArrayList<Double>());
 		}
+		
 		if(taille==1) { //cas perceptron simple couche
 			sortie = new CoucheNeurone(entree,biais.get(0));
 			sortie.setPoidsSortants(new ArrayList<ArrayList<Double>>());
@@ -106,9 +107,12 @@ public class Perceptron {
 			//cas ou il y a des couches cach�es
 			int taille_cachee = taille-1; 
 			CoucheNeurone precedent = entree;
+			this.coucheCachee = new ArrayList<CoucheNeurone>();
 			int i = 0;
+			System.out.println("taille cachee : "  + taille_cachee);
 			while(i<taille_cachee) {
 				ArrayList<ArrayList<Double>> l_poids_courants = listePoidsNeurones.get(i+1);
+				System.out.println("i : " + i);
 				CoucheNeurone couche_courante = new CoucheNeurone(precedent, biais.get(i));
 				couche_courante.setPoidsSortants(l_poids_courants);
 				this.getCoucheCachee().add(couche_courante);

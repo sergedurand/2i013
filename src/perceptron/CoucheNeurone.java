@@ -52,6 +52,12 @@ public class CoucheNeurone {
 		}
 	}
 	
+	/**
+	 * Initializer a new layer from the previous layer. The layer in parameter (couche1) gives the input weights of 
+	 * the returned layer. The biais in parameter give the biais for the layer
+	 * @param couche1
+	 * @param biais
+	 */
 	public CoucheNeurone(CoucheNeurone couche1, ArrayList<Double> biais) {
 		this(couche1.getNeurones().get(0).getNb_output());
 		int j = 0;

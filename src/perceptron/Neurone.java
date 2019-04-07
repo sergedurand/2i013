@@ -118,33 +118,12 @@ public class Neurone {
 	@Override
 	public String toString() {
 		String res = "Valeur neurone : "+this.getValeur() +" \n";
-		res += "biais = " + this.getBiais() +"\n";
-		
+		res += "biais = " + this.getBiais() +"\n";	
 		res += "liste des poids entrants : ";
-		String poidsEntrants ="{";
-		int i = 0;
-		for(double poids : this.getListePoidsEntrants()) {
-			i++;
-			poidsEntrants += poids;
-			if(i!=this.getNb_input()) {
-				poidsEntrants +=" ;";
-			}
-		}
-		poidsEntrants += "}";
-		res+= poidsEntrants;
+		res += this.getListePoidsEntrants().toString();
 		res+= "\n";
 		res+= "liste des poids sortants : ";
-		String poidsSortants ="{";
-		i = 0;
-		for(double poids : this.getListePoidsSortants()) {
-			i++;
-			poidsSortants += poids;
-			if(i!=this.getNb_output()) {
-				poidsSortants +=" ;";
-			}
-		}
-		poidsSortants += "}";
-		res+= poidsSortants;
+		res += this.getListePoidsSortants().toString();
 		res+= "\n";
 		return res;
 		
