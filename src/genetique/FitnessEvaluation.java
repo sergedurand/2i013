@@ -30,6 +30,10 @@ public class FitnessEvaluation {
 		this.g = g;
 	}
 	
+	public Genome getG() {
+		return g;
+	}
+
 	public double evaluate() {
 		Voiture v = VoitureFactory.build(c);
 		int taille_entree = g.getListe_poids().get(0).size();
@@ -62,7 +66,7 @@ public class FitnessEvaluation {
 			e2.printStackTrace();
 		}
 		
-		System.out.println(score);
+		g.setScore(-score);
 		return -score;
 	}
 
@@ -110,7 +114,7 @@ public class FitnessEvaluation {
 			e2.printStackTrace();
 		}
 		
-		System.out.println(score);
+		g.setScore(-score);
 		return -score;
 		
 	}

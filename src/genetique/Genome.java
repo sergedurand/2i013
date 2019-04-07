@@ -6,7 +6,10 @@ public class Genome {
 	private ArrayList<ArrayList<ArrayList<Double>>> weight_lists;
 	private ArrayList<ArrayList<Double>> liste_biais;
 	private final ArrayList<Integer> structure;
+	private double score = Double.NEGATIVE_INFINITY;
+
 	
+
 	/**
 	 * Classic constructor. The structure is deduced from the list of weights
 	 * @param weight_lists
@@ -45,6 +48,13 @@ public class Genome {
 		str += "\n";
 		str += "List biais : \n" + this.getListe_biais().toString() + "\n";
 		return str;
+	}
+	
+	public double getScore() {
+		return score;
+	}
+	public void setScore(double score) {
+		this.score = score;
 	}
 
 }

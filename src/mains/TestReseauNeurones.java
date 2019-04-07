@@ -1,6 +1,7 @@
 package mains;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import javax.swing.JFrame;
 
@@ -121,8 +122,23 @@ public class TestReseauNeurones {
 //                fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		fen.setVisible(true);
 		
-		FitnessEvaluation fit = new FitnessEvaluation(c,d,g3);
-		fit.evaluate();
+		FitnessEvaluation fit1 = new FitnessEvaluation(c,d,g3);
+		FitnessEvaluation fit2 = new FitnessEvaluation(c,d,g1);
+		FitnessEvaluation fit3 = new FitnessEvaluation(c,d,g2);
+		fit1.evaluate();
+		fit2.evaluate();
+		fit3.evaluate();
+		ArrayList<Genome> test = new ArrayList<Genome>();
+		test.add(g3);
+		test.add(g2);
+		test.add(g1);
+		ComparatorGenome comp = new ComparatorGenome();
+		test.sort(comp);
+		for(Genome g : test) {
+			System.out.println(g.getScore());
+		}
+		
+		
 //		
 //		try {
 //			simu.play();
