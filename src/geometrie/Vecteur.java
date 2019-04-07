@@ -110,9 +110,7 @@ public class Vecteur {
 		double cos = (this.prodScal(v2))/(this.norme()*v2.norme());
 		if(cos > 1) {cos = 1.0;}
 		if(cos<-1) {cos = -1.0;}
-		System.out.println("cos = " + cos);
 		double acos = Math.acos(cos);
-		System.out.println("acos = " + acos);
 
 		double prodvect = this.prodVect(v2);
 		if(prodvect<0) {

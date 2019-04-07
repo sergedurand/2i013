@@ -38,11 +38,7 @@ public class StrategyPerceptron implements Strategy {
 	public Commande getCommande() throws VoitureException {
 		ArrayList<Double> input = new ArrayList<Double>();
 		r.scores(0.1);
-		System.out.println("taille radar : " + r.getDistPix().length);
-		System.out.println(" taille neurone : " + p.getEntree().getTaille());
-		if(r.getDistPix().length!=p.getEntree().getTaille()) {
-			throw new VoitureException("problème taille radar et nb neurone");
-		}
+
 		for(int i = 0;i<r.getDistPix().length;i++) {
 			input.add(r.getDistPix()[i]);
 		}

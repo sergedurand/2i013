@@ -106,14 +106,7 @@ public class TestReseauNeurones {
 		//System.out.println(strat.getP());
 		Simulation simu = new Simulation(c);
 		simu.addVoitureStrategies(v, strat3);
-		Commande com = null;
-		try {
-			com = strat.getCommande();
-		} catch (VoitureException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(com.toString());
+
 
 //	IHMSwing ihm = new IHMSwing();
 ////		//ihm.add(new VoitureObserveur(v));
@@ -129,7 +122,7 @@ public class TestReseauNeurones {
 //		fen.setVisible(true);
 		
 		FitnessEvaluation fit = new FitnessEvaluation(c,d,g3);
-		fit.evaluateWithDisplay();
+		fit.evaluate();
 //		
 //		try {
 //			simu.play();

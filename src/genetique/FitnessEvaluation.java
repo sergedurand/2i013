@@ -62,6 +62,7 @@ public class FitnessEvaluation {
 			e2.printStackTrace();
 		}
 		
+		System.out.println(score);
 		return -score;
 	}
 
@@ -109,6 +110,7 @@ public class FitnessEvaluation {
 			e2.printStackTrace();
 		}
 		
+		System.out.println(score);
 		return -score;
 		
 	}
