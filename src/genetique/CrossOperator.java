@@ -23,7 +23,7 @@ public class CrossOperator {
 		
 		for(int i = 0;i<pere.getListe_poids().size();i++) {
 			ArrayList<ArrayList<Double>> poids_couche = new ArrayList<ArrayList<Double>>();
-			int taille_couche = pere.getStructure().get(0);
+			int taille_couche = pere.getStructure().get(i);
 			for(int j = 0; j < taille_couche; j++) {
 				ArrayList<Double> poids_neurone = new ArrayList<Double>();
 				int taille_neurone = pere.getListe_poids().get(i).get(j).size();

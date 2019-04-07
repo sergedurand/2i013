@@ -20,6 +20,7 @@ import circuit.*;
 import controleur.IHMSwing;
 import controleur.UpdateEventListener;
 import controleur.UpdateEventSender;
+import exceptions.ArriveeException;
 import terrain .*;
 
 /**
@@ -145,13 +146,13 @@ public class Simulation implements UpdateEventSender{
 	}
 	
 
-	public void play() throws VoitureException {
+	public void play() throws VoitureException, ArriveeException {
 
 		//test orientation
 		int i = 0;
 		ArrayList<Voiture> varrivee =  new ArrayList<Voiture>();
 		
-		while(i<150000) {
+		while(i<30000) {
 			boolean bool=true;
 			boolean bool2=false;
 			for(Voiture v : voitures) {
@@ -189,6 +190,8 @@ public class Simulation implements UpdateEventSender{
 							v.tryToDrive(strategies.get(index).getCommande(),commandes.get(0),bool,bool2);
 						}
 						
+					}else {
+						throw new VoitureException("portion de terrain non roulable");
 					}
 				
 					
@@ -203,9 +206,14 @@ public class Simulation implements UpdateEventSender{
 						g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());
 						continue;
 					}*/
-						System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" itï¿½rations");
-						varrivee.add(v);
-						break;
+						if((v.getDirection().angle(c.getDirectionArrivee()) < Math.PI/2.) && v.getDirection().angle(c.getDirectionArrivee())> Math.PI/(-2.)) {
+							System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" itï¿½rations");
+							varrivee.add(v);
+							break;
+						}else {
+							throw new ArriveeException("arrivee franchie dans le mauvais sens !");
+						}
+
 					} //A dï¿½commenter pour le circuit 2_safe.trk
 				
 				}
@@ -213,8 +221,11 @@ public class Simulation implements UpdateEventSender{
 				
 			
 		}
-		System.out.println("nombre d'iteration = " + i);
+		if(i>29990) {
+			throw new VoitureException("la voiture a dépassé 29990 iterations");
+		}
 		
+		System.out.println("nombre d'iteration = " + i);
 		return;
 	}
 		

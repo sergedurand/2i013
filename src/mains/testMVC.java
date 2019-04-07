@@ -7,6 +7,7 @@ import voiture.VoitureFactory;
 import vue.Fenetre;
 import circuit.*;
 import controleur.IHMSwing;
+import exceptions.ArriveeException;
 import geometrie.Vecteur;
 
 import java.awt.Color;
@@ -58,7 +59,7 @@ public class testMVC {
 		ihm.addCircuit(c);
 		Simulation simu = new Simulation(c);
 		simu.addVoitureStrategies(v, strat);
-		simu.add(ihm);
+		//simu.add(ihm);
 		
 		//System.out.println("fini");
 		//simu.add(ihm);
@@ -83,17 +84,19 @@ public class testMVC {
 //		Radar rad3 = new RadarImpl(v3,c,12);
 //		StrategyRadarSimple strat3 = new StrategyRadarSimple(rad3);
 //		simu.addVoitureStrategies(v3, strat3);
-		Fenetre fen = new Fenetre(ihm,"test");
-		ihm.setPreferredSize(new Dimension(768,1024));
-		fen.getContentPane().add(ihm);
-		fen.pack();
-                fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fen.setVisible(true);
+//		Fenetre fen = new Fenetre(ihm,"test");
+//		ihm.setPreferredSize(new Dimension(768,1024));
+//		fen.getContentPane().add(ihm);
+//		fen.pack();
+//                fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		fen.setVisible(true);
 		try {
 			simu.play();
 		} catch (VoitureException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		}catch (ArriveeException e2) {
+			e2.printStackTrace();
 		}
 		Simulation.saveListeCommande(simu.getCommandes().get(0), "listecommandes0.txt");
 //		
@@ -152,12 +155,7 @@ public class testMVC {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-
-		
-
-
-	
-		
+					
 		
 	}
 

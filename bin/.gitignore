@@ -1,9 +1,14 @@
 /algo/
+/circuit/
 /controleur/
+/genetique/
+/geometrie/
 /mains/
 /observeurs/
-/strategy/
-/voiture/
 /perceptron/
 /simulation/
-/genetique/
+/strategy/
+/terrain/
+/voiture/
+/vue/
+/exceptions/

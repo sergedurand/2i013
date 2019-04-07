@@ -7,6 +7,7 @@ import voiture.Voiture;
 import voiture.VoitureException;
 import voiture.VoitureFactory;
 import circuit.*;
+import geometrie.Vecteur;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -57,9 +58,11 @@ public class test {
            System.out.println("l1 " + i);
        }
        
-       String res = "Valeur neurone : "+ 3.3 +" \n";
-       res += "biais = " + 4.5 +"\n";
-       System.out.println(res);
+       Vecteur v1 = new Vecteur(0,1);
+       Vecteur v2 = new Vecteur(-1,0);
+       Vecteur v3 = new Vecteur(1,0);
+       System.out.println(v1.angle(v2));
+       System.out.println(v1.angle(v3));
 	}
 	
 		

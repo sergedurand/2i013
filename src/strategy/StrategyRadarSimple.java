@@ -25,6 +25,7 @@ public class StrategyRadarSimple implements Strategy{
 	public Commande getCommande() {
 		radar.scores(0.1);
 		double rot = radar.getAngles()[radar.getBestIndex()]*2/Math.PI;
+		System.out.println("taille radar : " + radar.getDistPix().length);
 		return new Commande(1,rot);
 	}
 

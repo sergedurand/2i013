@@ -109,10 +109,8 @@ public class Perceptron {
 			CoucheNeurone precedent = entree;
 			this.coucheCachee = new ArrayList<CoucheNeurone>();
 			int i = 0;
-			System.out.println("taille cachee : "  + taille_cachee);
 			while(i<taille_cachee) {
 				ArrayList<ArrayList<Double>> l_poids_courants = listePoidsNeurones.get(i+1);
-				System.out.println("i : " + i);
 				CoucheNeurone couche_courante = new CoucheNeurone(precedent, biais.get(i));
 				couche_courante.setPoidsSortants(l_poids_courants);
 				this.getCoucheCachee().add(couche_courante);

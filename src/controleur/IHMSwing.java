@@ -84,7 +84,7 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 
 		repaint();
 		try {
-            Thread.sleep(0);
+            Thread.sleep(2);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
