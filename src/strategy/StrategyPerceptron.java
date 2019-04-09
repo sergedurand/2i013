@@ -1,9 +1,9 @@
 package strategy;
 
 import circuit.Circuit;
+import exceptions.*;
 import genetique.*;
 import perceptron.*;
-
 import java.util.ArrayList;
 
 import algo.*;
@@ -35,14 +35,14 @@ public class StrategyPerceptron implements Strategy {
 	}
 
 	@Override
-	public Commande getCommande() throws VoitureException {
+	public Commande getCommande() throws VoitureException, NeuroneException {
 		ArrayList<Double> input = new ArrayList<Double>();
 		r.scores(0.1);
 
 		for(int i = 0;i<r.getDistPix().length;i++) {
 			input.add(r.getDistPix()[i]);
 		}
-		
+
 		p.setEntreeValues(input);
 		ArrayList<Double> param_commande = p.getResultat();
 		// TODO Auto-generated method stub

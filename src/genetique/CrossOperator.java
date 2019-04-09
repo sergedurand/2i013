@@ -69,7 +69,7 @@ public class CrossOperator {
 		Random rand = new Random();
 		ArrayList<Genome> res = new ArrayList<Genome>();
 		ArrayList<Genome> parents = population;
-		while(res.size()<(population.size()*2)) {
+		while(res.size()<(population.size()*4)) {
 			
 			int i = rand.nextInt(parents.size());
 			Genome father =  parents.get(i);

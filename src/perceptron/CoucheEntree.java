@@ -2,6 +2,8 @@ package perceptron;
 
 import java.util.ArrayList;
 
+import exceptions.NeuroneException;
+
 public class CoucheEntree extends CoucheNeurone {
 
 	public CoucheEntree(int taille, ArrayList<Neurone> neurones) {
@@ -26,7 +28,7 @@ public class CoucheEntree extends CoucheNeurone {
 		super(taille);
 	}
 
-	public CoucheEntree(ArrayList<ArrayList<ArrayList<Double>>> listePoidsNeurones, ArrayList<Double> biais) {
+	public CoucheEntree(ArrayList<ArrayList<ArrayList<Double>>> listePoidsNeurones, ArrayList<Double> biais) throws NeuroneException {
 		super(listePoidsNeurones,biais);
 	}
 	

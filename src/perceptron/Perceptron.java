@@ -2,6 +2,8 @@ package perceptron;
 
 import java.util.ArrayList;
 
+import exceptions.NeuroneException;
+
 public class Perceptron {
 	private CoucheEntree entree;
 	private ArrayList<CoucheNeurone> coucheCachee = new ArrayList<CoucheNeurone>();
@@ -264,8 +266,9 @@ public class Perceptron {
 	/**
 	 * initialize the values of every neurons of the input layer
 	 * @param values
+	 * @throws NeuroneException 
 	 */
-	public void setEntreeValues(ArrayList<Double> values) {
+	public void setEntreeValues(ArrayList<Double> values) throws NeuroneException {
 		this.getEntree().setValues(values);
 	}
 	public String toString() {

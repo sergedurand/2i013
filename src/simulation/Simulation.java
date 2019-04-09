@@ -21,6 +21,7 @@ import controleur.IHMSwing;
 import controleur.UpdateEventListener;
 import controleur.UpdateEventSender;
 import exceptions.ArriveeException;
+import exceptions.NeuroneException;
 import exceptions.NotMovingException;
 import geometrie.Vecteur;
 import terrain .*;
@@ -148,7 +149,7 @@ public class Simulation implements UpdateEventSender{
 	}
 	
 
-	public void play() throws VoitureException, ArriveeException, NotMovingException {
+	public void play() throws VoitureException, ArriveeException, NotMovingException, NeuroneException {
 
 		//test orientation
 		Vecteur pos_depart = this.getC().getPointDepart();

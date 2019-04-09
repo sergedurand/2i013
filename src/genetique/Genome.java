@@ -9,6 +9,7 @@ public class Genome {
 	private ArrayList<ArrayList<Double>> liste_biais;
 	private final ArrayList<Integer> structure;
 	private double score = Double.NEGATIVE_INFINITY;
+	private boolean finish = false;
 	private ArrayList<Commande> commandes = new ArrayList<Commande>();
 
 	
@@ -66,6 +67,13 @@ public class Genome {
 		this.commandes = commandes;
 	}
 
+
+	public boolean isFinish() {
+		return finish;
+	}
+	public void setFinish(boolean finish) {
+		this.finish = finish;
+	}
 //	@Override
 //	public Genome clone() {
 //		ArrayList<ArrayList<ArrayList<Double>>> weight_lists_bis = this.getListe_poids().clone();

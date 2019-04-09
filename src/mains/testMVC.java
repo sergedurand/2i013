@@ -8,6 +8,7 @@ import vue.Fenetre;
 import circuit.*;
 import controleur.IHMSwing;
 import exceptions.ArriveeException;
+import exceptions.NeuroneException;
 import exceptions.NotMovingException;
 import geometrie.Vecteur;
 
@@ -31,7 +32,7 @@ import strategy.StrategyRadarSimple;
 
 public class testMVC {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, NeuroneException {
 		// TODO Auto-generated method stub
 		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
 		Voiture v = VoitureFactory.build(c);

@@ -3,6 +3,7 @@ package genetique;
 import circuit.*;
 import controleur.IHMSwing;
 import exceptions.ArriveeException;
+import exceptions.NeuroneException;
 import exceptions.NotMovingException;
 import geometrie.Vecteur;
 import simulation.Simulation;
@@ -35,7 +36,7 @@ public class FitnessEvaluation {
 		return g;
 	}
 
-	public void evaluate() {
+	public void evaluate() throws NeuroneException {
 		Voiture v = VoitureFactory.build(c);
 		int taille_entree = g.getListe_poids().get(0).size();
 		if(taille_entree%2 == 0) {
@@ -53,29 +54,29 @@ public class FitnessEvaluation {
 			simu.play();
 			score = simu.getCommandes().get(0).size();
 			this.g.setCommandes(simu.getCommandes().get(0));
-			this.finish = true;
+			this.getG().setFinish(true);
 		} catch (VoitureException e) {
 			// TODO Auto-generated catch block
 			score = simu.getCommandes().get(0).size();
 			Vecteur position = simu.getVoitures().get(0).getPosition();
 			score += this.d.getDist()[(int) position.getX()][(int) position.getY()];
 			score += 1000000;
-			this.finish = false;
+			this.g.setFinish(false);
 			//e.printStackTrace();
 			
 		}catch (ArriveeException e2) {
-			this.finish = false;
+			this.g.setFinish(false);
 			score = 10000000;
 			//e2.printStackTrace();
 		}catch(NotMovingException e3) {
-			this.finish = false;
+			this.g.setFinish(true);
 			score = 10000000;
 		}
 		
 		g.setScore(-score);
 	}
 
-	public void evaluateWithDisplay() {
+	public void evaluateWithDisplay() throws NeuroneException {
 		Voiture v = VoitureFactory.build(c);
 		int taille_entree = g.getListe_poids().get(0).size();
 		if(taille_entree%2 == 0) {

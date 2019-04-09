@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import algo.Dijkstra;
 import circuit.Circuit;
+import exceptions.NeuroneException;
 import simulation.Simulation;
 
 public class GeneticAlgorithm {
@@ -31,7 +32,7 @@ public class GeneticAlgorithm {
 		d.compute();
 	}
 	
-	public Genome optimize(int iteration, String nom_fichier) {
+	public Genome optimize(int iteration, String nom_fichier) throws NeuroneException {
 		List<Genome> population = new ArrayList<Genome>();
 		//initialisation : 
 		for(int i = 0;i<this.getPop();i++) {
@@ -46,9 +47,14 @@ public class GeneticAlgorithm {
 				fit.evaluate();			
 			}
 			population.sort(comp.reversed());
+			System.out.println("generation " + i + ", best score : " + population.get(0).getScore());
+			if(population.get(0).isFinish()) {
+				String nom_bis = nom_fichier + "generation " + (i+1);
+				Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
+			}
 			//we keep the first 2 in the new population
 			if(i<iteration-1) {
-				List<Genome> parents_l = population.subList(0, population.size()/2);
+				List<Genome> parents_l = population.subList(0, population.size()/4);
 				ArrayList<Genome> parents = GeneticTools.listToArrayList(parents_l);
 				ArrayList<Genome> nv_population = cop.crossPop(parents);
 				mop.mutatePop(nv_population, 0.1, -1, 1, 0.05);
@@ -56,8 +62,9 @@ public class GeneticAlgorithm {
 				nv_population.set(1,population.get(1));
 				population = GeneticTools.arrayListtoList(nv_population);
 			}
-			System.out.println("generation " + i + ", best score : " + population.get(0).getScore());
+			
 		}
+		
 		
 		Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier);
 

@@ -29,12 +29,13 @@ import simulation.*;
 import observeurs.*;
 import controleur.*;
 import exceptions.ArriveeException;
+import exceptions.NeuroneException;
 import exceptions.NotMovingException;
 import vue.*;
 
 public class TestReseauNeurones {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NeuroneException {
 		// TODO Auto-generated method stub
 		
 //		Neurone n1 = new Neurone(1);
@@ -160,7 +161,7 @@ public class TestReseauNeurones {
 //
 //
 		
-		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
+		Circuit c = CircuitFactoryFromFile.build("3_safe.trk");
 		Dijkstra d = new Dijkstra(c);
 		d.compute();
 		ArrayList<Integer> struct = new ArrayList<Integer>();
@@ -171,44 +172,44 @@ public class TestReseauNeurones {
 		CrossOperator cop = new CrossOperator();
 		MutationOperator mut = new MutationOperator();
 		ArrayList<Integer> struct2 = new ArrayList<Integer>();
-		struct2.add(12);
-		struct2.add(5);
-		struct2.add(5);
+		struct2.add(6);
+//		struct2.add(5);
+//		struct2.add(5);
 		struct2.add(2);
-		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,80,struct2,c,d);
-		Genome best = algo.optimize(20,"20 generations et pop de 60 radar 12");
 		GenomeGeneratorPerceptron gen2 = new GenomeGeneratorPerceptron(struct2);
-//		GeneticAlgorithm algo2 = new GeneticAlgorithm(mut,cop,gen,100,struct2,c,d);
+		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,60,struct,c,d);
+		Genome best = algo.optimize(40,"40 generations et pop de 60 radar 2");
+		GeneticAlgorithm algo2 = new GeneticAlgorithm(mut,cop,gen,2,struct2,c,d);
 //		Genome best2 = algo2.optimize(200, "200 generatons 100 pop 12 radar 2x5 couche cachee");
-//		ArrayList<Commande> best_reseau = null;
-//		try {
-//			best_reseau = Simulation.loadListeCommande("200 generatons 100 pop 12 radar 2x5 couche cachee");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		Voiture v = VoitureFactory.build(c);
-//		Strategy strat = new StrategyListeCommande(best_reseau);
-//		Simulation simu = new Simulation(c);
-//		simu.addVoitureStrategies(v, strat);
-//		IHMSwing ihm = new IHMSwing();
-//		//ihm.add(new VoitureObserveur(v));
-//		ihm.add(new TrajectoireObserveur(v));
-//		ihm.addCircuit(c);
-//		simu.add(ihm);
-//		Fenetre fen = new Fenetre(ihm, "test perceptron");
-//		ihm.setPreferredSize(new Dimension(768,1024));
-//		fen.getContentPane().add(ihm);
-//		fen.pack();
-//	            fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		fen.setVisible(true);
-//		System.out.println(best_reseau.size());
-//		try {
-//			simu.play();
-//		} catch (VoitureException | ArriveeException | NotMovingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		ArrayList<Commande> best_reseau = null;
+		try {
+			best_reseau = Simulation.loadListeCommande("200 generations et pop de 200 radar 3generation 21");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Voiture v = VoitureFactory.build(c);
+		Strategy strat = new StrategyListeCommande(best_reseau);
+		Simulation simu = new Simulation(c);
+		simu.addVoitureStrategies(v, strat);
+		IHMSwing ihm = new IHMSwing();
+		//ihm.add(new VoitureObserveur(v));
+		ihm.add(new TrajectoireObserveur(v));
+		ihm.addCircuit(c);
+		simu.add(ihm);
+		Fenetre fen = new Fenetre(ihm, "test perceptron");
+		ihm.setPreferredSize(new Dimension(768,1024));
+		fen.getContentPane().add(ihm);
+		fen.pack();
+	            fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fen.setVisible(true);
+		System.out.println(best_reseau.size());
+		try {
+			simu.play();
+		} catch (VoitureException | ArriveeException | NotMovingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

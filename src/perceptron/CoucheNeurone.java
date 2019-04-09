@@ -1,6 +1,7 @@
 package perceptron;
 
 import java.util.ArrayList;
+import exceptions.*;
 
 public class CoucheNeurone {
 	private ArrayList<Neurone> neurones = new ArrayList<Neurone>();
@@ -35,11 +36,10 @@ public class CoucheNeurone {
 	 * @param listePoidsNeurones
 	 * @param biais
 	 */
-	public CoucheNeurone(ArrayList<ArrayList<ArrayList<Double>>> listePoidsNeurones, ArrayList<Double> biais) {
+	public CoucheNeurone(ArrayList<ArrayList<ArrayList<Double>>> listePoidsNeurones, ArrayList<Double> biais) throws NeuroneException {
 		this(listePoidsNeurones.size());
 		if(listePoidsNeurones.get(0).size() != 2) {
-			System.out.println("probleme nombre de liste de poids : il en faut 2");
-			return;
+			throw new NeuroneException("probleme nombre de liste de poids : il en faut 2");
 		}
 		
 		int i = 0;
@@ -109,10 +109,9 @@ public class CoucheNeurone {
 			i++;
 		}
 	}
-	public void setValues(ArrayList<Double> values) {
+	public void setValues(ArrayList<Double> values) throws NeuroneException {
 		if(values.size()!=this.getTaille()) {
-			System.out.println("erreur nombre de valeur différent du nombre de neurone");
-			return;
+			throw new NeuroneException("erreur nombre de valeur différent du nombre de neurone");
 		}
 		for(int i = 0;i<values.size();i++) {
 			this.getNeurones().get(i).setValeur(values.get(i));
