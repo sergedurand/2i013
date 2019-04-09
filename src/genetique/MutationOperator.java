@@ -1,5 +1,8 @@
 package genetique;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import perceptron.PerceptronTools;
 
 public class MutationOperator {
@@ -36,6 +39,15 @@ public class MutationOperator {
 			}
 		}
 		
+	}
+	
+	public void mutatePop(ArrayList<Genome> population, double rate_gene, double min, double max, double rate_pop) {
+		int nb_mut = (int) rate_pop*population.size();
+		Random rand = new Random();
+		for(int i = 0;i<nb_mut;i++) {
+			int k = rand.nextInt(population.size());
+			this.mutate(population.get(k), rate_gene, min, max);
+		}
 	}
 	
 }

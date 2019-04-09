@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import algo.Dijkstra;
 import circuit.Circuit;
+import simulation.Simulation;
 
 public class GeneticAlgorithm {
 	
@@ -30,7 +31,7 @@ public class GeneticAlgorithm {
 		d.compute();
 	}
 	
-	public Genome GenomeOptimize(int iteration) {
+	public Genome optimize(int iteration, String nom_fichier) {
 		List<Genome> population = new ArrayList<Genome>();
 		//initialisation : 
 		for(int i = 0;i<this.getPop();i++) {
@@ -38,19 +39,29 @@ public class GeneticAlgorithm {
 			population.add(g);
 		}
 		
-		//first loop:
+
 		for(int i = 0;i<iteration;i++) {
 			for(Genome g : population) {
 				FitnessEvaluation fit = new FitnessEvaluation(c,d,g);
-				fit.evaluate();
-				
+				fit.evaluate();			
 			}
 			population.sort(comp.reversed());
 			//we keep the first 2 in the new population
-			List<Genome> parents = population.subList(0, population.size()/2);
+			if(i<iteration-1) {
+				List<Genome> parents_l = population.subList(0, population.size()/2);
+				ArrayList<Genome> parents = GeneticTools.listToArrayList(parents_l);
+				ArrayList<Genome> nv_population = cop.crossPop(parents);
+				mop.mutatePop(nv_population, 0.1, -1, 1, 0.05);
+				nv_population.set(0, population.get(0));
+				nv_population.set(1,population.get(1));
+				population = GeneticTools.arrayListtoList(nv_population);
+			}
+			System.out.println("generation " + i + ", best score : " + population.get(0).getScore());
 		}
 		
-		return null;
+		Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier);
+
+		return population.get(0);
 	}
 
 	public MutationOperator getMop() {

@@ -2,11 +2,14 @@ package genetique;
 
 import java.util.ArrayList;
 
+import voiture.Commande;
+
 public class Genome {
 	private ArrayList<ArrayList<ArrayList<Double>>> weight_lists;
 	private ArrayList<ArrayList<Double>> liste_biais;
 	private final ArrayList<Integer> structure;
 	private double score = Double.NEGATIVE_INFINITY;
+	private ArrayList<Commande> commandes = new ArrayList<Commande>();
 
 	
 
@@ -56,5 +59,17 @@ public class Genome {
 	public void setScore(double score) {
 		this.score = score;
 	}
+	public ArrayList<Commande> getCommandes() {
+		return commandes;
+	}
+	public void setCommandes(ArrayList<Commande> commandes) {
+		this.commandes = commandes;
+	}
 
+//	@Override
+//	public Genome clone() {
+//		ArrayList<ArrayList<ArrayList<Double>>> weight_lists_bis = this.getListe_poids().clone();
+//		ArrayList<ArrayList<Double>> liste_biais_bis;
+//		ArrayList<Integer> structure;
+//	}
 }

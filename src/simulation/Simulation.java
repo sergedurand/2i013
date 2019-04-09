@@ -21,6 +21,8 @@ import controleur.IHMSwing;
 import controleur.UpdateEventListener;
 import controleur.UpdateEventSender;
 import exceptions.ArriveeException;
+import exceptions.NotMovingException;
+import geometrie.Vecteur;
 import terrain .*;
 
 /**
@@ -146,9 +148,10 @@ public class Simulation implements UpdateEventSender{
 	}
 	
 
-	public void play() throws VoitureException, ArriveeException {
+	public void play() throws VoitureException, ArriveeException, NotMovingException {
 
 		//test orientation
+		Vecteur pos_depart = this.getC().getPointDepart();
 		int i = 0;
 		ArrayList<Voiture> varrivee =  new ArrayList<Voiture>();
 		
@@ -168,6 +171,11 @@ public class Simulation implements UpdateEventSender{
 						continue;
 					}
 					Commande com = null;
+					if(i == 500) {
+						if(this.getVoitures().get(index).getPosition().getDistance(pos_depart) < 20) {
+							throw new NotMovingException("la voiture fait du surplace");
+						}
+					}
 					if (TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
 						if (strategies.get(index) instanceof StrategyPrudente) {
 							StrategyPrudente strat=(StrategyPrudente)strategies.get(index);
@@ -207,7 +215,7 @@ public class Simulation implements UpdateEventSender{
 						continue;
 					}*/
 						if((v.getDirection().angle(c.getDirectionArrivee()) < Math.PI/2.) && v.getDirection().angle(c.getDirectionArrivee())> Math.PI/(-2.)) {
-							System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" itï¿½rations");
+							//System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" itï¿½rations");
 							varrivee.add(v);
 							break;
 						}else {
@@ -225,7 +233,7 @@ public class Simulation implements UpdateEventSender{
 			throw new VoitureException("la voiture a dépassé 29990 iterations");
 		}
 		
-		System.out.println("nombre d'iteration = " + i);
+		//System.out.println("nombre d'iteration = " + i);
 		return;
 	}
 		

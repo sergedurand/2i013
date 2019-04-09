@@ -8,6 +8,7 @@ import vue.Fenetre;
 import circuit.*;
 import controleur.IHMSwing;
 import exceptions.ArriveeException;
+import exceptions.NotMovingException;
 import geometrie.Vecteur;
 
 import java.awt.Color;
@@ -97,6 +98,9 @@ public class testMVC {
 			e1.printStackTrace();
 		}catch (ArriveeException e2) {
 			e2.printStackTrace();
+		} catch (NotMovingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		Simulation.saveListeCommande(simu.getCommandes().get(0), "listecommandes0.txt");
 //		

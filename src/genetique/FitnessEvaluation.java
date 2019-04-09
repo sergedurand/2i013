@@ -3,6 +3,7 @@ package genetique;
 import circuit.*;
 import controleur.IHMSwing;
 import exceptions.ArriveeException;
+import exceptions.NotMovingException;
 import geometrie.Vecteur;
 import simulation.Simulation;
 import observeurs.*;
@@ -51,6 +52,7 @@ public class FitnessEvaluation {
 		try {
 			simu.play();
 			score = simu.getCommandes().get(0).size();
+			this.g.setCommandes(simu.getCommandes().get(0));
 			this.finish = true;
 		} catch (VoitureException e) {
 			// TODO Auto-generated catch block
@@ -59,12 +61,15 @@ public class FitnessEvaluation {
 			score += this.d.getDist()[(int) position.getX()][(int) position.getY()];
 			score += 1000000;
 			this.finish = false;
-			e.printStackTrace();
+			//e.printStackTrace();
 			
 		}catch (ArriveeException e2) {
 			this.finish = false;
 			score = 10000000;
-			e2.printStackTrace();
+			//e2.printStackTrace();
+		}catch(NotMovingException e3) {
+			this.finish = false;
+			score = 10000000;
 		}
 		
 		g.setScore(-score);
@@ -113,6 +118,9 @@ public class FitnessEvaluation {
 			score = 10000000;
 			this.finish = false;
 			e2.printStackTrace();
+		}catch(NotMovingException e3) {
+			this.finish = false;
+			score = 10000000;
 		}
 		
 		g.setScore(-score);		

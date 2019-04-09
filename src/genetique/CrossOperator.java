@@ -69,15 +69,26 @@ public class CrossOperator {
 		Random rand = new Random();
 		ArrayList<Genome> res = new ArrayList<Genome>();
 		ArrayList<Genome> parents = population;
-		while(parents.size()>0) {
+		while(res.size()<(population.size()*2)) {
+			
 			int i = rand.nextInt(parents.size());
 			Genome father =  parents.get(i);
-			parents.remove(i);
 			int j = rand.nextInt(parents.size());
 			Genome mother =  parents.get(j);
-			parents.remove(j);
-			Genome son = cross(father,mother,0.5);
-			res.add(son);
+			//to boost the best ones
+			if((i < 10) && (j < 10)) {
+				Genome son1 = cross(father,mother,0.5);
+				Genome son2 = cross(father,mother,0.5);
+				Genome son3 = cross(father,mother,0.5);
+				Genome son4 = cross(father,mother,0.5);
+				res.add(son4);
+				res.add(son2);
+				res.add(son3);
+				res.add(son1);
+			}else {
+				Genome son1 = cross(father,mother,0.5);
+				res.add(son1);
+			}
 		}
 		return res;
 	}
