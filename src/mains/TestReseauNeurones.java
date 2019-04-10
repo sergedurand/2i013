@@ -203,7 +203,8 @@ public class TestReseauNeurones {
 			d1.compute();
 			ArrayList<Integer> struct = new ArrayList<Integer>();
 			struct.add(5);
-			struct.add(4);
+			struct.add(5);
+			struct.add(5);
 			struct.add(2);
 			GenomeGeneratorPerceptron gen = new GenomeGeneratorPerceptron(struct);
 			CrossOperator cop = new CrossOperator();
@@ -211,7 +212,7 @@ public class TestReseauNeurones {
 			double objectif = target.get(i);
 			if(i<6) {//circuits "facile"
 				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,120,struct,c1,d1);
-				Genome best = algo.optimize(100,s+" pop 120 gen 100",2,false,objectif);
+				Genome best = algo.optimize(100,s+" pop 24 gen 100",2,false,objectif);
 				continue;
 			}
 			if(i<8) {

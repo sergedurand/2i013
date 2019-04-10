@@ -101,7 +101,8 @@ public class CrossOperator {
 				res.add(son3);
 				res.add(son1);
 			}else {
-				
+				Genome son1 = cross(father,mother,0.5);
+				res.add(son1);
 			}
 		}
 		return res;

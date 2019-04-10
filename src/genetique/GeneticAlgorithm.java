@@ -57,7 +57,6 @@ public class GeneticAlgorithm {
 				FitnessEvaluation fit = new FitnessEvaluation(c,d,g);
 				fit.evaluate(dijkstra);			
 			}
-			
 			population.sort(comp.reversed());
 			if(Math.abs(population.get(0).getScore())<target) {
 				Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier + " target atteinte");
