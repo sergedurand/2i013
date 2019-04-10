@@ -32,18 +32,21 @@ import strategy.StrategyRadarSimple;
 
 public class testMVC {
 
-	public static void main(String[] args) throws IOException, NeuroneException {
+	public static void main(String[] args) throws IOException, NeuroneException, ArriveeException, NotMovingException {
 		// TODO Auto-generated method stub
 		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
 		Voiture v = VoitureFactory.build(c);
 
 		Dijkstra dijk = new Dijkstra(c);
 		dijk.compute();
-		Radar rad = new RadarDijkstra(v,c,12,dijk);
+		Radar rad = new RadarDijkstra(v,c,6,dijk);
 		//RadarImpl rad=new RadarImpl(v,c,12);
 		//StrategyRadarSimple strat = new StrategyRadarSimple(rad);
 		StrategyPoint strat = new StrategyPoint(rad,v);
 		
+		for(int i = 0;i<rad.getAngles().length;i++) {
+			System.out.println(rad.getAngles()[i]);
+		}
 		
 		strat.addPoint(new Vecteur(200,455));
 		strat.addPoint(new Vecteur(400,455));
@@ -52,7 +55,7 @@ public class testMVC {
 		strat.addPoint(new Vecteur(400,400));
 		strat.addPoint(new Vecteur(400,350));
 		
-		 //test du fonctionnement de la stratégie point à point 
+		 //test du fonctionnement de la stratï¿½gie point ï¿½ point 
 		
 		IHMSwing ihm = new IHMSwing();
 		ihm.add(new VoitureObserveur(v));
@@ -86,12 +89,12 @@ public class testMVC {
 //		Radar rad3 = new RadarImpl(v3,c,12);
 //		StrategyRadarSimple strat3 = new StrategyRadarSimple(rad3);
 //		simu.addVoitureStrategies(v3, strat3);
-//		Fenetre fen = new Fenetre(ihm,"test");
-//		ihm.setPreferredSize(new Dimension(768,1024));
-//		fen.getContentPane().add(ihm);
-//		fen.pack();
-//                fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		fen.setVisible(true);
+		Fenetre fen = new Fenetre(ihm,"test");
+		ihm.setPreferredSize(new Dimension(768,1024));
+		fen.getContentPane().add(ihm);
+		fen.pack();
+                fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fen.setVisible(true);
 		try {
 			simu.play();
 		} catch (VoitureException e1) {
@@ -109,9 +112,9 @@ public class testMVC {
 ////		Simulation.saveListeCommande(simu.getCommandes().get(1), "listecommandes1.txt");
 ////		Simulation.saveListeCommande(simu.getCommandes().get(2), "listecommandes2.txt");
 //		
-//		Voiture v4 = VoitureFactory.build(c);
-////		Voiture v5 = VoitureFactory.build(c);
-////		Voiture v6 = VoitureFactory.build(c);
+		Voiture v4 = VoitureFactory.build(c);
+		Voiture v5 = VoitureFactory.build(c);
+		Voiture v6 = VoitureFactory.build(c);
 //		
 //		ArrayList<Commande> l1 = null;
 ////		ArrayList<Commande> l2 = null;
@@ -134,26 +137,31 @@ public class testMVC {
 ////			// TODO Auto-generated catch block
 ////			e1.printStackTrace();
 ////		}
-//		StrategyListeCommande st1 = new StrategyListeCommande(l1);
-//		StrategyListeCommande st2 = new StrategyListeCommande(l2);
-//		StrategyListeCommande st3 = new StrategyListeCommande(l3);
+//		StrategyListeCommande st1 = new StrategyListeCommande(Simulation.loadListeCommande("1_safe.trk pop 24 gen 100 gen 27 score -3425.0"));
+//		StrategyListeCommande st2 = new StrategyListeCommande(Simulation.loadListeCommande("1_safe.trk pop 24 gen 100 gen 23 score -3906.0"));
+//		StrategyListeCommande st3 = new StrategyListeCommande(Simulation.loadListeCommande("1_safe.trk pop 24 gen 100 gen 4 score -3854.0"));
 //		
 //		Simulation simu2 = new Simulation(c);
 //		simu2.addVoitureStrategies(v4, st1);
-////		simu2.addVoitureStrategies(v5, st2);
-////		simu2.addVoitureStrategies(v6, st3);
+//		simu2.addVoitureStrategies(v5, st2);
+//		simu2.addVoitureStrategies(v6, st3);
 //		
 //		TrajectoireObserveur traj1 = new TrajectoireObserveur(v4);
-////		TrajectoireObserveur traj2 = new TrajectoireObserveur(v5);
-////		TrajectoireObserveur traj3 = new TrajectoireObserveur(v6);
+//		TrajectoireObserveur traj2 = new TrajectoireObserveur(v5);
+//		TrajectoireObserveur traj3 = new TrajectoireObserveur(v6);
 //		ihm.add(traj1);
 //		ihm.add(new VoitureObserveur(v4));
-////		ihm.add(traj2);
-////		ihm.add(traj3);
+//		ihm.add(traj2);
+//		ihm.add(traj3);
 //		simu2.add(ihm);
 //		ihm.add(simu2);
-//		
-
+//		Fenetre fen = new Fenetre(ihm, "test perceptron");
+//		ihm.setPreferredSize(new Dimension(768,1024));
+//		fen.getContentPane().add(ihm);
+//		fen.pack();
+//	            fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		fen.setVisible(true);
+//
 //		try {
 //			simu2.play();
 //		} catch (VoitureException e) {

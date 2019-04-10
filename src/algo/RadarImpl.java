@@ -21,19 +21,19 @@ public class RadarImpl implements Radar {
 		this.voiture = voiture;
 		this.circuit = circuit;
 		int taille;
-		if(nb_angles%2 != 0) { //pour etre sur que la taille est paire
-			taille=nb_angles+1;
-		}
-		else {
-			taille = nb_angles;
-		}
+		taille = nb_angles;
 		this.angles = new double[taille];
 		double angle = Math.PI/taille;
-		for(int i = 1;i<=taille/2;i++) {
+		int lim = taille;
+		if(taille%2!=0) {
+			lim = taille+1;
+		}
+		for(int i = 1;i<lim/2;i++) {
 			angles[i-1]=angle*i;
 			angles[taille-i]=angle*-i;
+			
 		}
-		angles[taille/2]=0;
+		//angles[0]=0;
 		this.distPix = new double[angles.length];
 		BestIndex = 0;
 	}
@@ -51,7 +51,7 @@ public class RadarImpl implements Radar {
 
 
 	@Override
-	public double[] scores(double epsilon) {
+	public void scores(double epsilon) {
 		double[] scores;
 		int taille=angles.length;
 		//System.out.println(taille);
@@ -68,7 +68,6 @@ public class RadarImpl implements Radar {
 			distPix[i]=scores[i]*epsilon;
 		}
 		this.BestIndex = imax;
-		return scores;
 	}
 
 	@Override

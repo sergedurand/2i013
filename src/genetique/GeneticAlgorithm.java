@@ -39,10 +39,14 @@ public class GeneticAlgorithm {
 	 * @param iteration
 	 * @param nom_fichier
 	 * @param part
+	 * @param dijkstra true if you want to use a RadarDijsktra, false otherwise
+	 * @param target sets a goal for the simulation to stop if reached
+	 * @param nb_param number of additional input in the first layer (ie speed, maxTurn etc...). Make sure you changed StrategyPerceptron accordingly
 	 * @return
 	 * @throws NeuroneException
+	 * 
 	 */
-	public Genome optimize(int iteration, String nom_fichier,int part,boolean dijkstra, double target) throws NeuroneException {
+	public Genome optimize(int iteration, String nom_fichier,int part,boolean dijkstra, double target, int nb_param) throws NeuroneException {
 		List<Genome> population = new ArrayList<Genome>();
 		ArrayList<Double> best_score = new ArrayList<Double>();
 		//initialisation : 
@@ -55,7 +59,7 @@ public class GeneticAlgorithm {
 		for(int i = 0;i<iteration;i++) {
 			for(Genome g : population) {
 				FitnessEvaluation fit = new FitnessEvaluation(c,d,g);
-				fit.evaluate(dijkstra);			
+				fit.evaluate(dijkstra,nb_param);			
 			}
 			population.sort(comp.reversed());
 			if(Math.abs(population.get(0).getScore())<target) {
@@ -68,6 +72,13 @@ public class GeneticAlgorithm {
 			if(population.get(0).isFinish()) {
 				String nom_bis = nom_fichier + " gen " + (i+1) +" score " + population.get(0).getScore();
 				Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
+			}
+			if(i>20) {
+				if(best_score.get(0)==best_score.get(i-10)) {
+					String nom_bis = nom_fichier + " gen " + (i+1) +" score " + population.get(0).getScore() + " stagnation score";
+					Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
+					return population.get(0);
+				}
 			}
 			//we keep the first 2 in the new population
 			if(i<iteration-1) {

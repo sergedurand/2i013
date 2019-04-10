@@ -36,26 +36,15 @@ public class FitnessEvaluation {
 		return g;
 	}
 
-	public void evaluate(boolean dijkstra) throws NeuroneException {
+	public void evaluate(boolean dijkstra,int nb_param) throws NeuroneException {
 		Voiture v = VoitureFactory.build(c);
 		int taille_entree = g.getListe_poids().get(0).size();
-		if(taille_entree%2 == 0) {
-			if(dijkstra) {
-				this.r = new RadarDijkstra(v,c,taille_entree,d);
-			}else {
-				this.r = new RadarImpl(v,c,taille_entree);
-			}
-			
-			
+		if(dijkstra) {
+			this.r = new RadarDijkstra(v,c,taille_entree-nb_param,d);
 		}else {
-			if(dijkstra) {
-				this.r = new RadarDijkstra(v,c,taille_entree-1,d);
-			}else {
-				this.r = new RadarImpl(v,c,taille_entree-1);
-			}
-			
+			this.r = new RadarImpl(v,c,taille_entree-nb_param);
 		}
-		
+					
 		Strategy strat = new StrategyPerceptron(g,r,v,d);
 		Simulation simu = new Simulation(c);
 		simu.addVoitureStrategies(v, strat);

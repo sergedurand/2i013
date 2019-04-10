@@ -50,7 +50,7 @@ public class RadarDijkstra extends RadarImpl {
 		return n; //On renvoie la distance minimale trouv�e dans le tableau dist parmi les vecteurs explor�s
 	}
 	
-	public double[] scores(double epsilon) {
+	public void scores(double epsilon) {
 		double[] scores;
 		int taille=angles.length;
 		//System.out.println(taille);
@@ -80,7 +80,6 @@ public class RadarDijkstra extends RadarImpl {
 			
 		}
 		this.BestIndex = imax;
-		return scores;
 	}
 	
 
