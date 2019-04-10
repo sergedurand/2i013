@@ -231,7 +231,7 @@ public class Simulation implements UpdateEventSender{
 			
 		}
 		if(i>29990) {
-			throw new VoitureException("la voiture a dépassé 29990 iterations");
+			throw new VoitureException("la voiture a dï¿½passï¿½ 29990 iterations");
 		}
 		
 		//System.out.println("nombre d'iteration = " + i);

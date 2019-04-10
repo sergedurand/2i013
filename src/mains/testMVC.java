@@ -19,6 +19,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import simulation.*;
@@ -39,21 +40,21 @@ public class testMVC {
 
 		Dijkstra dijk = new Dijkstra(c);
 		dijk.compute();
-		Radar rad = new RadarDijkstra(v,c,6,dijk);
-		//RadarImpl rad=new RadarImpl(v,c,12);
-		//StrategyRadarSimple strat = new StrategyRadarSimple(rad);
-		StrategyPoint strat = new StrategyPoint(rad,v);
+		//Radar rad = new RadarDijkstra(v,c,6,dijk);
+		RadarImpl rad=new RadarImpl(v,c,6);
+		StrategyRadarSimple strat = new StrategyRadarSimple(rad);
+	//	StrategyPoint strat = new StrategyPoint(rad,v);
 		
 		for(int i = 0;i<rad.getAngles().length;i++) {
 			System.out.println(rad.getAngles()[i]);
 		}
 		
-		strat.addPoint(new Vecteur(200,455));
+		/*strat.addPoint(new Vecteur(200,455));
 		strat.addPoint(new Vecteur(400,455));
 		strat.addPoint(new Vecteur(600,520));
 		strat.addPoint(new Vecteur(530,650));
 		strat.addPoint(new Vecteur(400,400));
-		strat.addPoint(new Vecteur(400,350));
+		strat.addPoint(new Vecteur(400,350));*/
 		
 		 //test du fonctionnement de la strat�gie point � point 
 		
@@ -64,7 +65,7 @@ public class testMVC {
 		ihm.addCircuit(c);
 		Simulation simu = new Simulation(c);
 		simu.addVoitureStrategies(v, strat);
-		//simu.add(ihm);
+		simu.add(ihm);
 		
 		//System.out.println("fini");
 		//simu.add(ihm);
@@ -89,6 +90,9 @@ public class testMVC {
 //		Radar rad3 = new RadarImpl(v3,c,12);
 //		StrategyRadarSimple strat3 = new StrategyRadarSimple(rad3);
 //		simu.addVoitureStrategies(v3, strat3);
+		JButton but;
+		but=new JButton("3.14151615151515151");
+        ihm.add(but);
 		Fenetre fen = new Fenetre(ihm,"test");
 		ihm.setPreferredSize(new Dimension(768,1024));
 		fen.getContentPane().add(ihm);

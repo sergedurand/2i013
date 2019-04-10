@@ -73,19 +73,19 @@ public class GeneticAlgorithm {
 				String nom_bis = nom_fichier + " gen " + (i+1) +" score " + population.get(0).getScore();
 				Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
 			}
-			if(i>20) {
-				if(best_score.get(0)==best_score.get(i-10)) {
-					String nom_bis = nom_fichier + " gen " + (i+1) +" score " + population.get(0).getScore() + " stagnation score";
+			/*if(i>20) {
+				if(best_score.get(i).intValue()==best_score.get(i-10).intValue()) {
+					String nom_bis = nom_fichier + " gen " + (i+1) +" score " + population.get(0).getScore();
 					Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
 					return population.get(0);
 				}
-			}
+			}*/
 			//we keep the first 2 in the new population
 			if(i<iteration-1) {
 				List<Genome> parents_l = population.subList(0, population.size()/part);
 				ArrayList<Genome> parents = GeneticTools.listToArrayList(parents_l);
 				ArrayList<Genome> nv_population = cop.crossPop(parents,part);
-				mop.mutatePop(nv_population, 1, -1, 1, 0.2);
+				mop.mutatePop(nv_population, 1, -1, 1, 0.65);
 				nv_population.set(0, population.get(0));
 				nv_population.set(1,population.get(1));
 				population = GeneticTools.arrayListtoList(nv_population);

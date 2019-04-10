@@ -9,14 +9,14 @@ public class RadarObserveur implements ObserveurSwing {
 	private Radar rad;
 	private Color coul;
 	
-	public RadarObserveur(Radar rad2) {
+	public RadarObserveur(Radar r) {
 		super();
-		this.rad = rad2;
+		this.rad = r;
 		coul = Color.BLUE;
 	}
 
 
-	@Override
+	/*@Override
 	public void print(Graphics g) {
 		// TODO Auto-generated method stub
 		
@@ -29,10 +29,27 @@ public class RadarObserveur implements ObserveurSwing {
 			g.drawLine(this.getX(),this.getY(), (int)vdir.getX()+this.getX(), (int)vdir.getY()+this.getY());
 		}
 
+	}*/
+	
+	 //POUR LE RADAR PARABOLIQUE UNIQUEMENT
+
+	@Override
+	public void print(Graphics g) {
+		// TODO Auto-generated method stub
+		
+		g.setColor(coul);
+		Vecteur vdir;
+		Vecteur vfinal;
+		for (int i=0;i<rad.getDistPix().length;i++) {
+			vdir=rad.getVoiture().getDirection().rotation(rad.getAngles()[i]);
+			vdir=vdir.normalisation();
+			vdir=vdir.multiplication(rad.getDistPix()[i]);
+			g.drawLine(this.getX(),this.getY(), (int)vdir.getX()+this.getX(), (int)vdir.getY()+this.getY());
+		}
+
 	}
 
-
-
+	
 	private int getX() {
 		// TODO Auto-generated method stub
 		return (int) rad.getVoiture().getPosition().getX();
