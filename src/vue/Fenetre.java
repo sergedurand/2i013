@@ -45,18 +45,35 @@ public class Fenetre extends JFrame{
         gbc.gridwidth = 2;
         gbc.insets = new Insets(10,0,0,0);
         JLabel label1 = new JLabel("Test",SwingConstants.CENTER);
+        label1.setText("Choix de la stratégie:");
+        panel2.add(label1,gbc);  
+        
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        //gbc.insets = new Insets(10,0,0,0);
+        String[] choices = { "Simple","Dijkstra","Prudente","Point à point","Génétique"};
+
+        JComboBox<String> cb = new JComboBox<String>(choices);
+        panel2.add(cb,gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(10,0,0,0);
+        label1 = new JLabel("Test",SwingConstants.CENTER);
         label1.setText("Choix du circuit:");
         panel2.add(label1,gbc);
         
         //gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 2;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.gridwidth = 2;
         //gbc.insets = new Insets(10,0,0,0);
-        String[] choices = { "1_safe.trk", "2_safe.trk", "3_safe.trk", "4_safe.trk", "5_safe.trk", "6_safe.trk","7_safe.trk","8_safe.trk","aufeu.trk","bond.trk"
+        String[] choices2 = { "1_safe.trk", "2_safe.trk", "3_safe.trk", "4_safe.trk", "5_safe.trk", "6_safe.trk","7_safe.trk","8_safe.trk","aufeu.trk","bond.trk"
         ,"Een2.trk","labymod.trk","labyperso.trk","perso.trk","t260_safe.trk"};
 
-        JComboBox<String> cb = new JComboBox<String>(choices);
+        cb = new JComboBox<String>(choices2);
         panel2.add(cb,gbc);
         
         
@@ -71,6 +88,15 @@ public class Fenetre extends JFrame{
         
         gbc.gridx = 0;
         gbc.gridy = 4;
+        gbc.gridwidth = 4;
+       // gbc.ipadx = 40;  
+        //gbc.weightx = 50000;
+        but=new JButton("Chargement d'une liste de commandes");
+        panel2.add(but,gbc);
+        
+        
+        gbc.gridx = 0;
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         gbc.ipadx = 0;  
         label1 = new JLabel("Test",SwingConstants.CENTER);
@@ -80,12 +106,12 @@ public class Fenetre extends JFrame{
         
         JTextField edit = new JTextField();
         gbc.gridx = 2;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         //gbc.gridwidth = 2;
         panel2.add(edit,gbc);
         
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(10,0,0,0);
         label1 = new JLabel("Test",SwingConstants.CENTER);
@@ -94,7 +120,7 @@ public class Fenetre extends JFrame{
         
         //gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 2;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.gridwidth = 2;
         //gbc.insets = new Insets(10,0,0,0);
         String[] ch = { "Rouge","Vert","Bleu","Jaune","Noire","Blanche"};
@@ -103,7 +129,7 @@ public class Fenetre extends JFrame{
         panel2.add(cb,gbc);
         
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(10,0,0,0);
         label1 = new JLabel("Test",SwingConstants.CENTER);
@@ -112,8 +138,9 @@ public class Fenetre extends JFrame{
         
         JCheckBox boite=new JCheckBox();
         gbc.gridx = 2;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.gridwidth = 2;
+        boite.setBackground(new Color(162, 192, 202));
         panel2.add(boite,gbc);
         
         panel2.setBackground(new Color(162, 192, 202));
