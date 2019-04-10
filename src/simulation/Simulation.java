@@ -215,7 +215,7 @@ public class Simulation implements UpdateEventSender{
 						g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());
 						continue;
 					}*/
-						if((v.getDirection().angle(c.getDirectionArrivee()) < Math.PI/2.) && v.getDirection().angle(c.getDirectionArrivee())> Math.PI/(-2.)) {
+						if((v.getDirection().angle(c.getDirectionArrivee()) < (Math.PI/2.) && v.getDirection().angle(c.getDirectionArrivee())> (Math.PI)/(-2.))) {
 							//System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" it�rations");
 							varrivee.add(v);
 							break;

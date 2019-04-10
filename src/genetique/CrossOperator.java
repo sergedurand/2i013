@@ -65,29 +65,43 @@ public class CrossOperator {
 	 * @param population
 	 * @return
 	 */
-	public ArrayList<Genome> crossPop(ArrayList<Genome> population){
+	public ArrayList<Genome> crossPop(ArrayList<Genome> population, int part){
 		Random rand = new Random();
 		ArrayList<Genome> res = new ArrayList<Genome>();
 		ArrayList<Genome> parents = population;
-		while(res.size()<(population.size()*4)) {
+		
+		while(res.size()<(population.size()*part)) {
+			Genome father = null;
+			while(res.size()<population.size()/4) {
+				father = population.get(0);
+				int i = rand.nextInt(parents.size());
+				while(i==0) {
+					i=rand.nextInt(parents.size());
+				}
+				Genome mother = parents.get(i);
+				Genome son1 = cross(father,mother,0.5);
+				res.add(son1);
+			}
 			
 			int i = rand.nextInt(parents.size());
-			Genome father =  parents.get(i);
+			father =  parents.get(i);
 			int j = rand.nextInt(parents.size());
+			while(j==i) {//to make sure parents are different
+				j = rand.nextInt(parents.size());
+			}
 			Genome mother =  parents.get(j);
 			//to boost the best ones
-			if((i < 10) && (j < 10)) {
+			if((i < 5) && (j < 5) && father.isFinish() && mother.isFinish()) {
 				Genome son1 = cross(father,mother,0.5);
 				Genome son2 = cross(father,mother,0.5);
 				Genome son3 = cross(father,mother,0.5);
-				Genome son4 = cross(father,mother,0.5);
-				res.add(son4);
+//				Genome son4 = cross(father,mother,0.5);
+//				res.add(son4);
 				res.add(son2);
 				res.add(son3);
 				res.add(son1);
 			}else {
-				Genome son1 = cross(father,mother,0.5);
-				res.add(son1);
+				
 			}
 		}
 		return res;

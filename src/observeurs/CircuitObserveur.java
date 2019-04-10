@@ -21,12 +21,12 @@ public class CircuitObserveur implements ObserveurSwing {//dans cette classe on 
 	public void print(Graphics g) {
 		Graphics gg=im.getGraphics();
 		gg.setColor(new Color(0,0,0));
-		gg.fillRect(200,455,10,10);
-		gg.fillRect(400,455,10,10);
-		gg.fillRect(610,520,10,10);
-		gg.fillRect(530,650,10,10);  //Observation pour la stratégie point à point
-		gg.fillRect(400,400,10,10);
-		gg.fillRect(400,350,10,10);
+//		gg.fillRect(200,455,10,10);
+//		gg.fillRect(400,455,10,10);
+//		gg.fillRect(610,520,10,10);
+//		gg.fillRect(530,650,10,10);  //Observation pour la stratégie point à point
+//		gg.fillRect(400,400,10,10);
+//		gg.fillRect(400,350,10,10);
 
 		// TODO Auto-generated method stub
 		g.drawImage(im, 1, 1, null);

@@ -20,6 +20,8 @@ public class StrategyPerceptron implements Strategy {
 	private Perceptron p;
 	private Radar r;
 	private Genome g;
+	private Voiture v;
+	private Dijkstra d;
 
 	public StrategyPerceptron(Perceptron p, Radar r, Genome g) {
 		// TODO Auto-generated constructor stub
@@ -28,17 +30,23 @@ public class StrategyPerceptron implements Strategy {
 		this.g = g;
 	}
 	
-	public StrategyPerceptron(Genome g, Radar r) {
+	public StrategyPerceptron(Genome g, Radar r, Voiture v, Dijkstra d) {
 		this.g = g;
 		this.r = r;
 		this.p = new Perceptron(g.getListe_poids(),g.getListe_biais());
+		this.v = v;
+		this.d = d;
 	}
 
 	@Override
 	public Commande getCommande() throws VoitureException, NeuroneException {
 		ArrayList<Double> input = new ArrayList<Double>();
+//		input.add(this.getV().getVitesse());
+		input.add(this.getV().getMaxTurn());
+//		input.add(this.getV().getBraquage());
+//		input.add(this.getD().getDist()[(int) this.getV().getPosition().getX()][(int) this.getV().getPosition().getY()]);
 		r.scores(0.1);
-
+		
 		for(int i = 0;i<r.getDistPix().length;i++) {
 			input.add(r.getDistPix()[i]);
 		}
@@ -61,6 +69,13 @@ public class StrategyPerceptron implements Strategy {
 
 	public void setP(Perceptron p) {
 		this.p = p;
+	}
+	
+	public Dijkstra getD() {
+		return d;
+	}
+	public Voiture getV() {
+		return v;
 	}
 
 	public Genome getG() {
