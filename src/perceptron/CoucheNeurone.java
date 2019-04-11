@@ -32,9 +32,10 @@ public class CoucheNeurone {
 	}
 	
 	/**
-	 * Create a layer from list of list of weights and list of bias
+	 * 
 	 * @param listePoidsNeurones
 	 * @param biais
+	 * @throws NeuroneException
 	 */
 	public CoucheNeurone(ArrayList<ArrayList<ArrayList<Double>>> listePoidsNeurones, ArrayList<Double> biais) throws NeuroneException {
 		this(listePoidsNeurones.size());
@@ -111,7 +112,7 @@ public class CoucheNeurone {
 	}
 	public void setValues(ArrayList<Double> values) throws NeuroneException {
 		if(values.size()!=this.getTaille()) {
-			throw new NeuroneException("erreur nombre de valeur différent du nombre de neurone");
+			throw new NeuroneException("erreur nombre de valeur different du nombre de neurone");
 		}
 		for(int i = 0;i<values.size();i++) {
 			this.getNeurones().get(i).setValeur(values.get(i));
@@ -192,7 +193,7 @@ public class CoucheNeurone {
 	
 	public void setBias(ArrayList<Double> lbiais) {
 		if(lbiais.size()!=this.getTaille()) {
-			System.out.println("nombre de biais différent du nombre de neurone");
+			System.out.println("nombre de biais different du nombre de neurone");
 			return;
 		}
 		int i = 0;

@@ -190,14 +190,19 @@ public class Simulation implements UpdateEventSender{
 					if(index==0 && i<20) {
 						continue;
 					}
+					Strategy s_courant = this.getStrategies().get(index);
 					Commande com = null;
-					if(i>1 && i%500==0) {
-						ArrayList<Vecteur> pos_voit = positions.get(index);
-						if(this.getVoitures().get(index).getPosition().getDistance(pos_voit.get(positions.size()-1)) < 50) {
-							throw new NotMovingException("la voiture fait du surplace");
+					
+					if(s_courant instanceof StrategyPerceptron) {
+						if(i>1 && i%500==0) {
+							ArrayList<Vecteur> pos_voit = positions.get(index);
+							if(this.getVoitures().get(index).getPosition().getDistance(pos_voit.get(positions.size()-1)) < 50) {
+								throw new NotMovingException("la voiture fait du surplace");
+							}
+							pos_voit.add(this.getVoitures().get(index).getPosition());
 						}
-						pos_voit.add(this.getVoitures().get(index).getPosition());
 					}
+					
 					if (TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
 						if (strategies.get(index) instanceof StrategyPrudente) {
 							StrategyPrudente strat=(StrategyPrudente)strategies.get(index);
@@ -229,13 +234,9 @@ public class Simulation implements UpdateEventSender{
 					this.update();
 					
 					if ((v.getPosition().getX()>=0)&&((v.getPosition().getX()<c.getWidth()))&&(v.getPosition().getY()>=0)&&((v.getPosition().getY()<c.getHeight()))&&TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (i!=0) && TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
-						/*if ((c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))<=0)) {
-						System.out.println("Mauvais côté de la ligne: x="+this.v.getPosition().getX()+" y="+this.v.getPosition().getX()+" prod scal: "+(c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))));
-						v.setDirection(c.getDirectionDepart());
-						g.setColor(new Color(0,0,0));
-						g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());
-						continue;
-					}*/
+//						if ((c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))<=0)) {
+//							throw new ArriveeException("arrivee franchie dans le mauvais sens !");
+//						}
 						if((v.getDirection().angle(c.getDirectionArrivee()) < (Math.PI/2.) && v.getDirection().angle(c.getDirectionArrivee())> (Math.PI)/(-2.))) {
 							//System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" it�rations");
 							varrivee.add(v);
@@ -243,8 +244,8 @@ public class Simulation implements UpdateEventSender{
 						}else {
 							throw new ArriveeException("arrivee franchie dans le mauvais sens !");
 						}
-
-					} //A decommenter pour le circuit 2_safe.trk
+					}
+					
 				
 				}
 			}i++;

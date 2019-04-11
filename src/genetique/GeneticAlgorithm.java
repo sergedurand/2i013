@@ -7,6 +7,7 @@ import algo.Dijkstra;
 import circuit.Circuit;
 import exceptions.NeuroneException;
 import simulation.Simulation;
+import voiture.Commande;
 
 public class GeneticAlgorithm {
 	
@@ -19,6 +20,16 @@ public class GeneticAlgorithm {
 	private Circuit c;
 	private Dijkstra d;
 	
+	/**
+	 * Constructor for a GeneticAlgorithm
+	 * @param mop
+	 * @param cop
+	 * @param gen
+	 * @param pop
+	 * @param struc
+	 * @param c
+	 * @param d
+	 */
 	public GeneticAlgorithm(MutationOperator mop, CrossOperator cop, GenomeGenerator gen, int pop,
 			ArrayList<Integer> struc, Circuit c, Dijkstra d) {
 		super();
@@ -55,34 +66,44 @@ public class GeneticAlgorithm {
 			population.add(g);
 		}
 		
-
+		ArrayList<ArrayList<Commande>> best_genomes = new ArrayList<ArrayList<Commande>>();
 		for(int i = 0;i<iteration;i++) {
 			for(Genome g : population) {
 				FitnessEvaluation fit = new FitnessEvaluation(c,d,g);
 				fit.evaluate(dijkstra,nb_param);			
 			}
 			population.sort(comp.reversed());
-			if(i%5==0 && Math.abs(population.get(0).getScore())<13000) {
-				FitnessEvaluation fit = new FitnessEvaluation(c,d,population.get(0));
-				fit.evaluateWithDisplay(dijkstra,nb_param);
-			}
+//			if(i%5==0 && Math.abs(population.get(0).getScore())<13000) {
+//				FitnessEvaluation fit = new FitnessEvaluation(c,d,population.get(0));
+//				fit.evaluateWithDisplay(dijkstra,nb_param);
+//			}
 			
-			if(Math.abs(population.get(0).getScore())<target) {
-				Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier + " target atteinte");
-				GeneticTools.saveGenome(population.get(0),"genome " + nom_fichier + "target atteinte");
-				return population.get(0);
-			}
+//			if(Math.abs(population.get(0).getScore())<target) {
+//				Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier + " target atteinte");
+//				GeneticTools.saveGenome(population.get(0),"genome " + nom_fichier + "target atteinte");
+//				return population.get(0);
+//			}
 			best_score.add(population.get(0).getScore());
 			System.out.println("generation " + i + ", best score : " + population.get(0).getScore());
 			if(population.get(0).isFinish()) {
-				String nom_bis = nom_fichier + " gen " + (i+1) +" score " + population.get(0).getScore();
-				Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
+				if(best_genomes.size()==0) {
+					best_genomes.add(population.get(0).getCommandes());
+					//Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
+				}else {
+					int score_precedent = best_genomes.get(best_genomes.size()-1).size();
+					int score_courant = (int) population.get(0).getScore();
+					if(score_courant != score_precedent) {
+						best_genomes.add(population.get(0).getCommandes());
+					}
+				}
+				
 			}
 			if(i>20) {
 				if(best_score.get(i).intValue()==best_score.get(i-10).intValue()) {
-					String nom_bis = nom_fichier + " gen " + (i+1) +" score " + population.get(0).getScore() + " stagnation score";
-					Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
-					return population.get(0);
+//					String nom_bis = nom_fichier + " gen " + (i+1) +" score " + population.get(0).getScore() + " stagnation score";
+//					Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
+//					return population.get(0);
+					break;
 				}
 			}
 			if(i<iteration-1) {
@@ -101,7 +122,11 @@ public class GeneticAlgorithm {
 		}
 		
 		
-		Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier);
+		for(ArrayList<Commande> l_com : best_genomes) {
+			String nom = nom_fichier + " " + best_genomes.indexOf(l_com);
+			Simulation.saveListeCommande(l_com, nom);
+		}
+		//Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier);
 		GeneticTools.saveGenome(population.get(0),"genome " + nom_fichier);
 		return population.get(0);
 	}

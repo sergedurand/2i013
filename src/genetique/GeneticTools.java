@@ -1,5 +1,7 @@
 package genetique;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -9,9 +11,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import circuit.Circuit;
+import javax.swing.JFrame;
+
+import circuit.*;
+import controleur.IHMSwing;
+import exceptions.ArriveeException;
+import exceptions.NeuroneException;
+import exceptions.NotMovingException;
 import simulation.Simulation;
-import voiture.Commande;
+import strategy.*;
+import voiture.*;
+import vue.Fenetre;
+import observeurs.*;
 
 public class GeneticTools {
 	
@@ -56,11 +67,40 @@ public class GeneticTools {
         }
 	}
 	
-	public void batchVisualization(ArrayList<ArrayList<Commande>> com, Circuit c) {
+	public static void batchVisualization(ArrayList<ArrayList<Commande>> com, Circuit c) {
 		Simulation simu = new Simulation(c);
-		
+		IHMSwing ihm = new IHMSwing();
+		ihm.add(simu);
+		ihm.addCircuit(c);
 		for(ArrayList<Commande> l_com : com) {
+			Voiture v = VoitureFactory.build(c);
+			Strategy s = new StrategyListeCommande(l_com);
+			simu.addVoitureStrategies(v, s);
+			simu.setSleep(1);
+			TrajectoireObserveur t = new TrajectoireObserveur(v);
+			int r = (int) (Math.random()*254);
+			int b = (int) (Math.random()*254);
+			int g = (int) (Math.random()*254);
+			Color col = new Color(r,g,b);
+			t.setColor(col);
+			ihm.add(t);
 			
+		}
+		
+		simu.add(ihm);
+		
+		Fenetre fen = new Fenetre(ihm, "test perceptron");
+		ihm.setPreferredSize(new Dimension(768,1024));
+		fen.getContentPane().add(ihm);
+		fen.pack();
+	            fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fen.setVisible(true);
+
+		try {
+			simu.play();
+		} catch (VoitureException | ArriveeException | NotMovingException | NeuroneException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

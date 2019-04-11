@@ -10,6 +10,7 @@ import controleur.IHMSwing;
 import exceptions.ArriveeException;
 import exceptions.NeuroneException;
 import exceptions.NotMovingException;
+import genetique.GeneticTools;
 import geometrie.Vecteur;
 
 import java.awt.Color;
@@ -35,7 +36,7 @@ public class testMVC {
 
 	public static void main(String[] args) throws IOException, NeuroneException, ArriveeException, NotMovingException {
 		// TODO Auto-generated method stub
-		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
+		Circuit c = CircuitFactoryFromFile.build("2_safe.trk");
 		Voiture v = VoitureFactory.build(c);
 
 		Dijkstra dijk = new Dijkstra(c);
@@ -45,9 +46,7 @@ public class testMVC {
 		StrategyRadarSimple strat = new StrategyRadarSimple(rad);
 	//	StrategyPoint strat = new StrategyPoint(rad,v);
 		
-		for(int i = 0;i<rad.getAngles().length;i++) {
-			System.out.println(rad.getAngles()[i]);
-		}
+
 		
 		/*strat.addPoint(new Vecteur(200,455));
 		strat.addPoint(new Vecteur(400,455));
@@ -90,27 +89,27 @@ public class testMVC {
 //		Radar rad3 = new RadarImpl(v3,c,12);
 //		StrategyRadarSimple strat3 = new StrategyRadarSimple(rad3);
 //		simu.addVoitureStrategies(v3, strat3);
-		JButton but;
-		but=new JButton("3.14151615151515151");
-        ihm.add(but);
-		Fenetre fen = new Fenetre(ihm,"test");
-		ihm.setPreferredSize(new Dimension(768,1024));
-		fen.getContentPane().add(ihm);
-		fen.pack();
-                fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fen.setVisible(true);
-		try {
-			simu.play();
-		} catch (VoitureException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}catch (ArriveeException e2) {
-			e2.printStackTrace();
-		} catch (NotMovingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Simulation.saveListeCommande(simu.getCommandes().get(0), "listecommandes0.txt");
+//		JButton but;
+//		but=new JButton("3.14151615151515151");
+//        ihm.add(but);
+//		Fenetre fen = new Fenetre(ihm,"test");
+//		ihm.setPreferredSize(new Dimension(768,1024));
+//		fen.getContentPane().add(ihm);
+//		fen.pack();
+//                fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		fen.setVisible(true);
+//		try {
+//			simu.play();
+//		} catch (VoitureException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}catch (ArriveeException e2) {
+//			e2.printStackTrace();
+//		} catch (NotMovingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		Simulation.saveListeCommande(simu.getCommandes().get(0), "listecommandes0.txt");
 //		
 //		Simulation.saveListeCommande(simu.getCommandes().get(0), "listecommandes0.txt");
 ////		Simulation.saveListeCommande(simu.getCommandes().get(1), "listecommandes1.txt");
@@ -172,8 +171,15 @@ public class testMVC {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-					
 		
+		ArrayList<ArrayList<Commande>> listes_commandes = new ArrayList<ArrayList<Commande>>();
+
+		for(int i = 0;i<8;i++) {
+			String nom = "circuit 2 " +i;
+			listes_commandes.add(Simulation.loadListeCommande(nom));
+		}
+					
+		GeneticTools.batchVisualization(listes_commandes, c);
 	}
 
 }
