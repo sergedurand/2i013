@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import circuit.Circuit;
+import simulation.Simulation;
 import voiture.Commande;
 
 public class GeneticTools {
@@ -52,6 +54,14 @@ public class GeneticTools {
         } catch (IOException e) {
                 e.printStackTrace();
         }
+	}
+	
+	public void batchVisualization(ArrayList<ArrayList<Commande>> com, Circuit c) {
+		Simulation simu = new Simulation(c);
+		
+		for(ArrayList<Commande> l_com : com) {
+			
+		}
 	}
 	
 //	public static Genome loadGenome(String filename) {
