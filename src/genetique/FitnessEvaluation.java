@@ -48,6 +48,7 @@ public class FitnessEvaluation {
 		Strategy strat = new StrategyPerceptron(g,r,v,d);
 		Simulation simu = new Simulation(c);
 		simu.addVoitureStrategies(v, strat);
+		simu.setSleep(0);
 		double score = 0;
 		
 		try {
@@ -76,18 +77,18 @@ public class FitnessEvaluation {
 		g.setScore(-score);
 	}
 
-	public void evaluateWithDisplay() throws NeuroneException {
+	public void evaluateWithDisplay(boolean dijkstra, int nb_param) throws NeuroneException {
 		Voiture v = VoitureFactory.build(c);
 		int taille_entree = g.getListe_poids().get(0).size();
-		if(taille_entree%2 == 0) {
-			this.r = new RadarImpl(v,c,taille_entree);
+		if(dijkstra) {
+			this.r = new RadarDijkstra(v,c,taille_entree-nb_param,d);
 		}else {
-			this.r = new RadarImpl(v,c,taille_entree-1);
-		}
-		
+			this.r = new RadarImpl(v,c,taille_entree-nb_param);
+		}		
 		Strategy strat = new StrategyPerceptron(g,r,v,d);
 		Simulation simu = new Simulation(c);
 		simu.addVoitureStrategies(v, strat);
+		simu.setSleep(0);
 		double score = 0;
 		IHMSwing ihm = new IHMSwing();
 		//ihm.add(new VoitureObserveur(v));
@@ -123,6 +124,7 @@ public class FitnessEvaluation {
 			this.finish = false;
 			score = 10000000;
 		}
+		fen.dispose();
 		
 		g.setScore(-score);		
 	}

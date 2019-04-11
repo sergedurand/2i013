@@ -47,6 +47,7 @@ public class RadarImpl implements Radar {
 	protected double[] angles;
 	protected double[] distPix;
 	protected int BestIndex;
+	protected boolean arrivee = false;
 	
 
 
@@ -60,7 +61,6 @@ public class RadarImpl implements Radar {
 		int imax = 0;
 		for (int i=0;i<taille;i++) {
 			scores[i]=calcScore(angles[i],epsilon);
-			//System.out.println("itération");
 			if(scores[i]>=max) {
 				max = scores[i];
 				imax = i;
@@ -94,6 +94,9 @@ public class RadarImpl implements Radar {
 		int cpt=0;
 		//System.out.println("Vecteur courant: "+p.toString());
 		while ((circuit.estDansCircuit(p)&&(TerrainTools.charFromTerrain(circuit.getTerrain(p)) !='g'))) {
+//			if(circuit.getArrivees().contains(p)) {
+//				this.setArrivee(true);
+//			}
 			cpt++;
 			p = p.addition(direction.multiplication(epsilon));
 		}
@@ -152,4 +155,14 @@ public class RadarImpl implements Radar {
 		return min;
 	}
 
+
+	public boolean isArrivee() {
+		return arrivee;
+	}
+
+
+	public void setArrivee(boolean arrivee) {
+		this.arrivee = arrivee;
+	}
+	
 }

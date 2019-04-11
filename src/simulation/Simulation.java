@@ -37,6 +37,7 @@ public class Simulation implements UpdateEventSender{
 	private Circuit c;
 	private ArrayList<ArrayList<Commande>> commandes = new ArrayList<ArrayList<Commande>>();
 	private ArrayList<UpdateEventListener> listeners = new ArrayList<UpdateEventListener>();
+	private int sleep = 2;
 
 	/**
 	 * Instancie un objet Simulation
@@ -139,10 +140,21 @@ public class Simulation implements UpdateEventSender{
 }
 
 	
+	
+	
+	
+	public int getSleep() {
+		return sleep;
+	}
+
+	public void setSleep(int sleep) {
+		this.sleep = sleep;
+	}
+
 	public void update() {
 		for(UpdateEventListener e: listeners) {
 				if(e!=null) {
-					e.manageUpdate();
+					e.manageUpdate(this.sleep);
 				}
 		}
 			
@@ -155,8 +167,15 @@ public class Simulation implements UpdateEventSender{
 		Vecteur pos_depart = this.getC().getPointDepart();
 		int i = 0;
 		ArrayList<Voiture> varrivee =  new ArrayList<Voiture>();
+		//to test if the car moved
+		ArrayList<ArrayList<Vecteur>> positions = new ArrayList<ArrayList<Vecteur>>();
+		for(Voiture voit : this.getVoitures()) {
+			ArrayList<Vecteur> pos = new ArrayList<Vecteur>();
+			pos.add(voit.getPosition());
+			positions.add(pos);
+		}
 		
-		while(i<30000) {
+		while(i<100000) {
 			boolean bool=true;
 			boolean bool2=false;
 			for(Voiture v : voitures) {
@@ -172,10 +191,12 @@ public class Simulation implements UpdateEventSender{
 						continue;
 					}
 					Commande com = null;
-					if(i == 500) {
-						if(this.getVoitures().get(index).getPosition().getDistance(pos_depart) < 20) {
+					if(i>1 && i%500==0) {
+						ArrayList<Vecteur> pos_voit = positions.get(index);
+						if(this.getVoitures().get(index).getPosition().getDistance(pos_voit.get(positions.size()-1)) < 50) {
 							throw new NotMovingException("la voiture fait du surplace");
 						}
+						pos_voit.add(this.getVoitures().get(index).getPosition());
 					}
 					if (TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
 						if (strategies.get(index) instanceof StrategyPrudente) {
@@ -223,15 +244,16 @@ public class Simulation implements UpdateEventSender{
 							throw new ArriveeException("arrivee franchie dans le mauvais sens !");
 						}
 
-					} //A d�commenter pour le circuit 2_safe.trk
+					} //A decommenter pour le circuit 2_safe.trk
 				
 				}
 			}i++;
 				
 			
 		}
-		if(i>29990) {
-			throw new VoitureException("la voiture a d�pass� 29990 iterations");
+		if(i>29900) {
+			throw new VoitureException("la voiture a depasse 29900 iterations");
+
 		}
 		
 		//System.out.println("nombre d'iteration = " + i);
@@ -248,6 +270,7 @@ public class Simulation implements UpdateEventSender{
 		// TODO Auto-generated method stub
 		listeners.add(listener);
 	}
+
 
 
 	

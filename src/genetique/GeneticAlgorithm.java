@@ -62,6 +62,11 @@ public class GeneticAlgorithm {
 				fit.evaluate(dijkstra,nb_param);			
 			}
 			population.sort(comp.reversed());
+			if(i%5==0 && Math.abs(population.get(0).getScore())<13000) {
+				FitnessEvaluation fit = new FitnessEvaluation(c,d,population.get(0));
+				fit.evaluateWithDisplay(dijkstra,nb_param);
+			}
+			
 			if(Math.abs(population.get(0).getScore())<target) {
 				Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier + " target atteinte");
 				GeneticTools.saveGenome(population.get(0),"genome " + nom_fichier + "target atteinte");
@@ -73,14 +78,13 @@ public class GeneticAlgorithm {
 				String nom_bis = nom_fichier + " gen " + (i+1) +" score " + population.get(0).getScore();
 				Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
 			}
-			/*if(i>20) {
+			if(i>20) {
 				if(best_score.get(i).intValue()==best_score.get(i-10).intValue()) {
-					String nom_bis = nom_fichier + " gen " + (i+1) +" score " + population.get(0).getScore();
+					String nom_bis = nom_fichier + " gen " + (i+1) +" score " + population.get(0).getScore() + " stagnation score";
 					Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
 					return population.get(0);
 				}
-			}*/
-			//we keep the first 2 in the new population
+			}
 			if(i<iteration-1) {
 				List<Genome> parents_l = population.subList(0, population.size()/part);
 				ArrayList<Genome> parents = GeneticTools.listToArrayList(parents_l);
@@ -88,6 +92,8 @@ public class GeneticAlgorithm {
 				mop.mutatePop(nv_population, 1, -1, 1, 0.65);
 				nv_population.set(0, population.get(0));
 				nv_population.set(1,population.get(1));
+				nv_population.set(2,population.get(2));
+				nv_population.set(3,population.get(3));
 				population = GeneticTools.arrayListtoList(nv_population);
 					
 			}

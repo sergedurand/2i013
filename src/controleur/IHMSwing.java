@@ -80,11 +80,11 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
         }
 	}
 	@Override
-	public void manageUpdate() {
+	public void manageUpdate(int sleep) {
 
 		repaint();
 		try {
-            Thread.sleep(2);
+            Thread.sleep(sleep);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -101,5 +101,7 @@ public class IHMSwing extends JPanel implements UpdateEventListener {
 		Graphics g=im.getGraphics();
 		g.fillRect(514, 864, 20, 20);
 	}
+
+
 
 }

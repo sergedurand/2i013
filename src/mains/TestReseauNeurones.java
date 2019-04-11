@@ -161,76 +161,77 @@ public class TestReseauNeurones {
 //
 //
 		
-		/*ArrayList<String> circuits = new ArrayList<String>();
-		ArrayList<Double> target = new ArrayList<Double>();
-		circuits.add("1_safe.trk");
-		target.add(2700.);
-		circuits.add("2_safe.trk");
-		target.add(3400.);
-		circuits.add("3_safe.trk");
-		target.add(4500.);
-		circuits.add("4_safe.trk");
-		target.add(4100.);
-		circuits.add("5_safe.trk");
-		target.add(2050.);
-		circuits.add("6_safe.trk");
-		target.add(2000.);
-		circuits.add("7_safe.trk");
-		target.add(1200.);
-		circuits.add("8_safe.trk");
-		target.add(2700.);
-		circuits.add("aufeu.trk");
-		target.add(3300.);
-		circuits.add("bond_safe.trk");
-		target.add(1700.);
-		circuits.add("Een2.trk");
-		target.add(2000.);
-		circuits.add("labymod.trk");
-		target.add(8000.);
-		circuits.add("labyperso.trk");
-		target.add(8500.);
-		circuits.add("perso.trk");
-		target.add(8600.);
-		circuits.add("t2009.trk");
-		target.add(7150.);
-		circuits.add("t260_safe.trk");
-		target.add(2400.);
-		for(int i = 0;i<circuits.size();i++) {
-			String s = circuits.get(i);
-			Circuit c1 = CircuitFactoryFromFile.build(s);
-//			System.out.println(c1.getDirectionArrivee());
-			Dijkstra d1 = new Dijkstra(c1);
-			d1.compute();
-			ArrayList<Integer> struct = new ArrayList<Integer>();
-			struct.add(5);
-			struct.add(5);
-			struct.add(5);
-			struct.add(2);
-			GenomeGeneratorPerceptron gen = new GenomeGeneratorPerceptron(struct);
-			CrossOperator cop = new CrossOperator();
-			MutationOperator mut = new MutationOperator();
-			double objectif = target.get(i);
-			if(i<6) {//circuits "facile"
-				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,120,struct,c1,d1);
-				Genome best = algo.optimize(100,s+" pop 24 gen 100",2,false,objectif);
-				continue;
-			}
-			if(i<8) {
-				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,120,struct,c1,d1);
-				Genome best = algo.optimize(100,s+ " pop 120 gen 100",2,true,objectif);
-			}
-		}*/
-		Circuit c = CircuitFactoryFromFile.build("6_safe.trk");
+//		ArrayList<String> circuits = new ArrayList<String>();
+//		ArrayList<Double> target = new ArrayList<Double>();
+//		circuits.add("1_safe.trk");
+//		target.add(2700.);
+//		circuits.add("2_safe.trk");
+//		target.add(3400.);
+//		circuits.add("3_safe.trk");
+//		target.add(4500.);
+//		circuits.add("4_safe.trk");
+//		target.add(4100.);
+//		circuits.add("5_safe.trk");
+//		target.add(2050.);
+//		circuits.add("6_safe.trk");
+//		target.add(2000.);
+//		circuits.add("7_safe.trk");
+//		target.add(1200.);
+//		circuits.add("8_safe.trk");
+//		target.add(2700.);
+//		circuits.add("aufeu.trk");
+//		target.add(3300.);
+//		circuits.add("bond_safe.trk");
+//		target.add(1700.);
+//		circuits.add("Een2.trk");
+//		target.add(2000.);
+//		circuits.add("labymod.trk");
+//		target.add(8000.);
+//		circuits.add("labyperso.trk");
+//		target.add(8500.);
+//		circuits.add("perso.trk");
+//		target.add(8600.);
+//		circuits.add("t2009.trk");
+//		target.add(7150.);
+//		circuits.add("t260_safe.trk");
+//		target.add(2400.);
+//		for(int i = 0;i<circuits.size();i++) {
+//			String s = circuits.get(i);
+//			Circuit c1 = CircuitFactoryFromFile.build(s);
+////			System.out.println(c1.getDirectionArrivee());
+//			Dijkstra d1 = new Dijkstra(c1);
+//			d1.compute();
+//			ArrayList<Integer> struct = new ArrayList<Integer>();
+//			struct.add(5);
+//			struct.add(5);
+//			struct.add(5);
+//			struct.add(2);
+//			GenomeGeneratorPerceptron gen = new GenomeGeneratorPerceptron(struct);
+//			CrossOperator cop = new CrossOperator();
+//			MutationOperator mut = new MutationOperator();
+//			double objectif = target.get(i);
+//			if(i<6) {//circuits "facile"
+//				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,120,struct,c1,d1);
+//				Genome best = algo.optimize(100,s+" pop 24 gen 100",2,false,objectif);
+//				continue;
+//			}
+//			if(i<8) {
+//				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,120,struct,c1,d1);
+//				Genome best = algo.optimize(100,s+ " pop 120 gen 100",2,true,objectif);
+//			}
+//		}
+		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
 		Dijkstra d = new Dijkstra(c);
 		d.compute();
 		ArrayList<Integer> struct = new ArrayList<Integer>();
-		struct.add(5);
-		struct.add(5);
-		struct.add(5);
 		struct.add(4);
-		struct.add(4);
-//		struct.add(4);
-//		struct.add(4);
+		struct.add(6);
+//		struct.add(6);
+//		struct.add(6);
+//		struct.add(6);
+//		struct.add(6);
+//		struct.add(6);
+
 //		struct.add(4);
 //		struct.add(4);
 //		struct.add(8);
@@ -239,40 +240,39 @@ public class TestReseauNeurones {
 		CrossOperator cop = new CrossOperator();
 		MutationOperator mut = new MutationOperator();
 
-
-		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,50,struct,c,d);
-		Genome best = algo.optimize(20,"6_safe pop 50",4,false,2900,2);
-
-
-		ArrayList<Commande> best_reseau = null;
-		try {
-			best_reseau = Simulation.loadListeCommande("6_safe pop 50");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,32,struct,c,d);
+		Genome best = algo.optimize(60,"1_safe pop 32",4,false,1500,1);
 		Voiture v = VoitureFactory.build(c);
-		Strategy strat = new StrategyListeCommande(best_reseau);
-		Simulation simu = new Simulation(c);
-		simu.addVoitureStrategies(v, strat);
-		IHMSwing ihm = new IHMSwing();
-		//ihm.add(new VoitureObserveur(v));
-		ihm.add(new TrajectoireObserveur(v));
-		ihm.addCircuit(c);
-		simu.add(ihm);
-		Fenetre fen = new Fenetre(ihm, "test perceptron");
-		ihm.setPreferredSize(new Dimension(768,1024));
-		fen.getContentPane().add(ihm);
-		fen.pack();
-	            fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fen.setVisible(true);
-		System.out.println(best_reseau.size());
-		try {
-			simu.play();
-		} catch (VoitureException | ArriveeException | NotMovingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ArrayList<Commande> best_reseau = null;
+//		try {
+//			best_reseau = Simulation.loadListeCommande("1_safe pop 32");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+////		Voiture v = VoitureFactory.build(c);
+//		Strategy strat = new StrategyListeCommande(best_reseau);
+//		Simulation simu = new Simulation(c);
+//		simu.addVoitureStrategies(v, strat);
+//		IHMSwing ihm = new IHMSwing();
+//		//ihm.add(new VoitureObserveur(v));
+//		ihm.add(new TrajectoireObserveur(v));
+//		ihm.addCircuit(c);
+//		simu.add(ihm);
+//		Fenetre fen = new Fenetre(ihm, "test perceptron");
+//		ihm.setPreferredSize(new Dimension(768,1024));
+//		fen.getContentPane().add(ihm);
+//		fen.pack();
+//	            fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		fen.setVisible(true);
+//		System.out.println(best_reseau.size());
+//		try {
+//			simu.play();
+//		} catch (VoitureException | ArriveeException | NotMovingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
 	}
 
 }

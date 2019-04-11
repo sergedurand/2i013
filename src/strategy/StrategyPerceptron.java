@@ -41,7 +41,7 @@ public class StrategyPerceptron implements Strategy {
 	@Override
 	public Commande getCommande() throws VoitureException, NeuroneException {
 		ArrayList<Double> input = new ArrayList<Double>();
-		input.add(this.getV().getVitesse());
+//		input.add(this.getV().getVitesse());
 		input.add(this.getV().getMaxTurn());
 //		input.add(this.getV().getBraquage());
 //		input.add(this.getD().getDist()[(int) this.getV().getPosition().getX()][(int) this.getV().getPosition().getY()]);

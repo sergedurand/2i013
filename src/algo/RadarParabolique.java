@@ -20,7 +20,7 @@ public class RadarParabolique extends RadarImpl {
 	protected double[] distPix2;
 	
 	@Override
-	public double[] scores(double epsilon) {
+	public void scores(double epsilon) {
 		double[] scores1;
 		double[] scores2;
 		int taille=angles.length;
@@ -47,7 +47,7 @@ public class RadarParabolique extends RadarImpl {
 			
 		}
 		this.BestIndex = imax;
-		return scores2;
+
 	}
 	
 	
