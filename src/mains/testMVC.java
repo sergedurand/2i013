@@ -174,7 +174,7 @@ public class testMVC {
 		
 		ArrayList<ArrayList<Commande>> listes_commandes = new ArrayList<ArrayList<Commande>>();
 
-		for(int i = 0;i<8;i++) {
+		for(int i = 0;i<1;i++) {
 			String nom = "circuit 2 " +i;
 			listes_commandes.add(Simulation.loadListeCommande(nom));
 		}

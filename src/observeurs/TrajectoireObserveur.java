@@ -24,6 +24,7 @@ public class TrajectoireObserveur implements ObserveurSwing {
 		g.setColor(coul);
 		trajectoire.add(voit.getPosition());
 		
+		
 		for(Vecteur v : trajectoire) {
 			g.fillRect((int)v.getX(),(int) v.getY(), 2, 2);
 		}
