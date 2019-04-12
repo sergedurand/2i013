@@ -62,7 +62,7 @@ public class GeneticAlgorithm {
 		ArrayList<Double> best_score = new ArrayList<Double>();
 		//initialisation : 
 		for(int i = 0;i<this.getPop();i++) {
-			Genome g = gen.getRandomGenome(-0.5, 1);
+			Genome g = gen.getRandomGenome(-1, 1);
 			population.add(g);
 		}
 		
@@ -73,10 +73,10 @@ public class GeneticAlgorithm {
 				fit.evaluate(dijkstra,nb_param);			
 			}
 			population.sort(comp.reversed());
-//			if(i%5==0 && Math.abs(population.get(0).getScore())<13000) {
-//				FitnessEvaluation fit = new FitnessEvaluation(c,d,population.get(0));
-//				fit.evaluateWithDisplay(dijkstra,nb_param);
-//			}
+			if(i%5==0 && Math.abs(population.get(0).getScore())<1200000) {
+				FitnessEvaluation fit = new FitnessEvaluation(c,d,population.get(0));
+				fit.evaluateWithDisplay(dijkstra,nb_param);
+			}
 			
 //			if(Math.abs(population.get(0).getScore())<target) {
 //				Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier + " target atteinte");
@@ -98,8 +98,8 @@ public class GeneticAlgorithm {
 				}
 				
 			}
-			if(i>20) {
-				if(best_score.get(i).intValue()==best_score.get(i-10).intValue()) {
+			if(i>70) {
+				if(best_score.get(i).intValue()==best_score.get(i-50).intValue()) {
 //					String nom_bis = nom_fichier + " gen " + (i+1) +" score " + population.get(0).getScore() + " stagnation score";
 //					Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
 //					return population.get(0);
@@ -123,10 +123,10 @@ public class GeneticAlgorithm {
 		
 		
 		for(ArrayList<Commande> l_com : best_genomes) {
-			String nom = nom_fichier + " " + best_genomes.indexOf(l_com);
+			String nom = nom_fichier + " " + best_genomes.indexOf(l_com) + " " +(int)l_com.size();
 			Simulation.saveListeCommande(l_com, nom);
 		}
-		//Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier);
+		Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier);
 		GeneticTools.saveGenome(population.get(0),"genome " + nom_fichier);
 		return population.get(0);
 	}

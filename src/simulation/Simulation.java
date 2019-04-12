@@ -216,13 +216,13 @@ public class Simulation implements UpdateEventSender{
 							StrategyPoint strat=(StrategyPoint)strategies.get(index);
 							strat.setVoiture(v);
 							com=strat.getCommande();
-							v.tryToDrive(com,commandes.get(0),bool,bool2);
+							v.tryToDrive(com,commandes.get(index),bool,bool2);
 							strat.setVoiture(v);
 						}
 						
 						
 						else {
-							v.tryToDrive(strategies.get(index).getCommande(),commandes.get(0),bool,bool2);
+							v.tryToDrive(strategies.get(index).getCommande(),commandes.get(index),bool,bool2);
 						}
 						
 					}else {
@@ -240,8 +240,11 @@ public class Simulation implements UpdateEventSender{
 						if((v.getDirection().angle(c.getDirectionArrivee()) < (Math.PI/2.) && v.getDirection().angle(c.getDirectionArrivee())> (Math.PI)/(-2.))) {
 							//System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" it�rations");
 							varrivee.add(v);
+							System.out.println(this.getCommandes().get(index).size());
 							break;
 						}else {
+							System.out.println(this.getCommandes().get(index).size());
+							saveListeCommande(getCommandes().get(index), "au feu");
 							throw new ArriveeException("arrivee franchie dans le mauvais sens !");
 						}
 					}

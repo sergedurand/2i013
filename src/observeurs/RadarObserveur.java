@@ -2,7 +2,8 @@ package observeurs;
 import algo.*;
 import geometrie.*;
 import java.awt.Graphics;
-
+import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 import java.awt.Color;
 
 public class RadarObserveur implements ObserveurSwing {
@@ -41,10 +42,23 @@ public class RadarObserveur implements ObserveurSwing {
 		Vecteur vdir;
 		Vecteur vfinal;
 		for (int i=0;i<rad.getDistPix().length;i++) {
-			vdir=rad.getVoiture().getDirection().rotation(rad.getAngles()[i]);
-			vdir=vdir.normalisation();
-			vdir=vdir.multiplication(rad.getDistPix()[i]);
-			g.drawLine(this.getX(),this.getY(), (int)vdir.getX()+this.getX(), (int)vdir.getY()+this.getY());
+			if(i==rad.getBestIndex()) {
+			    Graphics2D g2 = (Graphics2D) g;
+			    g2.setStroke(new BasicStroke(3));
+			    g2.setColor(Color.RED);
+				vdir=rad.getVoiture().getDirection().rotation(rad.getAngles()[i]);
+				vdir=vdir.normalisation();
+				vdir=vdir.multiplication(rad.getDistPix()[i]);
+				g2.drawLine(this.getX(),this.getY(), (int)vdir.getX()+this.getX(), (int)vdir.getY()+this.getY());
+			}else {
+				Graphics2D g2 = (Graphics2D) g;
+			    g2.setStroke(new BasicStroke(1));
+			    g2.setColor(Color.BLUE);
+				vdir=rad.getVoiture().getDirection().rotation(rad.getAngles()[i]);
+				vdir=vdir.normalisation();
+				vdir=vdir.multiplication(rad.getDistPix()[i]);
+				g2.drawLine(this.getX(),this.getY(), (int)vdir.getX()+this.getX(), (int)vdir.getY()+this.getY());
+			}
 		}
 
 	}

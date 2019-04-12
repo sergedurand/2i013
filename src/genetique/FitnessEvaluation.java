@@ -48,7 +48,7 @@ public class FitnessEvaluation {
 		Strategy strat = new StrategyPerceptron(g,r,v,d);
 		Simulation simu = new Simulation(c);
 		simu.addVoitureStrategies(v, strat);
-		simu.setSleep(0);
+		simu.setSleep(2);
 		double score = 0;
 		
 		try {
