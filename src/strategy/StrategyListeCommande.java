@@ -31,7 +31,10 @@ public class StrategyListeCommande implements Strategy {
 		}
 		return liste.get(index++);
 	}
-
+	
+	public ArrayList<Commande> getListe(){
+		return this.liste;
+	}
 	@Override
 	public void init(Voiture v, Circuit c) {
 		// TODO Auto-generated method stub

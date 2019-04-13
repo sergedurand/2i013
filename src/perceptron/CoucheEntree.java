@@ -31,12 +31,7 @@ public class CoucheEntree extends CoucheNeurone {
 	public CoucheEntree(ArrayList<ArrayList<ArrayList<Double>>> listePoidsNeurones, ArrayList<Double> biais) throws NeuroneException {
 		super(listePoidsNeurones,biais);
 	}
-	
 
-
-	
-
-	
 
 	public void setInput(ArrayList<Double> inputs) {
 		if(inputs.size()!=this.getTaille()) {

@@ -73,10 +73,10 @@ public class GeneticAlgorithm {
 				fit.evaluate(dijkstra,nb_param);			
 			}
 			population.sort(comp.reversed());
-			if(i%5==0 && Math.abs(population.get(0).getScore())<1200000) {
-				FitnessEvaluation fit = new FitnessEvaluation(c,d,population.get(0));
-				fit.evaluateWithDisplay(dijkstra,nb_param);
-			}
+//			if(i%5==0 && Math.abs(population.get(0).getScore())<1200000) {
+//				FitnessEvaluation fit = new FitnessEvaluation(c,d,population.get(0));
+//				fit.evaluateWithDisplay(dijkstra,nb_param);
+//			}
 			
 //			if(Math.abs(population.get(0).getScore())<target) {
 //				Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier + " target atteinte");
@@ -110,11 +110,11 @@ public class GeneticAlgorithm {
 				List<Genome> parents_l = population.subList(0, population.size()/part);
 				ArrayList<Genome> parents = GeneticTools.listToArrayList(parents_l);
 				ArrayList<Genome> nv_population = cop.crossPop(parents,part);
-				mop.mutatePop(nv_population, 1, -1, 1, 0.65);
-				nv_population.set(0, population.get(0));
-				nv_population.set(1,population.get(1));
-				nv_population.set(2,population.get(2));
-				nv_population.set(3,population.get(3));
+				mop.mutatePop(nv_population, 0.1, -1, 1, 0.1);
+//				nv_population.set(0, population.get(0));
+//				nv_population.set(1,population.get(1));
+//				nv_population.set(2,population.get(2));
+//				nv_population.set(3,population.get(3));
 				population = GeneticTools.arrayListtoList(nv_population);
 					
 			}

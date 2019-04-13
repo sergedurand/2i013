@@ -8,8 +8,8 @@ public class Neurone {
 	private ArrayList<Double> listePoidsEntrants = new ArrayList<Double>();
 	private ArrayList<Double> listePoidsSortants = new ArrayList<Double>();
 	private double valeur;
-	int nb_input;
-	int nb_output;
+	private int nb_input;
+	private int nb_output;
 	private double biais;	
 
 	/**
@@ -21,7 +21,7 @@ public class Neurone {
 	 * @param valeur
 	 * @param biais
 	 */
-	public Neurone(ArrayList<Double> listePoidsEntrants, ArrayList<Double> listePoidsSortants, int nb_input,
+	private Neurone(ArrayList<Double> listePoidsEntrants, ArrayList<Double> listePoidsSortants, int nb_input,
 			int nb_output, double valeur, double biais) {
 		super();
 		this.listePoidsEntrants = listePoidsEntrants;
@@ -103,7 +103,7 @@ public class Neurone {
 		return nb_input;
 	}
 
-	public void setNb_input(int nb_input) {
+	private void setNb_input(int nb_input) {
 		this.nb_input = nb_input;
 	}
 
@@ -111,7 +111,7 @@ public class Neurone {
 		return nb_output;
 	}
 
-	public void setNb_output(int nb_output) {
+	private void setNb_output(int nb_output) {
 		this.nb_output = nb_output;
 	}
 	

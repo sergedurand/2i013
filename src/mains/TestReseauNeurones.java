@@ -96,7 +96,7 @@ public class TestReseauNeurones {
 //				Genome best = algo.optimize(100,s+ " pop 120 gen 100",2,true,objectif,2);
 //			}
 //		}
-		Circuit c = CircuitFactoryFromFile.build("aufeu_modifie.trk");
+		Circuit c = CircuitFactoryFromFile.build("3_safe.trk");
 		Dijkstra d = new Dijkstra(c);
 		d.compute();
 		ArrayList<Integer> struct = new ArrayList<Integer>();
@@ -116,8 +116,8 @@ public class TestReseauNeurones {
 		CrossOperator cop = new CrossOperator();
 		MutationOperator mut = new MutationOperator();
 
-		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,204,struct,c,d);
-		Genome best = algo.optimize(25,"circuit 5",2,false,200,2);
+		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,100,struct,c,d);
+		Genome best = algo.optimize(500,"circuit 3 max",2,false,200,2);
 //		GeneticTools.saveGenome(best, "best test");
 //		Genome g_load = GeneticTools.loadGenome("genome circuit 1 struct", "genome circuit 1 poids");
 //		System.out.println(g_load.toString());

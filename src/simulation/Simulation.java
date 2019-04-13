@@ -244,7 +244,7 @@ public class Simulation implements UpdateEventSender{
 							break;
 						}else {
 							System.out.println(this.getCommandes().get(index).size());
-							saveListeCommande(getCommandes().get(index), "au feu");
+//							saveListeCommande(getCommandes().get(index), "au feu");
 							throw new ArriveeException("arrivee franchie dans le mauvais sens !");
 						}
 					}
