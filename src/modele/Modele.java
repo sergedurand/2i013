@@ -279,7 +279,7 @@ public class Modele {
 
 		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,population,struct,c,dijk);
 		try {
-			Genome best = algo.optimize(generation,"Resultat genetique",mutation,false,50000,2);
+			Genome best = algo.optimize(generation,"Resultat genetique",mutation,false,1000,2);
 		} catch (NeuroneException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

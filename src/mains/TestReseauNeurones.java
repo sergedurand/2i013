@@ -91,12 +91,13 @@ public class TestReseauNeurones {
 				Genome best = algo.optimize(2,s,2,false,objectif,2);
 				continue;
 			}
-			if(i<8) {
-				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,120,struct,c1,d1);
-				Genome best = algo.optimize(100,s+ " pop 120 gen 100",2,true,objectif,2);
+			if(i>=6) {
+				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,24,struct,c1,d1);
+				Genome best = algo.optimize(250,s+ " pop 120 gen 100",2,true,objectif,2);
 			}
 		}*/
-		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
+		
+		Circuit c = CircuitFactoryFromFile.build("labyperso.trk");
 
 		Dijkstra d = new Dijkstra(c);
 		d.compute();
@@ -117,8 +118,8 @@ public class TestReseauNeurones {
 		CrossOperator cop = new CrossOperator();
 		MutationOperator mut = new MutationOperator();
 
-		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,15,struct,c,d);
-		Genome best = algo.optimize(10,"1 safe",4,false,100,2);
+		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,24,struct,c,d);
+		Genome best = algo.optimize(60,"labyperso",2,true,100,2);
 //		GeneticTools.saveGenome(best, "best test");
 //		Genome g_load = GeneticTools.loadGenome("genome circuit 1 struct", "genome circuit 1 poids");
 //		System.out.println(g_load.toString());

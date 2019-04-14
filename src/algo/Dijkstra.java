@@ -81,10 +81,10 @@ public class Dijkstra{
 			}
 				//System.out.println(v.toString());
 			if (c.getTerrain(v)==Terrain.Boue) {
-				coef=3;
+				coef=1;
 			}
 			else if(c.getTerrain(v)== Terrain.BandeBlanche || c.getTerrain(v)==Terrain.BandeRouge) {
-				coef=2;
+				coef=1;
 			}
 			else {
 				coef=1;

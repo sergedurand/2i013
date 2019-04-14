@@ -214,7 +214,7 @@ public class Fenetre extends JFrame{
         gbc.gridy = 14;
         gbc.gridwidth = 2;
         JLabel label2 = new JLabel("Test",SwingConstants.CENTER);
-        label2.setText("Pourcentage de mutation génétique");
+        label2.setText("Part de la population générant des enfants");
         panel2.add(label2,gbc);
         
         

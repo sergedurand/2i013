@@ -225,6 +225,7 @@ public class IHMSwing extends JPanel implements UpdateEventListener,ActionListen
 			}
 			
 		}
+		
 	}
 	
 	public void stopSimu() {

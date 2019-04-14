@@ -95,6 +95,10 @@ public class Simulation implements UpdateEventSender{
 		return commandes;
 	}
 
+	public void setIsRunning(boolean b) {
+		isRunning = b;
+	}
+	
 	public Circuit getC() {
 		return c;
 	}
