@@ -17,7 +17,7 @@ public class TestModele {
 		Voiture v = VoitureFactory.build(c);
 		RadarImpl rad=new RadarImpl(v,c,6);
 		StrategyRadarSimple strat = new StrategyRadarSimple(rad);
-		Modele m=new Modele(rad, v, c, strat,"1_safe.trk","Simple",6,"Rouge",50,20,50);
+		Modele m=new Modele(rad, v, c, strat,"1_safe.trk","Simple",6,"Rouge",20,10,2);
 		m.setSimu(false);
 		m.openFenetre();
 		//m.startSimu();

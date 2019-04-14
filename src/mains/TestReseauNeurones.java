@@ -117,8 +117,8 @@ public class TestReseauNeurones {
 		CrossOperator cop = new CrossOperator();
 		MutationOperator mut = new MutationOperator();
 
-		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,24,struct,c,d);
-		Genome best = algo.optimize(32,"1 safe",4,false,100,2);
+		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,15,struct,c,d);
+		Genome best = algo.optimize(10,"1 safe",4,false,100,2);
 //		GeneticTools.saveGenome(best, "best test");
 //		Genome g_load = GeneticTools.loadGenome("genome circuit 1 struct", "genome circuit 1 poids");
 //		System.out.println(g_load.toString());
@@ -133,7 +133,7 @@ public class TestReseauNeurones {
 //		Strategy strat = new StrategyPerceptron(p, r, g_load);
 		ArrayList<Commande> best_commandes = null;
 		try {
-			best_commandes = Simulation.loadListeCommande("5 safe");
+			best_commandes = Simulation.loadListeCommande("1 safe");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

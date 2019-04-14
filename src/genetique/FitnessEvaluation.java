@@ -52,6 +52,7 @@ public class FitnessEvaluation {
 		double score = 0;
 		
 		try {
+			simu.isRunning=true;
 			simu.play();
 			score = simu.getCommandes().get(0).size();
 			this.g.setCommandes(simu.getCommandes().get(0));

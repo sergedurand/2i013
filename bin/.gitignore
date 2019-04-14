@@ -1,6 +1,11 @@
+/algo/
+/circuit/
+/controleur/
+/exceptions/
 /genetique/
 /geometrie/
 /mains/
+/modele/
 /observeurs/
 /perceptron/
 /simulation/
@@ -8,5 +13,3 @@
 /terrain/
 /voiture/
 /vue/
-/algo/
-/controleur/

@@ -265,6 +265,7 @@ public class Modele {
 	}
 	
 	public void genetique() {
+		genetiqueInformation();
 		Voiture v = VoitureFactory.build(c);
 		Dijkstra dijk = new Dijkstra(c);
 		dijk.compute();
@@ -293,7 +294,7 @@ public class Modele {
 		Modele m=new Modele(rad, v, c, st1,nomcircuit,nomstrat,nbfaisceaux,couleurvoiture,population,generation,mutation);
 		m.setSimu(true);
 		closeFenetre();
-		circuitCharge();
+		genetiqueCharge();
 		fen=new Fenetre(m.getIHM(),nomcircuit,nomstrat,m.getIHM(),nbfaisceaux,couleurvoiture);
 		
 		
@@ -324,6 +325,30 @@ public class Modele {
 		JOptionPane.showOptionDialog(fen,
 		"La course a ete chargee. Veuillez appuyer sur Start pour lancer la simulation.",
 		"Information",
+		JOptionPane.YES_NO_OPTION,
+		JOptionPane.QUESTION_MESSAGE,
+		null,     //do not use a custom Icon
+		options,  //the titles of buttons
+		options[0]); //default button title
+	}
+	
+	public void genetiqueCharge() {
+		Object[] options = {"Ok"};
+		JOptionPane.showOptionDialog(fen,
+		"L'algorithme génétique s'est terminé. Veuillez appuyer sur Start pour afficher le résultat.",
+		"Information",
+		JOptionPane.YES_NO_OPTION,
+		JOptionPane.QUESTION_MESSAGE,
+		null,     //do not use a custom Icon
+		options,  //the titles of buttons
+		options[0]); //default button title
+	}
+	
+	public void genetiqueInformation() {
+		Object[] options = {"Ok"};
+		JOptionPane.showOptionDialog(fen,
+		"L'algorithme génétique est un algorithme relativement long.\nLe MVC va se mettre en pause jusqu'à la fin de l'exécution de l'algorithme.\nVous serez ensuite invitée à voir le résultat.\nEn attendant, vous pouvez suivre l'évolution de l'algorithme sur la console.",
+		"Attention!",
 		JOptionPane.YES_NO_OPTION,
 		JOptionPane.QUESTION_MESSAGE,
 		null,     //do not use a custom Icon

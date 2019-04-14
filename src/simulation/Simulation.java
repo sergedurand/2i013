@@ -38,6 +38,7 @@ public class Simulation implements UpdateEventSender{
 	private ArrayList<ArrayList<Commande>> commandes = new ArrayList<ArrayList<Commande>>();
 	private ArrayList<UpdateEventListener> listeners = new ArrayList<UpdateEventListener>();
 	private int sleep = 2;
+	public boolean isRunning=false;
 
 	/**
 	 * Instancie un objet Simulation

@@ -173,7 +173,7 @@ public class Fenetre extends JFrame{
         slider.setMajorTickSpacing(50);
         slider.setPaintLabels(true);
         slider.setBackground(new Color(162, 192, 202));
-        slider.setValue(50);
+        slider.setValue(20);
         slider.setName("population");
         gbc.gridx = 2;
         gbc.gridy = 9;
@@ -195,7 +195,7 @@ public class Fenetre extends JFrame{
         slider.setMajorTickSpacing(20);
         slider.setPaintLabels(true);
         slider.setBackground(new Color(162, 192, 202));
-        slider.setValue(25);
+        slider.setValue(10);
         slider.setName("generation");
         gbc.gridx = 2;
         gbc.gridy = 12;
