@@ -53,7 +53,6 @@ public class VoitureObserveur implements ObserveurSwing {
 	public void setColor(Color c) {
 		coul = c;
 	}
-
 	 public void print(Graphics g){
          // Attention a l'inversion eventuelle des coordonnees
 		 //System.out.println("filename : "+filename);
@@ -62,6 +61,9 @@ public class VoitureObserveur implements ObserveurSwing {
 	         g.drawString(String.format("v: %.2f d: (%6.2f, %6.2f) derap: ", voiture.getVitesse(),
 	                         voiture.getDirection().getX(), voiture.getDirection().getY()) + voiture.getDerapage(),
 	                         10, 10);
+	         g.drawString(String.format("Score: "),10, 30);
+	         i++;
+     
 			 if(filename.length()==0) {
 				 g.setColor(this.getColor());
 		         g.fillRect(this.getX(), this.getY(), 5, 5);
