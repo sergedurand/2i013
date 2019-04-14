@@ -240,10 +240,8 @@ public class Simulation implements UpdateEventSender{
 						if((v.getDirection().angle(c.getDirectionArrivee()) < (Math.PI/2.) && v.getDirection().angle(c.getDirectionArrivee())> (Math.PI)/(-2.))) {
 							//System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" it�rations");
 							varrivee.add(v);
-							System.out.println(this.getCommandes().get(index).size());
 							break;
 						}else {
-							System.out.println(this.getCommandes().get(index).size());
 //							saveListeCommande(getCommandes().get(index), "au feu");
 							throw new ArriveeException("arrivee franchie dans le mauvais sens !");
 						}

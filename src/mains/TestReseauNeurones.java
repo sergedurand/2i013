@@ -96,7 +96,7 @@ public class TestReseauNeurones {
 //				Genome best = algo.optimize(100,s+ " pop 120 gen 100",2,true,objectif,2);
 //			}
 //		}
-		Circuit c = CircuitFactoryFromFile.build("3_safe.trk");
+		Circuit c = CircuitFactoryFromFile.build("2_safe.trk");
 		Dijkstra d = new Dijkstra(c);
 		d.compute();
 		ArrayList<Integer> struct = new ArrayList<Integer>();

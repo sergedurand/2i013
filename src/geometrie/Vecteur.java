@@ -19,6 +19,12 @@ public class Vecteur {
 		return x;
 	}
 	
+	public boolean isInArea(double rayon, Vecteur centre) {
+		if(this.getDistance(centre) < rayon) {
+			return true;
+		}
+		return false;
+	}
 	
 
 	/*public void setX(double x) {
