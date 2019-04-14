@@ -12,6 +12,7 @@ public class StrategyRadarSimple implements Strategy{
 	private static final long serialVersionUID = 1L;
 	
 	private Radar radar;
+	private boolean arrivee = false;
 	public StrategyRadarSimple(Radar radar) {
 		super();
 		this.radar = radar;
@@ -23,9 +24,14 @@ public class StrategyRadarSimple implements Strategy{
 	
 	@Override
 	public Commande getCommande() {
-		radar.scores(0.1);
-		double rot = radar.getAngles()[radar.getBestIndex()]*2/Math.PI;
-		return new Commande(1,rot);
+//		if(!radar.isArrivee()) {
+			radar.scores(0.1);
+			double rot = radar.getAngles()[radar.getBestIndex()]*2/Math.PI;
+			return new Commande(1,rot);
+//		}else {
+//			return new Commande(1,0);
+//		}
+
 	}
 
 	@Override

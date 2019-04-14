@@ -1,4 +1,5 @@
 /vue/
+<<<<<<< HEAD
 /simulation/
 /mains/
 /controleur/
@@ -9,3 +10,5 @@
 /geometrie/
 /observeurs/
 /terrain/
+=======
+>>>>>>> 50da8047205e8daadf148fe12b7dadb0104d542d

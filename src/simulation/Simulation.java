@@ -20,6 +20,10 @@ import circuit.*;
 import controleur.IHMSwing;
 import controleur.UpdateEventListener;
 import controleur.UpdateEventSender;
+import exceptions.ArriveeException;
+import exceptions.NeuroneException;
+import exceptions.NotMovingException;
+import geometrie.Vecteur;
 import terrain .*;
 
 /**
@@ -33,6 +37,9 @@ public class Simulation implements UpdateEventSender{
 	private Circuit c;
 	private ArrayList<ArrayList<Commande>> commandes = new ArrayList<ArrayList<Commande>>();
 	private ArrayList<UpdateEventListener> listeners = new ArrayList<UpdateEventListener>();
+	private int sleep = 2;
+	public boolean isRunning=false;
+	private int score=0;
 
 	/**
 	 * Instancie un objet Simulation
@@ -53,6 +60,7 @@ public class Simulation implements UpdateEventSender{
 		this.c = c;
 		this.commandes = commandes;
 		this.listeners = listeners;
+		score=0;
 	}
 	
 	public void addVoitureStrategies(Voiture v, Strategy s) {
@@ -135,22 +143,42 @@ public class Simulation implements UpdateEventSender{
 }
 
 	
+	
+	
+	
+	public int getSleep() {
+		return sleep;
+	}
+
+	public void setSleep(int sleep) {
+		this.sleep = sleep;
+	}
+
 	public void update() {
 		for(UpdateEventListener e: listeners) {
 				if(e!=null) {
-					e.manageUpdate();
+					e.manageUpdate(this.sleep);
 				}
 		}
 			
 	}
 	
 
-	public void play() throws VoitureException {
+	public void play() throws VoitureException, ArriveeException, NotMovingException, NeuroneException {
 
 		//test orientation
+		Vecteur pos_depart = this.getC().getPointDepart();
 		int i = 0;
 		ArrayList<Voiture> varrivee =  new ArrayList<Voiture>();
-		while(i<150000) {
+		//to test if the car moved
+		ArrayList<ArrayList<Vecteur>> positions = new ArrayList<ArrayList<Vecteur>>();
+		for(Voiture voit : this.getVoitures()) {
+			ArrayList<Vecteur> pos = new ArrayList<Vecteur>();
+			pos.add(voit.getPosition());
+			positions.add(pos);
+		}
+		
+		while(i<100000&&isRunning==true) {
 			boolean bool=true;
 			boolean bool2=false;
 			for(Voiture v : voitures) {
@@ -165,15 +193,43 @@ public class Simulation implements UpdateEventSender{
 					if(index==0 && i<20) {
 						continue;
 					}
-					Commande com = strategies.get(index).getCommande();
+					Strategy s_courant = this.getStrategies().get(index);
+					Commande com = null;
+					
+					if(s_courant instanceof StrategyPerceptron) {
+						if(i>1 && i%500==0) {
+							ArrayList<Vecteur> pos_voit = positions.get(index);
+							if(this.getVoitures().get(index).getPosition().getDistance(pos_voit.get(positions.size()-1)) < 50) {
+								throw new NotMovingException("la voiture fait du surplace");
+							}
+							pos_voit.add(this.getVoitures().get(index).getPosition());
+						}
+					}
+					
 					if (TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
 						if (strategies.get(index) instanceof StrategyPrudente) {
-							v.tryToDrive(com,commandes.get(0),bool,bool2,0);
-						}
-						else {
-							v.tryToDrive(com,commandes.get(0),bool,bool2,1);
+							StrategyPrudente strat=(StrategyPrudente)strategies.get(index);
+							strat.setVoiture(v);
+							com=strat.getCommande();
+							v.drive(com);
+							strat.setVoiture(v);
 						}
 						
+						if (strategies.get(index) instanceof StrategyPoint) {
+							StrategyPoint strat=(StrategyPoint)strategies.get(index);
+							strat.setVoiture(v);
+							com=strat.getCommande();
+							v.tryToDrive(com,commandes.get(0),bool,bool2);
+							strat.setVoiture(v);
+						}
+						
+						
+						else {
+							v.tryToDrive(strategies.get(index).getCommande(),commandes.get(0),bool,bool2);
+						}
+						
+					}else {
+						throw new VoitureException("portion de terrain non roulable");
 					}
 				
 					
@@ -181,31 +237,40 @@ public class Simulation implements UpdateEventSender{
 					this.update();
 					
 					if ((v.getPosition().getX()>=0)&&((v.getPosition().getX()<c.getWidth()))&&(v.getPosition().getY()>=0)&&((v.getPosition().getY()<c.getHeight()))&&TerrainTools.charFromTerrain(this.c.getTerrain(v.getPosition()))=='!' && (i!=0) && TerrainTools.isRunnable(this.c.getTerrain(v.getPosition()))) {
-						/*if ((c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))<=0)) {
-						System.out.println("Mauvais côté de la ligne: x="+this.v.getPosition().getX()+" y="+this.v.getPosition().getX()+" prod scal: "+(c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))));
-						v.setDirection(c.getDirectionDepart());
-						g.setColor(new Color(0,0,0));
-						g.drawLine((int)this.v.getPosition().getX(),(int)this.v.getPosition().getY(),(int)this.v.getPosition().getX(),(int)this.v.getPosition().getY());
-						continue;
-					}*/
-						System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" it�rations");
-						varrivee.add(v);
-						break;
-					} //A d�commenter pour le circuit 2_safe.trk
+//						if ((c.getDirectionArrivee().prodScal(v.getPosition().soustraction(c.getPointDepart()))<=0)) {
+//							throw new ArriveeException("arrivee franchie dans le mauvais sens !");
+//						}
+						if((v.getDirection().angle(c.getDirectionArrivee()) < (Math.PI/2.) && v.getDirection().angle(c.getDirectionArrivee())> (Math.PI)/(-2.))) {
+							//System.out.println("voiture " + index +" : ligne d'arrivee franchie: "+i+" it�rations");
+							varrivee.add(v);
+							break;
+						}else {
+//							saveListeCommande(getCommandes().get(index), "au feu");
+							throw new ArriveeException("arrivee franchie dans le mauvais sens !");
+						}
+					}
+					
 				
 				}
 			}i++;
+			score++;
 				
 			
 		}
-		System.out.println("nombre d'iteration = " + i);
+		if(i>29900) {
+			throw new VoitureException("la voiture a depasse 29900 iterations");
+
+		}
 		
+		//System.out.println("nombre d'iteration = " + i);
 		return;
 	}
 		
 		
 	
-
+	public int getScore() {
+		return score;
+	}
 
 
 	@Override
@@ -213,6 +278,7 @@ public class Simulation implements UpdateEventSender{
 		// TODO Auto-generated method stub
 		listeners.add(listener);
 	}
+
 
 
 	

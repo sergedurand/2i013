@@ -1,0 +1,4 @@
+ERROR - 11:24:38: java.net.MalformedURLException: unknown protocol: pathmap
+WARNING - 11:24:44: Convert CourseVoiture
+ERROR - 11:24:44: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Octet 2 de la séquence UTF-8 à 2 octets non valide.
+ERROR - 11:24:44: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Octet 2 de la séquence UTF-8 à 2 octets non valide.

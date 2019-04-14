@@ -7,6 +7,10 @@ import voiture.VoitureFactory;
 import vue.Fenetre;
 import circuit.*;
 import controleur.IHMSwing;
+import exceptions.ArriveeException;
+import exceptions.NeuroneException;
+import exceptions.NotMovingException;
+import genetique.GeneticTools;
 import geometrie.Vecteur;
 
 import java.awt.Color;
@@ -16,6 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import simulation.*;
@@ -23,26 +28,38 @@ import algo.*;
 import observeurs.*;
 import strategy.Strategy;
 import strategy.StrategyListeCommande;
+import strategy.StrategyPoint;
 import strategy.StrategyPrudente;
 import strategy.StrategyRadarSimple;
 
 public class testMVC {
-
-	public static void main(String[] args) {
+/*
+	public static void main(String[] args) throws IOException, NeuroneException, ArriveeException, NotMovingException {
 		// TODO Auto-generated method stub
-		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
+		Circuit c = CircuitFactoryFromFile.build("2_safe.trk");
 		Voiture v = VoitureFactory.build(c);
 
 		Dijkstra dijk = new Dijkstra(c);
 		dijk.compute();
-		Radar rad = new RadarDijkstra(v,c,12,dijk);
-		//RadarImpl rad=new RadarImpl(v,c,12);
-		//StrategyRadarSimple strat1 = new StrategyRadarSimple(rad);
-		StrategyPrudente strat = new StrategyPrudente(rad);
-		IHMSwing ihm = new IHMSwing();
-		//ihm.add(new VoitureObserveur(v));
-		//ihm.add(new RadarObserveur(rad));
+		//Radar rad = new RadarDijkstra(v,c,6,dijk);
+		RadarImpl rad=new RadarImpl(v,c,6);
+		StrategyRadarSimple strat = new StrategyRadarSimple(rad);
+	//	StrategyPoint strat = new StrategyPoint(rad,v);
+		
 
+		
+		/*strat.addPoint(new Vecteur(200,455));
+		strat.addPoint(new Vecteur(400,455));
+		strat.addPoint(new Vecteur(600,520));
+		strat.addPoint(new Vecteur(530,650));
+		strat.addPoint(new Vecteur(400,400));
+		strat.addPoint(new Vecteur(400,350));*/
+		
+		 //test du fonctionnement de la strat�gie point � point 
+/*		
+		IHMSwing ihm = new IHMSwing();
+		ihm.add(new VoitureObserveur(v));
+		ihm.add(new RadarObserveur(rad));
 		ihm.add(new TrajectoireObserveur(v));
 		ihm.addCircuit(c);
 		Simulation simu = new Simulation(c);
@@ -72,26 +89,35 @@ public class testMVC {
 //		Radar rad3 = new RadarImpl(v3,c,12);
 //		StrategyRadarSimple strat3 = new StrategyRadarSimple(rad3);
 //		simu.addVoitureStrategies(v3, strat3);
-		Fenetre fen = new Fenetre(ihm,"test");
-		ihm.setPreferredSize(new Dimension(768,1024));
-		fen.getContentPane().add(ihm);
-		fen.pack();
-                fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fen.setVisible(true);
-		try {
-			simu.play();
-		} catch (VoitureException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		JButton but;
+//		but=new JButton("3.14151615151515151");
+//        ihm.add(but);
+//		Fenetre fen = new Fenetre(ihm,"test");
+//		ihm.setPreferredSize(new Dimension(768,1024));
+//		fen.getContentPane().add(ihm);
+//		fen.pack();
+//                fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		fen.setVisible(true);
+//		try {
+//			simu.play();
+//		} catch (VoitureException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}catch (ArriveeException e2) {
+//			e2.printStackTrace();
+//		} catch (NotMovingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		Simulation.saveListeCommande(simu.getCommandes().get(0), "listecommandes0.txt");
 //		
 //		Simulation.saveListeCommande(simu.getCommandes().get(0), "listecommandes0.txt");
 ////		Simulation.saveListeCommande(simu.getCommandes().get(1), "listecommandes1.txt");
 ////		Simulation.saveListeCommande(simu.getCommandes().get(2), "listecommandes2.txt");
 //		
-//		Voiture v4 = VoitureFactory.build(c);
-////		Voiture v5 = VoitureFactory.build(c);
-////		Voiture v6 = VoitureFactory.build(c);
+		Voiture v4 = VoitureFactory.build(c);
+		Voiture v5 = VoitureFactory.build(c);
+		Voiture v6 = VoitureFactory.build(c);
 //		
 //		ArrayList<Commande> l1 = null;
 ////		ArrayList<Commande> l2 = null;
@@ -114,39 +140,46 @@ public class testMVC {
 ////			// TODO Auto-generated catch block
 ////			e1.printStackTrace();
 ////		}
-//		StrategyListeCommande st1 = new StrategyListeCommande(l1);
-//		StrategyListeCommande st2 = new StrategyListeCommande(l2);
-//		StrategyListeCommande st3 = new StrategyListeCommande(l3);
+//		StrategyListeCommande st1 = new StrategyListeCommande(Simulation.loadListeCommande("1_safe.trk pop 24 gen 100 gen 27 score -3425.0"));
+//		StrategyListeCommande st2 = new StrategyListeCommande(Simulation.loadListeCommande("1_safe.trk pop 24 gen 100 gen 23 score -3906.0"));
+//		StrategyListeCommande st3 = new StrategyListeCommande(Simulation.loadListeCommande("1_safe.trk pop 24 gen 100 gen 4 score -3854.0"));
 //		
 //		Simulation simu2 = new Simulation(c);
 //		simu2.addVoitureStrategies(v4, st1);
-////		simu2.addVoitureStrategies(v5, st2);
-////		simu2.addVoitureStrategies(v6, st3);
+//		simu2.addVoitureStrategies(v5, st2);
+//		simu2.addVoitureStrategies(v6, st3);
 //		
 //		TrajectoireObserveur traj1 = new TrajectoireObserveur(v4);
-////		TrajectoireObserveur traj2 = new TrajectoireObserveur(v5);
-////		TrajectoireObserveur traj3 = new TrajectoireObserveur(v6);
+//		TrajectoireObserveur traj2 = new TrajectoireObserveur(v5);
+//		TrajectoireObserveur traj3 = new TrajectoireObserveur(v6);
 //		ihm.add(traj1);
 //		ihm.add(new VoitureObserveur(v4));
-////		ihm.add(traj2);
-////		ihm.add(traj3);
+//		ihm.add(traj2);
+//		ihm.add(traj3);
 //		simu2.add(ihm);
 //		ihm.add(simu2);
-//		
-
+//		Fenetre fen = new Fenetre(ihm, "test perceptron");
+//		ihm.setPreferredSize(new Dimension(768,1024));
+//		fen.getContentPane().add(ihm);
+//		fen.pack();
+//	            fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		fen.setVisible(true);
+//
 //		try {
 //			simu2.play();
 //		} catch (VoitureException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-
 		
+		ArrayList<ArrayList<Commande>> listes_commandes = new ArrayList<ArrayList<Commande>>();
 
-
-	
-		
-		
-	}
+		for(int i = 0;i<1;i++) {
+			String nom = "circuit 2 " +i;
+			listes_commandes.add(Simulation.loadListeCommande(nom));
+		}
+					
+		GeneticTools.batchVisualization(listes_commandes, c);
+	}*/
 
 }

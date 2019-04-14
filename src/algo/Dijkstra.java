@@ -97,9 +97,6 @@ public class Dijkstra{
 				score += 10 * coef;
 			}
 			
-			if (score < 0) {
-				System.out.println("?????????");
-			}
 			if (dist[i][j] > score) {
 					dist[i][j] = score;
 					q.add(v);
@@ -109,12 +106,16 @@ public class Dijkstra{
 
 	public void compute() {
 
-		System.out.println("start");
 		while ((q.size()!=0)) {
 			Vecteur s=q.poll();
 			update3(s);
 			q.remove(s);
 
+		}
+		for (int i=0;i<c.getWidth();i++) {
+			for (int j=0;j<c.getHeight();j++) {
+				dist[i][j]=dist[i][j];
+			}
 		}
 		
 	}

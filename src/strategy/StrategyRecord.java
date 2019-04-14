@@ -1,8 +1,10 @@
 package strategy;
 
 import circuit.Circuit;
+import exceptions.NeuroneException;
 import voiture.Commande;
 import voiture.Voiture;
+import voiture.VoitureException;
 
 public class StrategyRecord implements Strategy {
 	private Strategy strat;
@@ -13,7 +15,7 @@ public class StrategyRecord implements Strategy {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public Commande getCommande() {
+	public Commande getCommande() throws VoitureException, NeuroneException {
 		return strat.getCommande();
 	}
 

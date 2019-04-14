@@ -50,7 +50,7 @@ public class RadarDijkstra extends RadarImpl {
 		return n; //On renvoie la distance minimale trouv�e dans le tableau dist parmi les vecteurs explor�s
 	}
 	
-	public double[] scores(double epsilon) {
+	public void scores(double epsilon) {
 		double[] scores;
 		int taille=angles.length;
 		//System.out.println(taille);
@@ -60,8 +60,10 @@ public class RadarDijkstra extends RadarImpl {
 		int imax = 0;
 		double scorecroise=0;
 		for (int i=0;i<taille;i++) {
-			scores2[i]=1/Math.log(oneScore(i)+500000); //Impl�mentation pour les circuits simples
-			//scores2[i]=1/(oneScore(i)+2); //Impl�mentation pour les circuits compliqu�s
+			//scores2[i]=1/Math.log(oneScore(i)+50000); //Impl�mentation pour les circuits simples
+			
+			scores2[i]=1/(oneScore(i)+2); //Impl�mentation pour les circuits compliqu�s
+			//scores2[i]=oneScore(i);
 			scores[i]=calcScore(angles[i],epsilon);
 			scorecroise=Math.log(scores[i])*scores2[i];
 			//System.out.println("itération");
@@ -78,7 +80,6 @@ public class RadarDijkstra extends RadarImpl {
 			
 		}
 		this.BestIndex = imax;
-		return scores;
 	}
 	
 
