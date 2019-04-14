@@ -170,7 +170,7 @@ public class Fenetre extends JFrame{
         
         slider=new JSlider(0,200,50);
         slider.setPaintTicks(true);
-        slider.setMajorTickSpacing(50);
+        slider.setMajorTickSpacing(40);
         slider.setPaintLabels(true);
         slider.setBackground(new Color(162, 192, 202));
         slider.setValue(20);
@@ -192,7 +192,7 @@ public class Fenetre extends JFrame{
         
         slider=new JSlider(0,50,25);
         slider.setPaintTicks(true);
-        slider.setMajorTickSpacing(20);
+        slider.setMajorTickSpacing(10);
         slider.setPaintLabels(true);
         slider.setBackground(new Color(162, 192, 202));
         slider.setValue(10);
