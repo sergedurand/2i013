@@ -97,6 +97,7 @@ public class TestReseauNeurones {
 //			}
 //		}
 		Circuit c = CircuitFactoryFromFile.build("2_safe.trk");
+
 		Dijkstra d = new Dijkstra(c);
 		d.compute();
 		ArrayList<Integer> struct = new ArrayList<Integer>();
@@ -116,8 +117,8 @@ public class TestReseauNeurones {
 		CrossOperator cop = new CrossOperator();
 		MutationOperator mut = new MutationOperator();
 
-		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,100,struct,c,d);
-		Genome best = algo.optimize(500,"circuit 3 max",2,false,200,2);
+		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,32,struct,c,d);
+		Genome best = algo.optimize(32,"2 safe",2,false,100,2);
 //		GeneticTools.saveGenome(best, "best test");
 //		Genome g_load = GeneticTools.loadGenome("genome circuit 1 struct", "genome circuit 1 poids");
 //		System.out.println(g_load.toString());
@@ -130,36 +131,36 @@ public class TestReseauNeurones {
 //		Radar r = new RadarImpl(v,c,g_load.getStructure().get(0)-1);
 //		Perceptron p = new Perceptron(g_load.getListe_poids(),g_load.getListe_biais());
 //		Strategy strat = new StrategyPerceptron(p, r, g_load);
-//		ArrayList<Commande> best_commandes = null;
-//		try {
-//			best_commandes = Simulation.loadListeCommande("circuit aufeu");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		Voiture v = VoitureFactory.build(c);
-//		Strategy strat = new StrategyListeCommande(best_commandes);
-//		Simulation simu = new Simulation(c);
-//		simu.addVoitureStrategies(v, strat);
-//		IHMSwing ihm = new IHMSwing();
-//		//ihm.add(new VoitureObserveur(v));
-//		ihm.add(new TrajectoireObserveur(v));
-//		ihm.addCircuit(c);
-//		simu.add(ihm);
-//		Fenetre fen = new Fenetre(ihm, "test perceptron");
-//		ihm.setPreferredSize(new Dimension(768,1024));
-//		fen.getContentPane().add(ihm);
-//		fen.pack();
-//	            fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		fen.setVisible(true);
-//		try {
-//			simu.play();
-//			simu.setSleep(3);
-//		} catch (VoitureException | ArriveeException | NotMovingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
+		ArrayList<Commande> best_commandes = null;
+		try {
+			best_commandes = Simulation.loadListeCommande("5 safe");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Voiture v = VoitureFactory.build(c);
+		Strategy strat = new StrategyListeCommande(best_commandes);
+		Simulation simu = new Simulation(c);
+		simu.addVoitureStrategies(v, strat);
+/*		IHMSwing ihm = new IHMSwing();
+		//ihm.add(new VoitureObserveur(v));
+		ihm.add(new TrajectoireObserveur(v));
+		ihm.addCircuit(c);
+		simu.add(ihm);
+		Fenetre fen = new Fenetre(ihm, "test perceptron");
+		ihm.setPreferredSize(new Dimension(768,1024));
+		fen.getContentPane().add(ihm);
+		fen.pack();
+	            fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fen.setVisible(true);
+		try {
+			simu.play();
+			simu.setSleep(3);
+		} catch (VoitureException | ArriveeException | NotMovingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+*/
 	}
 
 }

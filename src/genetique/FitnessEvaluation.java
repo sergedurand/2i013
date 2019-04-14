@@ -90,7 +90,7 @@ public class FitnessEvaluation {
 		simu.addVoitureStrategies(v, strat);
 		simu.setSleep(0);
 		double score = 0;
-		IHMSwing ihm = new IHMSwing();
+		/*IHMSwing ihm = new IHMSwing();
 		//ihm.add(new VoitureObserveur(v));
 		ihm.add(new RadarObserveur(r));
 		ihm.add(new TrajectoireObserveur(v));
@@ -126,7 +126,7 @@ public class FitnessEvaluation {
 		}
 		fen.dispose();
 		
-		g.setScore(-score);		
+		g.setScore(-score);	*/	
 	}
 	public boolean isFinish() {
 		return finish;
