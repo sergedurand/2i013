@@ -25,7 +25,7 @@ import exceptions.NeuroneException;
 import exceptions.NotMovingException;
 import algo.*;
 public class TestDivers {
-
+/*
 	public static void main(String[] args) {
 //		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
 //		Dijkstra d = new Dijkstra(c);
@@ -98,6 +98,6 @@ public class TestDivers {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }

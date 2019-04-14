@@ -33,7 +33,7 @@ import strategy.StrategyPrudente;
 import strategy.StrategyRadarSimple;
 
 public class testMVC {
-
+/*
 	public static void main(String[] args) throws IOException, NeuroneException, ArriveeException, NotMovingException {
 		// TODO Auto-generated method stub
 		Circuit c = CircuitFactoryFromFile.build("2_safe.trk");
@@ -56,7 +56,7 @@ public class testMVC {
 		strat.addPoint(new Vecteur(400,350));*/
 		
 		 //test du fonctionnement de la strat�gie point � point 
-		
+/*		
 		IHMSwing ihm = new IHMSwing();
 		ihm.add(new VoitureObserveur(v));
 		ihm.add(new RadarObserveur(rad));
@@ -180,6 +180,6 @@ public class testMVC {
 		}
 					
 		GeneticTools.batchVisualization(listes_commandes, c);
-	}
+	}*/
 
 }

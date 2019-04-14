@@ -1,0 +1,15 @@
+WARNING - 11:20:21: First conversion pass
+ERROR - 11:20:21: java.net.MalformedURLException: unknown protocol: pathmap
+WARNING - 11:23:07: First conversion pass
+ERROR - 11:23:07: java.net.MalformedURLException: unknown protocol: pathmap
+WARNING - 11:23:32: First conversion pass
+ERROR - 11:23:32: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Octet 2 de la séquence UTF-8 à 2 octets non valide.
+ERROR - 11:23:32: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Octet 2 de la séquence UTF-8 à 2 octets non valide.
+WARNING - 11:23:58: First conversion pass
+ERROR - 11:23:58: org.xml.sax.SAXParseExceptionpublicId: /CourseVoiture/src/perceptron/CoucheEntree.java; systemId: file:///CourseVoiture/src/perceptron/CoucheEntree.java; lineNumber: 1; columnNumber: 1; Contenu non autorisé dans le prologue.
+ERROR - 11:23:58: org.xml.sax.SAXParseExceptionpublicId: /CourseVoiture/src/perceptron/CoucheEntree.java; systemId: file:///CourseVoiture/src/perceptron/CoucheEntree.java; lineNumber: 1; columnNumber: 1; Contenu non autorisé dans le prologue.
+WARNING - 11:24:38: Convert CourseVoiture
+ERROR - 11:24:38: java.net.MalformedURLException: unknown protocol: pathmap
+WARNING - 11:24:44: Convert CourseVoiture
+ERROR - 11:24:44: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Octet 2 de la séquence UTF-8 à 2 octets non valide.
+ERROR - 11:24:44: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Octet 2 de la séquence UTF-8 à 2 octets non valide.
