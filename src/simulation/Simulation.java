@@ -269,7 +269,7 @@ public class Simulation implements UpdateEventSender{
 		
 	
 	public int getScore() {
-		return score;
+		return commandes.get(0).size();
 	}
 
 
