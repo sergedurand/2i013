@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -16,8 +17,6 @@ import modele.Modele;
 import controleur.IHMSwing;
 
 public class Fenetre extends JFrame{	
-	//Controleur con;
-	
 	
 	
 
@@ -36,9 +35,12 @@ public class Fenetre extends JFrame{
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 3;
+        gbc.gridheight=1;
         //gbc.insets = new Insets(0,0,0,20);
         but=new JButton("Start");
         but.addActionListener(i);
+        but.setFont(new Font("Dialog", Font.BOLD, 16));
+        but.setPreferredSize(new Dimension(40,80));
         panel2.add(but,gbc);
         
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -48,6 +50,8 @@ public class Fenetre extends JFrame{
         
         but=new JButton("Stop");
         but.addActionListener(i);
+        but.setPreferredSize(new Dimension(40,80));
+        but.setFont(new Font("Dialog", Font.BOLD, 16));
         panel2.add(but,gbc);
         
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -57,6 +61,8 @@ public class Fenetre extends JFrame{
        
         but=new JButton("Restart");
         but.addActionListener(i);
+        but.setPreferredSize(new Dimension(40,80));
+        but.setFont(new Font("Dialog", Font.BOLD, 16));
         panel2.add(but,gbc);
         
         
@@ -224,6 +230,9 @@ public class Fenetre extends JFrame{
         gbc.gridwidth = 2;
         panel2.add(slider,gbc);
         slider.addChangeListener(i);
+        
+       
+        
         
         
         panel2.setBackground(new Color(162, 192, 202));

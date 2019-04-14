@@ -39,6 +39,7 @@ public class Simulation implements UpdateEventSender{
 	private ArrayList<UpdateEventListener> listeners = new ArrayList<UpdateEventListener>();
 	private int sleep = 2;
 	public boolean isRunning=false;
+	private int score=0;
 
 	/**
 	 * Instancie un objet Simulation
@@ -59,6 +60,7 @@ public class Simulation implements UpdateEventSender{
 		this.c = c;
 		this.commandes = commandes;
 		this.listeners = listeners;
+		score=0;
 	}
 	
 	public void addVoitureStrategies(Voiture v, Strategy s) {
@@ -176,7 +178,7 @@ public class Simulation implements UpdateEventSender{
 			positions.add(pos);
 		}
 		
-		while(i<100000) {
+		while(i<100000&&isRunning==true) {
 			boolean bool=true;
 			boolean bool2=false;
 			for(Voiture v : voitures) {
@@ -251,6 +253,7 @@ public class Simulation implements UpdateEventSender{
 				
 				}
 			}i++;
+			score++;
 				
 			
 		}
@@ -265,7 +268,9 @@ public class Simulation implements UpdateEventSender{
 		
 		
 	
-
+	public int getScore() {
+		return score;
+	}
 
 
 	@Override

@@ -130,12 +130,18 @@ public class IHMSwing extends JPanel implements UpdateEventListener,ActionListen
         		e.printStackTrace();
         	}*/
         	if(o!=null) {
+        		int score=simu.getScore();
+        		if (o instanceof VoitureObserveur) {
+        			((VoitureObserveur) o).setScore(score);
+        		}
         		o.print(g);
         	}
         }   
         //System.out.println("Fini de repaint");
 
 	}
+	
+
 	
 	public void virage() {
 		Graphics g=im.getGraphics();

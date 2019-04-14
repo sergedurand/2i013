@@ -241,7 +241,7 @@ public class Modele {
 		m.setSimu(false);*/
 		//closeFenetre();
 		//fen=new Fenetre(m.getIHM(),nomcircuit,nomstrat,m.getIHM(),nbfaisceaux);
-		
+		int score;
 		try {
 		//	System.out.println("try");
 			simu.isRunning=true;

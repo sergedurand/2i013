@@ -18,6 +18,7 @@ public class VoitureObserveur implements ObserveurSwing {
 	private Voiture voiture;
 	private Color coul;
 	private String filename;
+	private int score;
 	
 	public VoitureObserveur(Voiture voiture) {
 		this.voiture=voiture;
@@ -26,12 +27,13 @@ public class VoitureObserveur implements ObserveurSwing {
 	
 	public VoitureObserveur(Voiture v, String filename) {
 		this(v);
-		this.filename = filename+".png";
-
-		
+		this.filename = filename+".png";	
 		
 	}
 	
+	public void setScore(int k) {
+		score=k;
+	}
 	
 	private int getX() {
 		return (int)voiture.getPosition().getX();
@@ -53,15 +55,17 @@ public class VoitureObserveur implements ObserveurSwing {
 	public void setColor(Color c) {
 		coul = c;
 	}
-
 	 public void print(Graphics g){
          // Attention a l'inversion eventuelle des coordonnees
 		 //System.out.println("filename : "+filename);
 		 try {
 			 g.setColor(Color.black);
-	         g.drawString(String.format("v: %.2f d: (%6.2f, %6.2f) derap: ", voiture.getVitesse(),
-	                         voiture.getDirection().getX(), voiture.getDirection().getY()) + voiture.getDerapage(),
+	         g.drawString(String.format("v: %.2f d: (%6.2f, %6.2f)", voiture.getVitesse(),
+	                         voiture.getDirection().getX(), voiture.getDirection().getY()),
 	                         10, 10);
+	         g.drawString(String.format("Score: "+score),10, 30);
+
+     
 			 if(filename.length()==0) {
 				 g.setColor(this.getColor());
 		         g.fillRect(this.getX(), this.getY(), 5, 5);
