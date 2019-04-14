@@ -37,7 +37,7 @@ public class TestReseauNeurones {
 
 	public static void main(String[] args) throws NeuroneException, IOException {
 
-		
+		/*
 		ArrayList<String> circuits = new ArrayList<String>();
 		ArrayList<Double> target = new ArrayList<Double>();
 		circuits.add("1_safe.trk");
@@ -95,8 +95,8 @@ public class TestReseauNeurones {
 				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,120,struct,c1,d1);
 				Genome best = algo.optimize(100,s+ " pop 120 gen 100",2,true,objectif,2);
 			}
-		}
-		Circuit c = CircuitFactoryFromFile.build("2_safe.trk");
+		}*/
+		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
 
 		Dijkstra d = new Dijkstra(c);
 		d.compute();
@@ -117,8 +117,8 @@ public class TestReseauNeurones {
 		CrossOperator cop = new CrossOperator();
 		MutationOperator mut = new MutationOperator();
 
-		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,32,struct,c,d);
-		Genome best = algo.optimize(32,"2 safe",2,false,100,2);
+		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,24,struct,c,d);
+		Genome best = algo.optimize(32,"1 safe",4,false,100,2);
 //		GeneticTools.saveGenome(best, "best test");
 //		Genome g_load = GeneticTools.loadGenome("genome circuit 1 struct", "genome circuit 1 poids");
 //		System.out.println(g_load.toString());

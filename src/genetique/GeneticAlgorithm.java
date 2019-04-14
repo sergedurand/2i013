@@ -110,11 +110,11 @@ public class GeneticAlgorithm {
 				List<Genome> parents_l = population.subList(0, population.size()/part);
 				ArrayList<Genome> parents = GeneticTools.listToArrayList(parents_l);
 				ArrayList<Genome> nv_population = cop.crossPop(parents,part);
-				mop.mutatePop(nv_population, 0.1, -1, 1, 0.1);
-//				nv_population.set(0, population.get(0));
-//				nv_population.set(1,population.get(1));
-//				nv_population.set(2,population.get(2));
-//				nv_population.set(3,population.get(3));
+				mop.mutatePop(nv_population, 1, -1, 1, 0.6);
+				nv_population.set(0, population.get(0));
+				nv_population.set(1,population.get(1));
+				nv_population.set(2,population.get(2));
+				nv_population.set(3,population.get(3));
 				population = GeneticTools.arrayListtoList(nv_population);
 					
 			}
