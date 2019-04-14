@@ -17,8 +17,6 @@ import modele.Modele;
 import controleur.IHMSwing;
 
 public class Fenetre extends JFrame{	
-	//Controleur con;
-	
 	
 	
 
