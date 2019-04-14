@@ -38,64 +38,64 @@ public class TestReseauNeurones {
 	public static void main(String[] args) throws NeuroneException, IOException {
 
 		
-//		ArrayList<String> circuits = new ArrayList<String>();
-//		ArrayList<Double> target = new ArrayList<Double>();
-//		circuits.add("1_safe.trk");
-//		target.add(2700.);
-//		circuits.add("2_safe.trk");
-//		target.add(3400.);
-//		circuits.add("3_safe.trk");
-//		target.add(4500.);
-//		circuits.add("4_safe.trk");
-//		target.add(4100.);
-//		circuits.add("5_safe.trk");
-//		target.add(2050.);
-//		circuits.add("6_safe.trk");
-//		target.add(2000.);
-//		circuits.add("7_safe.trk");
-//		target.add(1200.);
-//		circuits.add("8_safe.trk");
-//		target.add(2700.);
-//		circuits.add("aufeu.trk");
-//		target.add(3300.);
-//		circuits.add("bond_safe.trk");
-//		target.add(1700.);
-//		circuits.add("Een2.trk");
-//		target.add(2000.);
-//		circuits.add("labymod.trk");
-//		target.add(8000.);
-//		circuits.add("labyperso.trk");
-//		target.add(8500.);
-//		circuits.add("perso.trk");
-//		target.add(8600.);
-//		circuits.add("t2009.trk");
-//		target.add(7150.);
-//		circuits.add("t260_safe.trk");
-//		target.add(2400.);
-//		for(int i = 0;i<circuits.size();i++) {
-//			String s = circuits.get(i);
-//			Circuit c1 = CircuitFactoryFromFile.build(s);
-//			Dijkstra d1 = new Dijkstra(c1);
-//			d1.compute();
-//			ArrayList<Integer> struct = new ArrayList<Integer>();
-//			struct.add(8);
-//			struct.add(8);
-//			struct.add(8);
-//			struct.add(2);
-//			GenomeGeneratorPerceptron gen = new GenomeGeneratorPerceptron(struct);
-//			CrossOperator cop = new CrossOperator();
-//			MutationOperator mut = new MutationOperator();
-//			double objectif = target.get(i);
-//			if(i<6) {//circuits "facile"
-//				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,1000,struct,c1,d1);
-//				Genome best = algo.optimize(2,s,2,false,objectif,2);
-//				continue;
-//			}
-//			if(i<8) {
-//				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,120,struct,c1,d1);
-//				Genome best = algo.optimize(100,s+ " pop 120 gen 100",2,true,objectif,2);
-//			}
-//		}
+		ArrayList<String> circuits = new ArrayList<String>();
+		ArrayList<Double> target = new ArrayList<Double>();
+		circuits.add("1_safe.trk");
+		target.add(2700.);
+		circuits.add("2_safe.trk");
+		target.add(3400.);
+		circuits.add("3_safe.trk");
+		target.add(4500.);
+		circuits.add("4_safe.trk");
+		target.add(4100.);
+		circuits.add("5_safe.trk");
+		target.add(2050.);
+		circuits.add("6_safe.trk");
+		target.add(2000.);
+		circuits.add("7_safe.trk");
+		target.add(1200.);
+		circuits.add("8_safe.trk");
+		target.add(2700.);
+		circuits.add("aufeu.trk");
+		target.add(3300.);
+		circuits.add("bond_safe.trk");
+		target.add(1700.);
+		circuits.add("Een2.trk");
+		target.add(2000.);
+		circuits.add("labymod.trk");
+		target.add(8000.);
+		circuits.add("labyperso.trk");
+		target.add(8500.);
+		circuits.add("perso.trk");
+		target.add(8600.);
+		circuits.add("t2009.trk");
+		target.add(7150.);
+		circuits.add("t260_safe.trk");
+		target.add(2400.);
+		for(int i = 0;i<circuits.size();i++) {
+			String s = circuits.get(i);
+			Circuit c1 = CircuitFactoryFromFile.build(s);
+			Dijkstra d1 = new Dijkstra(c1);
+			d1.compute();
+			ArrayList<Integer> struct = new ArrayList<Integer>();
+			struct.add(8);
+			struct.add(8);
+			struct.add(8);
+			struct.add(2);
+			GenomeGeneratorPerceptron gen = new GenomeGeneratorPerceptron(struct);
+			CrossOperator cop = new CrossOperator();
+			MutationOperator mut = new MutationOperator();
+			double objectif = target.get(i);
+			if(i<6) {//circuits "facile"
+				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,1000,struct,c1,d1);
+				Genome best = algo.optimize(2,s,2,false,objectif,2);
+				continue;
+			}
+			if(i<8) {
+				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,120,struct,c1,d1);
+				Genome best = algo.optimize(100,s+ " pop 120 gen 100",2,true,objectif,2);
+			}
+		}
 		Circuit c = CircuitFactoryFromFile.build("2_safe.trk");
 
 		Dijkstra d = new Dijkstra(c);

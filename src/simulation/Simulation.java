@@ -38,7 +38,6 @@ public class Simulation implements UpdateEventSender{
 	private ArrayList<ArrayList<Commande>> commandes = new ArrayList<ArrayList<Commande>>();
 	private ArrayList<UpdateEventListener> listeners = new ArrayList<UpdateEventListener>();
 	private int sleep = 2;
-	public boolean isRunning=false;
 
 	/**
 	 * Instancie un objet Simulation
@@ -176,8 +175,7 @@ public class Simulation implements UpdateEventSender{
 			positions.add(pos);
 		}
 		
-		while(isRunning==true) {
-			
+		while(i<100000) {
 			boolean bool=true;
 			boolean bool2=false;
 			for(Voiture v : voitures) {
@@ -244,6 +242,7 @@ public class Simulation implements UpdateEventSender{
 							varrivee.add(v);
 							break;
 						}else {
+//							saveListeCommande(getCommandes().get(index), "au feu");
 							throw new ArriveeException("arrivee franchie dans le mauvais sens !");
 						}
 					}

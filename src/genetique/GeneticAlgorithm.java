@@ -88,7 +88,7 @@ public class GeneticAlgorithm {
 			if(population.get(0).isFinish()) {
 				if(best_genomes.size()==0) {
 					best_genomes.add(population.get(0).getCommandes());
-					Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier + population.get(0).getScore());
+					//Simulation.saveListeCommande(population.get(0).getCommandes(),nom_bis);
 				}else {
 					int score_precedent = best_genomes.get(best_genomes.size()-1).size();
 					int score_courant = (int) population.get(0).getScore();

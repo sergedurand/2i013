@@ -71,8 +71,8 @@ public class GeneticTools {
         }
 	}
 	
-	public static void batchVisualization(ArrayList<ArrayList<Commande>> com, Circuit c) {
-		/*Simulation simu = new Simulation(c);
+/*	public static void batchVisualization(ArrayList<ArrayList<Commande>> com, Circuit c) {
+		Simulation simu = new Simulation(c);
 		IHMSwing ihm = new IHMSwing();
 		ihm.add(simu);
 		ihm.addCircuit(c);
@@ -107,7 +107,7 @@ public class GeneticTools {
 		} catch (VoitureException | ArriveeException | NotMovingException | NeuroneException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 	}
 	
 	public static void saveTest(ArrayList<Integer> entiers, ArrayList<Double> reels, String filename) {
@@ -125,7 +125,7 @@ public class GeneticTools {
 		
 		
 	}
-	
+	*/
 	public static ArrayList<Double> loadTest(String filename) throws IOException{
         ArrayList<Double> struct = new ArrayList<Double>();
 
