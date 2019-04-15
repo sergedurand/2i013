@@ -236,12 +236,12 @@ public class Fenetre extends JFrame{
         
         
         panel2.setBackground(new Color(162, 192, 202));
-        
         this.add(panel2,BorderLayout.EAST);
         this.setPreferredSize(new Dimension(1200,1024));
 		this.getContentPane().add(ihm);
 		this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.addMouseListener(i);
 		this.setVisible(true);
 		//i.runSimu();
 	}

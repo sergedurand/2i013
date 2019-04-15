@@ -242,8 +242,10 @@ public class Modele {
 		//closeFenetre();
 		//fen=new Fenetre(m.getIHM(),nomcircuit,nomstrat,m.getIHM(),nbfaisceaux);
 		int score;
+		
 		try {
 		//	System.out.println("try");
+			System.out.println("runsimu avec: "+simu.getStrategie().getClass());
 			simu.isRunning=true;
 			simu.play();
 		}
@@ -355,5 +357,42 @@ public class Modele {
 		options,  //the titles of buttons
 		options[0]); //default button title
 	}
+	
+	public Strategy getStrategy() {
+		return strat;
+	}
+	
+	public void pointinfo() {
+		Object[] options = {"Ok"};
+		JOptionPane.showOptionDialog(fen,
+		"Vous avez choisi la Stratégie Point à Point.\nMerci de cliquer sur les points du circuit par lesquels vous voulez que la voiture passe.\nLes coordonnées des points sur lesquels vous cliquez s'affichent sur le terminal.\nLe nombre de points doit être pair.\nUne fois l'opération terminée, merci de cliquer sur start. Vos points s'afficheront alors en noir.\nSi jamais la voiture passe sur un point, elle essayera alors d'atteindre le point suivant.",
+		"Information",
+		JOptionPane.YES_NO_OPTION,
+		JOptionPane.QUESTION_MESSAGE,
+		null,     //do not use a custom Icon
+		options,  //the titles of buttons
+		options[0]); //default button title
+	}
+	
+	public void pointapoint() {
+		pointinfo();
+		Voiture voi = VoitureFactory.build(c);
+		rad=new RadarImpl(voi,c,nbfaisceaux);
+		strat = new StrategyPoint(rad,voi);
+		Modele m=new Modele(rad, voi, c, strat,nomcircuit,"point",nbfaisceaux,couleurvoiture,population,generation,mutation);
+		simu = new Simulation(c);
+		ihm.clean();
+		ihm.setStratPoint(true);
+		ihm.add(new VoitureObserveur(voi,couleurvoiture));
+		ihm.add(new RadarObserveur(rad));
+		ihm.add(new TrajectoireObserveur(voi));
+		simu.addVoitureStrategies(voi, strat);
+		simu.add(ihm);
+		ihm.add(simu);
+		closeFenetre();
+		nomstrat="Point à point";
+		fen=new Fenetre(ihm,nomcircuit,"Point à point",ihm,nbfaisceaux,couleurvoiture);
+	}
+	
 	
 }

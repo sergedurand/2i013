@@ -2,11 +2,13 @@ package observeurs;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 import javax.imageio.ImageIO;
@@ -19,15 +21,21 @@ public class VoitureObserveur implements ObserveurSwing {
 	private Color coul;
 	private String filename;
 	private int score;
-	
+	private ArrayList<Point> liste;
 	public VoitureObserveur(Voiture voiture) {
 		this.voiture=voiture;
 		coul = Color.YELLOW;
+		liste=new ArrayList<Point>();
+	}
+	
+	public void add(Point p) {
+		liste.add(p);
 	}
 	
 	public VoitureObserveur(Voiture v, String filename) {
 		this(v);
 		this.filename = filename+".png";	
+		liste=new ArrayList<Point>();
 		
 	}
 	
@@ -59,6 +67,9 @@ public class VoitureObserveur implements ObserveurSwing {
          // Attention a l'inversion eventuelle des coordonnees
 		 //System.out.println("filename : "+filename);
 		 try {
+			 for (Point p:liste) {
+					g.fillRect((int)p.getX(),(int)p.getY(),10,10);
+			}
 			 g.setColor(Color.black);
 	         g.drawString(String.format("v: %.2f d: (%6.2f, %6.2f)", voiture.getVitesse(),
 	                         voiture.getDirection().getX(), voiture.getDirection().getY()),
@@ -110,7 +121,7 @@ public class VoitureObserveur implements ObserveurSwing {
 				
 			 } 
 		 }catch (ConcurrentModificationException e) {
-				System.out.println("modification concurrente voiture observeur");
+				//System.out.println("modification concurrente voiture observeur");
 		}
 		 
 		 

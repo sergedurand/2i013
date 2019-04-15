@@ -30,9 +30,6 @@ public class TrajectoireObserveur implements ObserveurSwing {
 		if (voit!=null) {
 			trajectoire.add(voit.getPosition());
 		}
-		
-		
-		
 		for(Vecteur v : trajectoire) {
 			if (v!=null) {
 				g.fillRect((int)v.getX(),(int) v.getY(), 2, 2);

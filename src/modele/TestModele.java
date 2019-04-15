@@ -1,5 +1,8 @@
 package modele;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import algo.Dijkstra;
 import algo.RadarImpl;
 import circuit.Circuit;
@@ -13,6 +16,13 @@ import vue.*;
 public class TestModele {
 
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Circuit c = CircuitFactoryFromFile.build("1_safe.trk");
 		Voiture v = VoitureFactory.build(c);
 		RadarImpl rad=new RadarImpl(v,c,6);

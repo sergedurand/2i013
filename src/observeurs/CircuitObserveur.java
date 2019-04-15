@@ -4,7 +4,9 @@ import terrain.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 public class CircuitObserveur implements ObserveurSwing {//dans cette classe on ne fait que charger l'image correspondant � un circuit, et on la peint
@@ -14,11 +16,16 @@ public class CircuitObserveur implements ObserveurSwing {//dans cette classe on 
 	public CircuitObserveur(Circuit c) {
 		super();
 		this.im = TerrainTools.imageFromTerrain(c.getTerrain());
+		
 	}
 
 	public BufferedImage getImage() {
 		return im;
 	}
+	
+	
+	
+	
 	public void print(Graphics g) {
 		try {
 			Graphics gg=im.getGraphics();
@@ -31,6 +38,7 @@ public class CircuitObserveur implements ObserveurSwing {//dans cette classe on 
 	//		gg.fillRect(400,350,10,10);
 			//printmodif();
 			// TODO Auto-generated method stub
+			
 			g.drawImage(im, 1, 1, null);
 		}catch (ConcurrentModificationException e) {
 			System.out.println("modification concurrente circuit observeur");

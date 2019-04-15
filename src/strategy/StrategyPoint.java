@@ -27,13 +27,12 @@ public class StrategyPoint implements Strategy {
 	public int index=0;
 	@Override
 	public Commande getCommande() {
-		
-		
 		for (Vecteur point:points) {
+			//System.out.println("points de l'arraylist: "+point);
 			if (v.getPosition().getDistance(point)<20) {
-				
+				//System.out.println("Je suis sur un point!");
 				index=points.indexOf(point);
-				System.out.println("point: "+point.toString()+" index: "+index);
+				//System.out.println("point: "+point.toString()+" index: "+index);
 				if (index%2==0) {
 					zonepoint=true;
 				}
@@ -44,6 +43,7 @@ public class StrategyPoint implements Strategy {
 		}
 		//System.out.println("zonepoint: "+zonepoint+" index: "+index);
 		if (zonepoint==false) { //Si la voiture n'est pas dans un des points de l'ArrayList
+			//System.out.println("Je ne suis pas sur un point");
 			r.scores(0.1);
 			double rot = r.getAngles()[r.getBestIndex()]*2/Math.PI;
 			return new Commande(1,rot);
@@ -55,9 +55,9 @@ public class StrategyPoint implements Strategy {
 		
 		//Sinon
 		if (zonepoint==true && index%2==0) {
-			System.out.println("je cherche la sortie!");
+			//System.out.println("je cherche la sortie!");
 			Vecteur arrivee = points.get(index+1);
-			System.out.println("voici l'arrivée: "+arrivee.toString());
+			//System.out.println("voici l'arrivée: "+arrivee.toString());
 			double min=Double.POSITIVE_INFINITY;
 			Commande best=null;
 			for (int i=0;i<r.getAngles().length;i++) {
@@ -71,6 +71,7 @@ public class StrategyPoint implements Strategy {
 			}
 			return best;
 		}
+		r.scores(0.1);
 		double rot = r.getAngles()[r.getBestIndex()]*2/Math.PI;
 		return new Commande(1,rot);
 	}

@@ -167,9 +167,11 @@ public class Simulation implements UpdateEventSender{
 			
 	}
 	
+	public Strategy getStrategie() {
+		return strategies.get(0);
+	}
 
 	public void play() throws VoitureException, ArriveeException, NotMovingException, NeuroneException {
-
 		//test orientation
 		Vecteur pos_depart = this.getC().getPointDepart();
 		int i = 0;
