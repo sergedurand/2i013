@@ -12,7 +12,6 @@ public class StrategyRadarSimple implements Strategy{
 	private static final long serialVersionUID = 1L;
 	
 	private Radar radar;
-	private boolean arrivee = false;
 	public StrategyRadarSimple(Radar radar) {
 		super();
 		this.radar = radar;

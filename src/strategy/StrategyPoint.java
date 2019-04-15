@@ -12,6 +12,7 @@ public class StrategyPoint implements Strategy {
 	private ArrayList<Vecteur> points;
 	private Voiture v;
 	private Radar r;
+	
 	public StrategyPoint(Radar radar,Voiture v) {
 		super();
 		r = radar;

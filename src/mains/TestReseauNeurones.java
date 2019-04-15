@@ -37,7 +37,7 @@ public class TestReseauNeurones {
 
 	public static void main(String[] args) throws NeuroneException, IOException {
 
-		/*
+		
 		ArrayList<String> circuits = new ArrayList<String>();
 		ArrayList<Double> target = new ArrayList<Double>();
 		circuits.add("1_safe.trk");
@@ -79,32 +79,33 @@ public class TestReseauNeurones {
 			d1.compute();
 			ArrayList<Integer> struct = new ArrayList<Integer>();
 			struct.add(8);
-			struct.add(8);
+			//struct.add(8);
 			struct.add(8);
 			struct.add(2);
 			GenomeGeneratorPerceptron gen = new GenomeGeneratorPerceptron(struct);
 			CrossOperator cop = new CrossOperator();
 			MutationOperator mut = new MutationOperator();
 			double objectif = target.get(i);
-			if(i<6) {//circuits "facile"
+//			if(i<6) {//circuits "facile"
+//				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,1000,struct,c1,d1);
+//				Genome best = algo.optimize(2,s,2,false,objectif,2);
+//				continue;
+//			}
+			if(i>12) {
 				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,1000,struct,c1,d1);
-				Genome best = algo.optimize(2,s,2,false,objectif,2);
-				continue;
+				Genome best = algo.optimize(200,s,250,true,objectif,2);
 			}
-			if(i>=6) {
-				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,24,struct,c1,d1);
-				Genome best = algo.optimize(250,s+ " pop 120 gen 100",2,true,objectif,2);
-			}
-		}*/
+		}
 		
-		Circuit c = CircuitFactoryFromFile.build("labyperso.trk");
+		/*
+		Circuit c = CircuitFactoryFromFile.build("7_safe.trk");
 
 		Dijkstra d = new Dijkstra(c);
 		d.compute();
 		ArrayList<Integer> struct = new ArrayList<Integer>();
 		struct.add(8);
-		struct.add(8);
-//		struct.add(6);
+		struct.add(6);
+		struct.add(4);
 //		struct.add(6);
 //		struct.add(6);
 //		struct.add(6);
@@ -118,8 +119,8 @@ public class TestReseauNeurones {
 		CrossOperator cop = new CrossOperator();
 		MutationOperator mut = new MutationOperator();
 
-		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,24,struct,c,d);
-		Genome best = algo.optimize(60,"labyperso",2,true,100,2);
+		GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,1000,struct,c,d);
+		Genome best = algo.optimize(8,"7 safe",250,false,100,2);
 //		GeneticTools.saveGenome(best, "best test");
 //		Genome g_load = GeneticTools.loadGenome("genome circuit 1 struct", "genome circuit 1 poids");
 //		System.out.println(g_load.toString());

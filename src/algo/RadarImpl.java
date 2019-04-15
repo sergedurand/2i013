@@ -15,6 +15,13 @@ import voiture.Voiture;
 import terrain.*;
 
 public class RadarImpl implements Radar {
+	
+	protected Voiture voiture;
+	protected Circuit circuit;
+	protected double[] angles;
+	protected double[] distPix;
+	protected int BestIndex;
+	protected boolean arrivee = false;
 
 	public RadarImpl(Voiture voiture, Circuit circuit, int nb_angles) {
 		super();
@@ -42,12 +49,7 @@ public class RadarImpl implements Radar {
 	public RadarImpl() {
 		//TODO;
 	}
-	protected Voiture voiture;
-	protected Circuit circuit;
-	protected double[] angles;
-	protected double[] distPix;
-	protected int BestIndex;
-	protected boolean arrivee = false;
+	
 	
 
 
@@ -113,6 +115,8 @@ public class RadarImpl implements Radar {
 		return voiture;
 	}
 
+
+	
 	@Override
 	public void traceRadar() {
 		BufferedImage im = TerrainTools.imageFromTerrain(circuit.getTerrain());
@@ -155,6 +159,7 @@ public class RadarImpl implements Radar {
 		return min;
 	}
 
+ 
 
 	public boolean isArrivee() {
 		return arrivee;
