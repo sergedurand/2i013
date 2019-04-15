@@ -245,7 +245,7 @@ public class Modele {
 		
 		try {
 		//	System.out.println("try");
-			System.out.println("runsimu avec: "+simu.getStrategie().getClass());
+			//System.out.println("runsimu avec: "+simu.getStrategie().getClass());
 			simu.isRunning=true;
 			simu.play();
 		}
