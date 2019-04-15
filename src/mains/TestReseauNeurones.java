@@ -91,7 +91,7 @@ public class TestReseauNeurones {
 //				Genome best = algo.optimize(2,s,2,false,objectif,2);
 //				continue;
 //			}
-			if(i>12) {
+			if(i>13) {
 				GeneticAlgorithm algo = new GeneticAlgorithm(mut,cop,gen,1000,struct,c1,d1);
 				Genome best = algo.optimize(200,s,250,true,objectif,2);
 			}
