@@ -73,11 +73,13 @@ public class GeneticAlgorithm {
 				fit.evaluate(dijkstra,nb_param);			
 			}
 			population.sort(comp.reversed());
+//			uncomment to visualize improvement while the algorithm is running
 //			if(i%5==0 && Math.abs(population.get(0).getScore())<1200000) {
 //				FitnessEvaluation fit = new FitnessEvaluation(c,d,population.get(0));
 //				fit.evaluateWithDisplay(dijkstra,nb_param);
 //			}
 			
+//			uncomment to stop algorithm if target is reached.
 //			if(Math.abs(population.get(0).getScore())<target) {
 //				Simulation.saveListeCommande(population.get(0).getCommandes(),nom_fichier + " target atteinte");
 //				GeneticTools.saveGenome(population.get(0),"genome " + nom_fichier + "target atteinte");

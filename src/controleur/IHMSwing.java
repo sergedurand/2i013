@@ -1,7 +1,7 @@
 package controleur;
 import observeurs.*;
 import simulation.*;
-import strategy.StrategyPoint;
+import strategy.*;
 import terrain.TerrainTools;
 import circuit.*;
 import geometrie.Vecteur;
